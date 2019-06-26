@@ -1,0 +1,6163 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+
+<head>
+<title>SemMed2</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" type="image/x-icon" href="favicon64.ico" />
+<link rel="logo" type="image/svg" href="logo.htm" />
+
+<style>
+
+body {
+  background: url('images/background.png') repeat scroll 0% 0% transparent;
+}
+
+.link {
+  stroke: black;
+  stroke-width: 8px;
+  cursor: pointer;
+}
+
+.node {
+  fill: black;
+  fill-opacity: 0.95;
+  stroke: black;
+  stroke-width: 1.5px;
+  cursor: move;
+}
+
+.pointer {
+  cursor: pointer;
+  filter: url(#dropshadow);
+}
+
+.link3 {
+  stroke: black;
+  stroke-width: 4px;
+  cursor: pointer;
+}
+
+.node3 {
+  fill: #FFF;
+  fill-opacity: 0.95;
+  stroke: black;
+  stroke-width: 1.5px;
+  cursor: pointer;
+}
+
+.label3 {
+  cursor: pointer;
+}
+
+.linkLabel3 {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.row, .column {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+}
+
+.row {
+  width: 100%;
+  margin:0px;
+}
+
+.row >*,
+.column >* {
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-flex: 1;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  -moz-box-flex: 1;
+  -moz-box-align: center;
+  -moz-box-pack: center;
+  box-flex: 1;
+  box-align: center;
+  box-pack: center;
+}
+
+.column {
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+  padding: 0px;
+}
+
+.column {
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  -moz-box-align: center;
+  -moz-box-pack: center;
+  box-align: center;
+  box-pack: center;
+}
+
+.p3 path {
+  stroke: none;
+  fill: #A793CA;
+  filter: url(#inner-shadow);
+  cursor: pointer;
+}
+
+.p3 path:first-child {
+  fill: #E0E4CC;
+  stroke: #EFE4CC;
+  cursor: pointer;
+}
+
+.p3 text {
+  font-size: 18px;
+  fill: black;
+  font-weight: 300;
+  font-family: arial;
+  cursor: pointer;
+}
+
+</style>
+
+<style type="text/css">
+
+#formTable, #fileTable, #svg2menu, #sumMenu, #searchInfoTable, #filterMenu, #findTable, #graphInfoTable, #LogicBilderFileTable{
+	height:100%;
+	width:100%;
+	font-family: arial;
+	color:black;
+	border-collapse: collapse;
+	}
+#predicateTable, #semGroupTable{
+	border: 0px;
+	border-collapse: collapse;
+	background: white;
+	}
+#predicateTable tr, #semGroupTable tr{
+	width:100%;
+	font-family: arial;
+	font-weight: bold;
+	font-size: 13px;
+	color: "black";
+	border-collapse: collapse;
+	border:1px solid #333;
+	}
+#container3container {
+	vertical-align: bottom;
+	resize: both;
+	overflow: hidden;
+	padding: 2px 2px 2px 2px;
+	}
+#infoMenu{
+	width:100%;
+	margin: 3px auto;
+	font-size: 13px;
+	font-family: arial;
+	color:black;
+	width:auto;
+	height:auto;
+	}
+#advancedMenu{
+	margin: 3px auto;
+	font-size: 13px;
+	font-family: arial;
+	color:black;
+	width:auto;
+	height:auto;
+	border-collapse: collapse;
+	}
+#infoText td {
+	border: 1px solid black;
+	margin:0px 0px;
+	padding:0px 4px;
+	vertical-align: top;
+	max-width:300px;
+	min-width:180px;
+	font-size: smaller;
+	background-color: white;
+	}
+#t2-2 {
+	color:#256;
+	border:2px solid #256;
+	border-radius:4px;
+	background-color: #66AFFF;
+	font-family: arial;
+	}
+#t2-1 {
+	color:black;
+	margin:0px 0px;
+	padding:0px 0px;
+	border:0;
+	font-family: arial;
+	//background: linear-gradient(to bottom, rgba(188, 243, 224, 0), #BCF3E0, rgba(188, 243, 224, 0));
+	}
+#t2-1 td[id="titleBar"]{
+	padding-right: 41px;
+    padding-right-value: 41px;
+    padding-right-ltr-source: physical;
+    padding-right-rtl-source: physical;
+	font-size: x-large;
+	font-family: verdana;
+	color: white;
+	text-shadow: -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;
+	}
+#container3 {
+	border:2px solid #256;
+	border-radius:4px;
+	background-color: #E5DDDB;
+	}
+
+#panel tr{
+	margin:0px 0px;
+	padding:0px 0px;
+	}
+#chainMenu td[id="LogicBuilderCaption"]{
+	font-family: arial;
+	font-size: 14px;
+	color: #468;
+	align: right;
+	width: 40%;
+}
+#fileTable caption, #findTable caption, #LogicBuilderFileTable caption {
+	font-size: 18px;
+	color:black;
+	align:left;
+	 }
+#citationInfo{
+	padding:0px 0px 0px 25%;
+	height: 12px;
+	width: 80%;
+	line-height: 12px;
+	font-size: 12px;
+	color:black;
+	align:right;
+	 }
+#formTable input, #fileTable input, .fileUpload span, #t2-2 input, #sumMenu input, #chainMenu input, #svg2menu input,
+		#infoMenu input, #sumMenu input, #sumMenu select, #filter input, #predicateTable input,
+		#semGroupTable input, #findTable input, #LogicBuilderFileTable input, .fileUpload2 span {
+	width: 100%;
+	display: inline;
+	align: right;
+	color: #111;
+	border:1px solid #111;
+	font-family: arial;
+	height: 22px;
+	font-size: 13px;
+	border-radius:2px;
+	}
+#sumMenu input[type="checkbox"]{
+	width: 20px;
+	}
+#predicateTable input[type="checkbox"], #semGroupTable input[type="checkbox"]{
+	width: auto;
+	display: inline;
+	align: right;
+	color: #111;
+	border:1px solid #111;
+	font-family: arial;
+	height: 13px;
+	font-size: 13px;
+	bottom: 0px;
+	}
+#advancedMenu select, #advancedMenu input{
+	border:1px solid #111;
+	font-size: 13px;
+	border-radius:2px;
+	}
+#fileTable input[type="button"], .fileUpload span, #formTable input[type="button"], #t2-2 input[type="button"],
+	    #chainMenu input[type="button"], #svg2menu input[type="button"], #infoMenu input[type="button"],
+	    #sumMenu input[type="button"], #advancedMenu input[type="button"], #filter input[type="button"],
+	    #predicateTable input[type="button"], #semGroupTable input[type="button"], #findTable input[type="button"],
+	    #LogicBuilderFileTable input[type="button"], .fileUpload2 span{
+	position: relative;
+	background-color: #518AB2;
+	color: white;
+	bottom: 0px;
+	width: auto;
+	opacity: 1;
+	cursor: pointer;
+	margin-right:2px;
+	}
+#filter input[id="filterPredicates"], #predicateTable input[id="filterPredicates"], #semGroupTable input[id="filterSemGroups"]{
+	position: relative;
+	background-color: #518AB2;
+	bottom: 0px;
+	width: 100%;
+	opacity: 1;
+	cursor: pointer;
+	margin-right:2px;
+	-moz-box-shadow: 2px 2px 4px #000;
+	-webkit-box-shadow: 2px 2px 4px #000;
+	box-shadow: 2px 2px 4px #000;
+	}
+#fileTable input[type="button"]:hover, .fileUpload span:hover, #formTable input[type="button"]:hover, #t2-2 input[type="button"]:hover,
+	    #chainMenu input[type="button"]:hover, #svg2menu input[type="button"]:hover,
+	    #infoMenu input[type="button"]:hover, #sumMenu input[type="button"]:hover, #filter input[type="button"]:hover,
+	    #predicateTable input[type="button"]:hover, #semGroupTable input[type="button"]:hover,
+	    #findTable input[type="button"]:hover, #LogicBuilderFileTable input[type="button"]:hover, .fileUpload2 span:hover {
+	bottom: 1px;
+	background-color: #68A
+	opacity: 1;
+	}
+
+#fileTable input[type="button"]:disabled, .fileUpload span:disabled, #formTable input[type="button"]:disabled, #t2-2 input[type="button"]:disabled,
+	    #chainMenu input[type="button"]:disabled, #svg2menu input[type="button"]:disabled,
+	    #infoMenu input[type="button"]:disabled, #sumMenu input[type="button"]:disabled, #filter input[type="button"]:disabled,
+	    #predicateTable input[type="button"]:disabled, #semGroupTable input[type="button"]:disabled,
+	    #findTable input[type="button"]:disabled, #openLogicBuilderFileTable input[type="button"]:disabled, .fileUpload2 span:disabled {
+	color: black
+	}
+
+#formTable input[type="text"]:focus, #fileTable input[type="text"]:focus, #findTable input[type="text"]:focus,
+		#LogicBuilderFileTable input[type="text"]:focus{
+	background-color: #FFFFD2;
+	align: right;
+	}
+#formTable input + span, #fileTable input + span, #t2-2 input + span, #svg2menu input + span,
+		#infoMenu input + span, #sumMenu input + span, #filter input + span, #predicateTable input + span,
+		#semGroupTable input + span, #findTable input + span, #LogicBuilderFileTable input + span{
+	display: none;
+	line-height: 32px;
+	font-size: 12px;
+	color: black;
+	padding:0px 0px;
+	position: absolute;
+	width: auto;
+	align: right;
+	z-index:99;
+	}
+
+#graphInfoTable{
+	margin:10px 10px 10px 10px;
+	font-weight: bold;
+	font-size: 16px;
+	}
+#graphInfoTable td[class="nodeDegree"] {
+	padding:0px 30px;
+	font-weight: normal;
+	font-size: 14px;
+	}
+#saliencySelectionTable {
+	line-height: 0px;
+}
+#saliencySelectionTable input{
+	width: auto;
+}
+
+.ui-menu .ui-menu-item a{
+    color: black;
+    border-radius: 2px;
+	background: #B6FFFF;
+	font-size: 10px;
+	line-height: 10px;
+	border:1px solid #111;
+	padding:0px 0px;
+	width:280px;
+	}
+
+a[id='a1']:focus, a[id='b']:focus, a[id='c'].focus, a[id='e'].focus, a[id='f'].focus, a[id='g'].focus,
+ a[id='h'].focus, a[id='i'].focus {
+	outline: none;
+	}
+
+storage, chains, info, appearance, searchPanel, summarization, filter, filePanel, findPanel, openLogicBuilderFilePanel {
+	clear: both;
+	margin: 0;
+	padding: 0;
+	}
+
+storage a[id='a1'], chains a[id='b'], searchPanel a[id='e'], summarization a[id='f'], filter a[id='g'],
+filePanel a[id='h'], findPanel a[id='i']{
+	float: left;
+	background: #9FC54E;
+	border: 1px solid #9FC54E;
+	}
+
+info a[id='c']{
+	float: right;
+	background: #9FC54E;
+	border: 1px solid #9FC54E;
+	}
+
+storage a[id='a1'], chains a[id='b']:hover, searchPanel a[id='e']:hover, summarization a[id='f']:hover, summarization a[id='f']:hover,
+		filePanel a[id='h'], findPanel a[id='i']{
+	float: left;
+	background: #a0a0a0;
+	border: 1px solid #cccccc;
+	}
+
+info a[id='c']:hover{
+	float: right;
+	background: #a0a0a0;
+	border: 1px solid #cccccc;
+	}
+
+.slider, .slider2, .slider3, .slider5, .slider6, .slider7, .slider8, .slider9, .slider10, .slider11, .slider12, .slider13, .slider14 {
+	position: absolute;
+	display: none;
+	background: #A793CA;
+	border:1.5px solid #333;
+	border-radius:4px;
+	-moz-box-shadow: 2px 2px 3px #000;
+	-webkit-box-shadow: 2px 2px 3px #000;
+	box-shadow: 2px 2px 3px #000;
+	background: linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent;
+	}
+
+.slider {
+	top: 5px;
+	right: 0px;
+	width: auto;
+	height: auto;
+	padding: 1px 1px 1px 1px;
+	}
+
+.slider2 {
+	top: 55px;
+	left: 0px;
+	width: auto;
+	height: auto;
+	padding: 45px 1px 1px 1px;
+	}
+
+.slider3 {
+	top: 5px;
+	left: 0px;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	overflow: auto;
+	padding: 50px 10px 10px 10px;
+	}
+
+.slider5 {
+	bottom: 7px;
+	left: 0px;
+	width: 35%;
+	min-width: 550px;
+	height: auto;
+	padding: 1px 10px 12px 1px;
+	}
+
+.slider6 {
+	top: 55px;
+	right: 0px;
+	width: auto;
+	height: auto;
+	padding: 50px 10px 10px 10px;
+	}
+
+.slider7 {
+	bottom: 9%;
+	right: 50%;
+	width: auto;
+	height: auto;
+	padding: 10px 10px 10px 10px;
+	}
+
+.slider8 {
+	top: 105px;
+	right: 0px;
+	width: auto;
+	height: auto;
+	padding: 50px 10px 10px 10px;
+	}
+
+.slider9 {
+	bottom: 50px;
+	right: 0px;
+	width: 35%;
+	min-width: 300px;
+	height: auto;
+	padding: 1px 1px 1px 1px;
+	}
+
+.slider10 {
+	top: 5px;
+	right: 125px;
+	width: 300px;
+	height: auto;
+	padding: 20px 2px 2px 1px;
+	}
+
+.slider11 {
+	top: 0;
+	left: 40%;
+	width: auto;
+	height: auto;
+	padding: 2px 2px 2px 2px;
+	}
+
+.slider12 {
+	top: 50%;
+	left: 20px;
+	width: 35%;
+	min-width: 300px;
+	height: auto;
+	padding: 1px 10px 12px 1px;
+	}
+
+.slider13 {
+	top: 5%;
+	left: 5%%;
+	width: auto;
+	height: auto;
+	padding: 2px 2px 2px 2px;
+	}
+
+.slider14 {
+	top: 40%;
+	right: 40%;
+	width: auto;
+	height: auto;
+	padding: 10px 10px 10px 10px;
+	color: black;
+	font-size: 16px;
+	font-family: arial;
+	}
+
+a[id='a1'].trigger, a[id='b'].trigger, a[id='c'].trigger, a[id='e'].trigger, a[id='f'].trigger, a[id='g'].trigger,
+		a[id='h'].trigger, a[id='i'].trigger, a[id='j'].trigger, a[id='k'].trigger{
+	position: absolute;
+	text-decoration: none;
+	color: black;
+	font-size: 16px;
+	font-family: arial;
+	background: #FFE384;
+	border:1px solid #444444;
+	border-radius:6px;
+	-moz-box-shadow: 2px 2px 3px #000;
+	-webkit-box-shadow: 2px 2px 3px #000;
+	box-shadow: 2px 2px 3px #000;
+	display: block;
+	}
+
+a[id='a1'].trigger:hover, a[id='b'].trigger:hover, a[id='c'].trigger:hover, a[id='e'].trigger:hover, a[id='f'].trigger:hover,
+	a[id='g'].trigger:hover, a[id='h'].trigger:hover, a[id='i'].trigger:hover, a[id='j'].trigger:hover, a[id='k'].trigger:hover {
+	background: #FFCF35;
+	}
+
+a[id='a1'].trigger{
+	top: 5px; right: 0px;
+	padding: 10px 15px 10px 15px;
+	}
+
+a[id='b'].trigger{
+	top: 55px; left: 0px;
+	padding: 10px 24px 10px 24px;
+	}
+
+a[id='c'].trigger{
+	top: 5px; left: 0px;
+	padding: 10px 25px 10px 25px;
+	}
+
+a[id='e'].trigger{
+	bottom: 5px; left: 0px;
+	padding: 10px 25px 10px 25px;
+	}
+
+a[id='f'].trigger{
+	top: 55px; right: 0px;
+	padding: 10px 15px 10px 15px;
+	}
+
+a[id='g'].trigger{
+	top: 105px; right: 0px;
+	padding: 10px 15px 10px 15px;
+	}
+
+a[id='i'].trigger{
+	top: 5px; right: 95px;;
+	padding: 10px 25px 10px 25px;
+	}
+
+a[id='j'].trigger{
+	position: relative;
+	top: -5px; right: 15px;
+	padding: 10px 25px 10px 25px;
+	}
+
+a[id='k'].trigger{
+	position: relative;
+	top: -5px; right: 15px;
+	padding: 10px 25px 10px 25px;
+	}
+
+a[id='a1'].active.trigger:hover, a[id='b'].active.trigger:hover, a[id='c'].active.trigger:hover,
+		a[id='e'].active.trigger:hover, a[id='f'].active.trigger:hover, a[id='g'].active.trigger:hover,
+		a[id='h'].active.trigger:hover, a[id='i'].active.trigger:hover, a[id='j'].active.trigger:hover,
+		a[id='k'].active.trigger:hover {
+	background: #FFCF35;
+	}
+
+a[id='a1'].active.trigger, a[id='b'].active.trigger, a[id='c'].active.trigger, a[id='e'].active.trigger,
+		a[id='f'].active.trigger, a[id='g'].active.trigger, a[id='h'].active.trigger, a[id='i'].active.trigger,
+		a[id='j'].active.trigger, a[id='k'].active.trigger {
+	background: #FFE384;
+	}
+
+.contextMenu {
+	border: 1px solid black;
+	background-color: #A793CA;
+	font-size: 14px;
+	font-family: arial;
+	display: none;
+	position: relative;
+	filter: url(#dropshadow);
+	border-radius:3px;
+	}
+.contextMenu, .contextMenu li {
+	padding: 2px;
+	margin: 0px;
+	}
+.contextMenu li {
+	color: black;
+	border: 0.5px solid black;
+	background-color: #FFE384;
+	border-radius:1px;
+	}
+.contextMenu li:hover {
+	background-color: #FFCF35;
+	color: black;
+	}
+
+canvas {
+	min-height:700px;
+	min-width:1000px;
+	}
+
+.fileUpload {
+	position: relative;
+	overflow: hidden;
+	margin-left: 4px;
+	height: 22px;
+	}
+.fileUpload input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	}
+.fileUpload span {
+	position: relative;
+	display: inline;
+	padding: 2.5px 6px;
+	text-align: center;
+	box-sizing: border-box;
+	-webkit-appearance: push-button;
+	font: -webkit-small-control;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	-webkit-writing-mode: horizontal-tb;
+	cursor: pointer;
+	}
+
+.fileUpload2 {
+	position: relative;
+	overflow: hidden;
+	margin-left: 4px;
+	height: 22px;
+	}
+.fileUpload2 input.upload2 {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	}
+.fileUpload2 span {
+	position: relative;
+	display: inline;
+	padding: 2.5px 6px;
+	text-align: center;
+	box-sizing: border-box;
+	-webkit-appearance: push-button;
+	font: -webkit-small-control;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	-webkit-writing-mode: horizontal-tb;
+	cursor: pointer;
+	}
+
+#progress_bar {
+	width: 100%;
+	min-width: 400px;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+	}
+#progress_bar.loading {
+	opacity: 1.0;
+	}
+#progress_bar .percent {
+	background-color: #FFE384;
+	height: auto;
+	width: 0;
+	}
+
+#progress_bar2 {
+	width: 100%;
+	min-width: 400px;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+	}
+#progress_bar2.loading {
+	opacity: 1.0;
+	}
+#progress_bar2 .percent2 {
+	background-color: #FFE384;
+	height: auto;
+	width: 0;
+	}
+
+#progress_bar3 {
+	width: 100%;
+	min-width: 400px;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+	}
+#progress_bar3.loading {
+	opacity: 1.0;
+	}
+#progress_bar3 .percent3 {
+	background-color: #FFE384;
+	height: auto;
+	width: 0;
+	}
+
+#spinner{
+    margin: -21px;
+    width: 47px;
+    height: 180px;
+	position: absolute;
+	left: 39%;
+	top: 25%;
+	transform-origin: 496% 114%;
+
+	-webkit-transform-origin: 496% 114%;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 3500ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-transform-origin: 496% 114%;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 3500ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-transform-origin: 496% 114%;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 3500ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+
+    animation-name: spin;
+    animation-duration: 3500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+</style>
+
+<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+<script src="lib/d3.v3.js"></script>
+<script src="lib/Blob.js"></script>
+<script src="lib/FileSaver.js"></script>
+<script src="lib/summarize.js"></script>
+<script src="lib/knob.js"></script>
+<script id="worker1" type="javascript/worker">
+
+
+        //wait for the start 'CalculatePi' message
+        //e is the event and e.data contains the JSON object
+        self.onmessage = function(e){
+            setInterval(function() {
+                        self.postMessage("tick fuction invoked.");
+                        try {
+                                var xhr = new XMLHttpRequest();
+                                    xhr.open("post", "http://lhcg-shin.nlm.nih.gov/SemMed2/servlet/SemMedDBServlet?ping=yes", false);
+                                    /*  xhr.setRequestHeader("Content-Type",
+                                    "application/x-www-form-urlencoded"); */
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState == 4 && xhr.status == 200) {
+                                                                  var result = JSON.parse(xhr.responseText);
+                                                                  self.postMessage(result.d);
+                }
+                                    };
+                                    xhr.send();
+                                        /* var xhr = $.ajax({
+                                                                        url: './servlet/SemMedDBServlet',
+                                                                        data: 'ping=yes',
+                                                                        dataType: 'json',
+                                                                        success: function(data) {
+                                                                        }
+                                                }); */
+                          } catch (e) {
+                        self.postMessage(e.toString());
+                        }
+          // $.get("servlet/SemMedDBServlet","ping=yes",function(data,status){
+          //        doNothing(data);
+          // });
+                self.postMessage("servlet function called.");
+
+        }, 60000);
+        };
+
+    // Rest of your worker code goes here.
+</script>
+
+</head>
+
+<body>
+  <script>
+    function log(msg) {
+      // Use a fragment: browser will only render/reflow once.
+     // var fragment = document.createDocumentFragment();
+      // fragment.appendChild(document.createTextNode(msg));
+     // fragment.appendChild(document.createElement('br'));
+
+     // document.querySelector("#log").appendChild(fragment);
+    }
+
+    var blob = new Blob([
+      document.querySelector('#worker1').textContent
+    ], { type: "text/javascript" })
+
+    // Note: window.webkitURL.createObjectURL() in Chrome 10+.
+    var worker = new Worker(window.URL.createObjectURL(blob));
+    worker.onmessage = function(e) {
+      // log("Received: " + e.data);
+    }
+    worker.postMessage(""); // Start the worker.
+  </script>
+
+<div id="main">
+<script id="worker1" type="javascript/worker">
+    // This script won't be parsed by JS engines because its type is javascript/worker.
+    self.onmessage = function(e) {
+      self.postMessage('msg from worker');
+    };
+    // Rest of your worker code goes here.
+  </script>
+
+  <script>
+    function log(msg) {
+      // Use a fragment: browser will only render/reflow once.
+      var fragment = document.createDocumentFragment();
+      fragment.appendChild(document.createTextNode(msg));
+      fragment.appendChild(document.createElement('br'));
+
+      document.querySelector("#log").appendChild(fragment);
+    }
+
+    var blob = new Blob([
+      document.querySelector('#worker1').textContent
+    ], { type: "text/javascript" })
+
+    // Note: window.webkitURL.createObjectURL() in Chrome 10+.
+    var worker = new Worker(window.URL.createObjectURL(blob));
+    worker.onmessage = function(e) {
+      log("Received: " + e.data);
+    }
+    worker.postMessage("--------------------------------------------hello"); // Start the worker.
+  </script>
+ <table id="t2" height="100%" width="100%">
+  <tr>
+   <td id="t2-2" align="right">
+    <table>
+     <tr>
+      <div id="container">
+      </div>
+     </tr>
+     <tr>
+      <input id="freezeSVG" name="freezeSVG" type="button" value="Freeze" title="Stop or start network animation." onclick="freezeNetwork(false);"/>
+      <input id="openSVG1" name="openSVG1" type="button" value="Open" title="Open XML file." onclick="openFileClick();"/>
+      <input id="saveSVG1" name="saveSVG1" type="button" value="Save" title="Save to file." onclick="saveNetwork(1);"/>
+      <input id="tosvg2" name="tosvg2" type="button" value="Store" title="Move networks with highlighted nodes to storage panel." onclick="moveGraph(1);"/>
+      <input id="selectAll" name="selectAll" type="button" value="Select All" title="Highlight all nodes on all networks." onclick="selectAll(1);"/>
+      <input id="clearAll" name="clearAll" type="button" value="Clear All" title="Remove highlights from all nodes on all networks." onclick="clearAll(1);"/>
+      <input id="deleteNet" name="deleteNet" type="button" value="Delete" title="Delete networks with at least one highlighted node." onclick="deleteSelectedNetwork(1);"/>
+     </tr>
+    </table>
+   </td>
+  </tr>
+  <tr>
+    <td id="t2-1" align="right">
+     <table id="panel">
+      <td id="titleBar">
+      Semantic MEDLINE
+      </td>
+      <td>
+       <a id="k" class="trigger" href="" title="Quick Start Guide.">Help</a>
+      </td>
+      <td>
+       <a id="j" class="trigger" href="" title="Get network metrics.">Metrics</a>
+      </td>
+      <td>
+       Spacing:
+      </td>
+      <td>
+       <ul class="row">
+        <li>
+         <input id="knob4" class="preset3" type="range" min="1" max="5" data-width="45" data-height="45" data-angleOffset="270"
+               data-angleRange="359"/>
+        </li>
+       </ul>
+      </td>
+      <td>
+       Node Size:
+      </td>
+      <td>
+       <ul class="row">
+        <li>
+         <input id="knob1" class="preset3" type="range" min="1" max="5" data-width="45" data-height="45" data-angleOffset="270"
+               data-angleRange="359"/>
+        </li>
+       </ul>
+      </td>
+      <td>
+       Canvas:
+      </td>
+      <td>
+       <ul class="row">
+        <li>
+         <input id="knob3" class="preset3" type="range" min="1" max="15" data-width="45" data-height="45" data-angleOffset="270"
+               data-angleRange="359"/>
+        </li>
+       </ul>
+      </td>
+     </table>
+    </td>
+  </tr>
+ </table>
+</div>
+
+<div id="sliders">
+
+ <div id="storage" class="slider">
+   <table border="0" id="svg2menu">
+    <tr>
+     <div id="container2"> 
+     </div>
+    </tr>
+    <tr>
+     <td>
+      <input id="tosvg1" name="tosvg1" type="button" value="View" title="Move all highlighted networks to main screen." onclick="moveGraph(2);"/>
+      <input id="combineNets" name="combineNets" type="button" value="Combine" title="Combine all highlighted networks and move to main screen." onclick="combineDialog();"/>
+      <input id="selectAll2" name="selectAll2" type="button" value="Select All" title="Highlight all networks." onclick="selectAll(2);"/>
+      <input id="clearAll2" name="clearAll2" type="button" value="Clear All" title="Remove highlights from all networks." onclick="clearAll(2);"/>
+      <input id="deleteNet2" name="deleteNet2" type="button" value="Delete" title="Delete highlighted networks." onclick="deleteSelectedNetwork(2);"/>
+     </td>
+    </tr>
+   </table>
+ </div>
+ <a id="a1" class="trigger" title="Store multiple networks for future viewing.">Storage</a>
+
+ <div id="summarization" class="slider6">
+   <table border="0" id="sumMenu">
+    <tr>
+     <td>
+      <select name="networkSelector" id="networkSelector"  title="Select network to summarize.">
+	  </select>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <select name="schemaSelector" id="schemaSelector" title="Choose the summarization schema.">
+	  </select>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <select name="seedSelector" id="seedSelector" title="Choose the central concept (seed) for summarization.">
+	  </select>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <select name="connectivitySelector" id="connectivitySelector" title="Choose the length of edge distance from the seed node.">
+      	<option value="0">1 length</option>
+      	<option value="1" selected="selected">2 lengths</option>
+      	<option value="2">3 lengths</option>
+      	<option value="3">4 lengths</option>
+      	<option value="4">5 lengths</option>
+	  </select>
+     </td>
+    </tr>
+    <tr>
+     <td id="saliency">
+     	<table id="saliencyTable">
+     	 <tr>
+	      	<td>Max Nodes
+    	 	</td>
+     		<!-- td -->
+      			<!--input type="checkbox" id="saliencyCheck" id="saliencyCheck" checked="true" title="Check box to reduce predications with frequency filter."/-->
+      		<!-- /td> -->
+      		<td>
+      			<table id="saliencySelectionTable">
+		      	 <tr>
+		      	 	<td>
+		      	 		25
+		      	 	</td>
+		      	 	<td>
+		      	 		50
+		      	 	</td>
+		      	 	<td>
+		      	 		100
+		      	 	</td>
+		      	 	<td>
+		      	 		250
+		      	 	</td>
+		      	 	<td>
+		      	 		500
+		      	 	</td>
+		      	 	<td>
+		      	 		ALL
+		      	 	</td>
+		      	 	<td>
+		      	 		[F]
+		      	 	</td>
+		      	 </tr>
+		      	   <div id="maxNodesDiv">
+		      	 	<td>
+		      	 		<input type="radio" class="maxNodesButton" name="maxNodes" value="20" title="Select approximate number of nodes to return."><br>
+		      	 	</td>
+		      	 	<td>
+		      	 		<input type="radio" class="maxNodesButton" name="maxNodes" value="40" checked="checked" title="Select approximate number of nodes to return."><br>
+		      	 	</td>
+		      	 	<td>
+		      	 		<input type="radio" class="maxNodesButton" name="maxNodes" value="80" title="Select approximate number of nodes to return."><br>
+		      	 	</td>
+		      	 	<td>
+		      	 		<input type="radio" class="maxNodesButton" name="maxNodes" value="200" title="Select approximate number of nodes to return."><br>
+		      	 	</td>
+		      	 	<td>
+		      	 		<input type="radio" class="maxNodesButton" name="maxNodes" value="400" title="Select approximate number of nodes to return."><br>
+		      	 	</td>
+		      	 	<td>
+		      	 		<input type="radio" class="maxNodesButton" name="maxNodes" value="1000" title="No restriction on the number of nodes returned."><br>
+		      	 	</td>
+		      	 	<td>
+		      	 		<input type="radio" class="maxNodesButton" name="maxNodes" value="1" title="Return the most frequent predications."><br>
+		      	 	</td>
+		      	   </div>
+		      	 </tr>
+
+      			</table>
+      		</td>
+      	 </tr>
+      	</table>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <input id="summarizeButton" name="summarizeButton" type="button" value="Summarize" title="Click to summarize." onclick="summarize();"/>
+     </td>
+    </tr>
+   </table>
+ </div>
+ <a id="f" class="trigger" title="Specify network summarization.">Summarization</a>
+
+ <div id="filter" class="slider8">
+  <table border="0" id="filterMenu">
+   <tr>
+    <td>
+     <table border="0" id="predicateTable" width="100%">
+       <tr>
+    	 <td  colspan="2">
+           <input id="filterPredicates" name="filterPredicates" type="button" value="Relations" title="Select relations to filter." onclick="fillPredicateFilter();"/>
+    	 </td>
+       </tr>
+     </table>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <table border="0" id="semGroupTable" width="100%">
+       <tr>
+         <td colspan="2">
+			<input id="filterSemGroups" name="filterSemGroups" type="button" value="Concept Types" title="Select semantic groups to filter." onclick="fillSemanticGroupFilter();"/>
+		 </td>
+       </tr>
+     </table>
+    </td>
+   </tr>
+  </table>
+ </div>
+ <a id="g" class="trigger" href="" title="Hide nodes by semantic group or links by relation.">Filter</a>
+</div>
+
+ <div id="info" class="slider3">
+  <table border="0" id="infoMenu" >
+   <tr>
+    <td>
+       <table id="infoSummary" >
+        <tr>
+          <td> Number of predications:
+          </td>
+        </tr>
+       </table>
+     </td>
+    </tr>
+   <tr>
+    <td>
+     <table id="infoText"  resizable="true";>
+	  <tr>
+	   <td colspan='10'>Source Concept-RELATIONSHIP-Target Concept
+	   </td>
+	  </tr>
+	  <tr>
+	   <td colspan='10'><b>PMID: <a rel='search' target='_blank' href='http://www.ncbi.nlm.nih.gov/pubmed?cmd=search&term=0000000'>0000000</b></a>
+	   </td>
+	  </tr>
+	  <tr>
+	   <td colspan='10' id='sentence.0000000.000' class='sentence.0'>Click link to see sentence.
+	   </td>
+	  </tr>
+     </table>
+    </td>
+   </tr>
+   <tr>
+    <td>
+    </td>
+   </tr>
+  </table>
+ </div>
+ <a id="c" class="trigger" href="" title="View source sentences and PubMed entries for relationships.">Sentence</a>
+
+ <div id=filePanel class="slider9">
+  <table style="width: 100%;">
+   <tr>
+    <td>
+     <table border="0" id="fileTable">
+      <caption style="width: 150px">Open XML File</caption>
+      <tr>
+       <td  align="left" style="width: 100%;">
+    	<input id="uploadFile" type="text" placeholder="Choose File" disabled="disabled"/>
+       </td>
+       <td>
+        <div class="fileUpload btn btn-primary">
+         <span>Select</span>
+		 <input type="file" id="files" name="file" class="upload"/>
+		</div>
+	   </td>
+	   <td>
+		<input type="button" id="cancelFile" value="Cancel" onclick="openFileClick(); abortRead();"></button>
+       </td>
+      </tr>
+     </table>
+    </td>
+   </tr>
+   <tr>
+    <table>
+    <td style="width: 100px;">
+    </td>
+    <td> <!-- style="width: 400px;" -->
+	 <div id="progress_bar"><div class="percent">0%</div></div>
+	</td>
+	</table>
+   </tr>
+  </table>
+ </div>
+ <!-- <a id="h" class="trigger" href="" title="Open XML file containing network.">File</a> -->
+
+ <div id=searchPanel class="slider5">
+  <table width="100%">
+   <tr>
+    <td width="60%">
+     <table border="0" id="formTable">
+      <tr>
+       <td>
+       <table id="searchInfoTable" width="100%">
+        <td align="right">
+         <label id="citationInfo">
+         </label>
+        </td>
+       </table>
+       </td>
+      </tr>
+      <tr>
+       <td align="right">
+        <input name="searchTerm" id="searchTerm" type="text" placeholder="" class="search-query"  title="Type new search terms."/>
+        <input id="search" name="search" type="button" value="Search" title="Enter terms and click to search." onclick="citationSearch();"/>
+        <input id="reset" type="button" value="Reset" title="Clear search terms." onclick="resetClick();"/>
+         <input id="advancedSearch" type="button" value="Advanced" title="Set advanced search options." onclick="advancedSearchClick();"/>
+       </td>
+      </tr>
+     </table>
+    </td>
+   </tr>
+  </table>
+ </div>
+ <a id="e" class="trigger" href="" title="Search for citations and summarize as network.">Citation Search</a>
+
+  <div id="advancedSearch" class="slider7">
+   <table border="0" id="advancedMenu">
+    <tr>
+     <td>
+      Date Range
+     </td>
+     <td>
+      <input type="text" id="startDatePicker"/>
+     </td>
+     <td>
+      <input type="text" id="endDatePicker"/>
+     </td>
+    </tr>
+    <tr>
+     <td id="dateSelection">
+      Date to Use
+     </td>
+     <td>Published
+      <input type="radio" name="dateType" id="pDate" title="Date of publication."></input>
+     </td>
+     <td>Entered into MEDLINE
+      <input type="radio" name="dateType" id="eDate" title="Date entered MEDLINE." checked="true"></input>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Limit results to most recent:
+     </td>
+     <td>
+      <select name="maxResultSelector" id="maxResultSelector"  title="Select maximum citations to return.">
+       <option value="100">100</option>
+       <option value="300">300</option>
+       <option value="500" selected="selected">500</option>
+       <option value="1000">1000</option>
+       <option value="1500">1500</option>
+       <option value="2000">2000</option>
+       <option value="2500">2500</option>
+       <option value="3000">3000</option>
+       <option value="3500">3500</option>
+       <option value="4000">4000</option>
+       <option value="4500">4500</option>
+       <option value="5000">5000</option>
+	  </select>
+     </td>
+     <td>
+      <input id="saveAdvancedButton" name="saveAdvancedButton" type="button" value="Save" title="Click to save selections." onclick="setAdvanced(1);"/>
+      <input id="cancelAdvancedButton" name="cancelAdvancedButton" type="button" value="Cancel" title="Click to cancel." onclick="setAdvanced(0);"/>
+     </td>
+    </tr>
+   </table>
+ </div>
+
+ <div id=findPanel class="slider10">
+  <table width="100%">
+   <tr>
+    <td width="40%">
+     <table border="0" id="findTable">
+      <caption style="width: 160px">Find Concept Node</caption>
+      <tr>
+       <td  align="right">
+        <input name="findTerm" id="findTerm" type="text" placeholder="" class="term-lookup"  title="Select concept to locate."/>
+        <input id="findTermGo" name="findTermGo" type="button" value="Tag" title="Click to find concept node." onclick="locateNode();"/>
+        <input id="clearAllArrows" name="clearAllArrows" type="button" value="Clear All" title="Click to clear all finder arrows." onclick="clearAllArrows();"/>
+       </td>
+      </tr>
+     </table>
+    </td>
+   </tr>
+  </table>
+ </div>
+ <a id="i" class="trigger" href="" title="Find concept node in network.">Find Node</a>
+
+ <div id="chains" class="slider2">
+  <table border="0" id="chainMenu">
+   <tr>
+    <div id="container3container">
+     <div id="container3">
+     </div>
+    </div>
+   </tr>
+   <tr>
+    <td>
+     <input id="openSVG3" name="openSVG3" type="button" value="Open" title="Open saved LogicBuilder file." onclick="openLogicBuilderFile();"/>
+     <input id="saveSVG3" name="saveSVG3" type="button" value="Save" title="Save network to XML file or PDF." onclick="saveNetwork(3);"/>
+     <input id="hideLabels" name="hideLabels" type="button" value="Hide Labels" title="Hide arrow labels." onclick="hideLabels();"/>
+     <input id="selectAll3" name="selectAll3" type="button" value="Select All"  title="Highlight all arrows." onclick="selectAllLinks(3);"/>
+     <input id="clearAll3" name="clearAll3" type="button" value="Clear All" title="Remove highlights from all arrows." onclick="clearAllLinks(3);"/>
+     <input id="deleteChain" name="deleteChain" type="button" value="Delete" title="Delete all highlighted arrows." onclick="deleteChain();"/>
+    </td>
+    <td id="LogicBuilderCaption">
+     [Ctrl + click link to add]
+    </td>
+   </tr>
+  </table>
+ </div>
+ <a id="b" class="trigger" href="" title="LogicBuilder helps you build logical arguments.">LogicBuilder</a>
+
+ <div id="graphInfo" class="slider11">
+  <table border="0" id="graphInfoTable">
+  </table>
+ </div>
+
+ <div id="savePNG" class="slider13">
+  <table border="0" id="graphInfoTable">
+	<div id="svgdataurl"></div>
+	<div id="pngdataurl"></div>
+	<canvas width="1000" height="800" style="display:none"></canvas>
+	  <input type="button" id="savePNGButton" value="Save" onclick="$('.slider13').toggle('fast'); savePNG();"></button>
+	  <input type="button" id="cancelPNGButton" value="Cancel" onclick="$('.slider13').toggle('fast');"></button>
+  </table>
+ </div>
+
+  <div id="openLogicBuilderFilePanel" class="slider12">
+  <table style="width: 100%;">
+   <tr>
+    <td>
+     <table border="0" id="LogicBuilderFileTable">
+      <caption style="width: 150px">Open LogicBuilder File</caption>
+      <tr>
+       <td  align="left" style="width: 100%;">
+    	<input id="uploadFile2" type="text" placeholder="Choose File" disabled="disabled"/>
+       </td>
+       <td>
+        <div class="fileUpload2 btn btn-primary">
+         <span>Select</span>
+		 <input type="file" id="files2" name="file2" class="upload2"/>
+		</div>
+	   </td>
+	   <td>
+		<input type="button" id="cancelFile2" value="Cancel" onclick="$('.slider12').toggle('fast'); abortRead();"></button>
+       </td>
+      </tr>
+     </table>
+    </td>
+   </tr>
+   <tr>
+    <table>
+    <td style="width: 100px;">
+    </td>
+    <td>
+	 <div id="progress_bar2"><div class="percent2">0%</div></div>
+	</td>
+	</table>
+   </tr>
+  </table>
+ </div>
+
+  <div id="loadData" class="slider14">
+  <table style="width: 100%;">
+   <tr>
+    <table>
+    <td style="width: 180px;">Building network...
+    </td>
+    <td>
+	 <div id="progress_bar3"><div class="percent3">0%</div></div>
+	</td>
+	</table>
+   </tr>
+  </table>
+ </div>
+
+
+</div>
+
+<div id="saveDialog" title="Save File" hidden="true">What type of file would you like to save?
+</div>
+
+<div id="combineDialog" title="Combine Networks" hidden="true">
+</div>
+
+<div id="myDialog" title="Message" hidden="true">
+ <p id="myDialogP"></p>
+</div>
+
+<div class="contextMenu" id="linkContextMenu">
+	<ul>
+		<li id="linkItem1" label="Add to LogicBuilder">Add to LogicBuilder</li>
+		<li id="linkItem2" label="Get sentence">Get sentence</li>
+		<li id="linkItem3" label="Save network">Save network</li>
+		<li id="linkItem4" label="Select all">Select all networks</li>
+		<li id="linkItem5" label="Clear all">Clear all selections</li>
+	</ul>
+</div>
+
+<div class="contextMenu" id="linkContextMenu3">
+	<ul>
+		<li id="linkItem3.2" label="Get sentence">Get sentence</li>
+		<li id="linkItem3.3" label="Save network">Save network</li>
+		<li id="linkItem3.4" label="Select all">Select all networks</li>
+		<li id="linkItem3.5" label="Clear all">Clear all selections</li>
+	</ul>
+</div>
+
+<div class="contextMenu" id="nodeContextMenu">
+	<ul>
+		<li id="nodeItem0" label="Search for this term">Search for term</li>
+		<li id="nodeItem1" label="Add to search">Add to search</li>
+		<li id="nodeItem2" label="Select node">Select node</li>
+		<li id="nodeItem6" label="Tag node with red arrow">Tag node</li>
+		<li id="nodeItem7" label="Clear red arrow from node">Clear tag</li>
+		<li id="nodeItem3" label="Save network">Save network</li>
+		<li id="nodeItem4" label="Select all">Select all networks</li>
+		<li id="nodeItem5" label="Clear all">Clear all selections</li>
+	</ul>
+</div>
+
+
+<div class="contextMenu" id="networkContextMenu">
+	<ul>
+		<li id="networkItem1"></li>
+		<li id="networkItem2" label="Select all">Select all networks</li>
+		<li id="networkItem3" label="Clear all">Clear all selections</li>
+		<li id="networkItem4">View selected networks</li>
+		<li id="networkItem5">Delete selected networks</li>
+	</ul>
+</div>
+<div id="spinner"></div>
+
+<div id="note">
+
+</div>
+
+<script>
+
+///////////////////////////////////////////////////////////////////
+// standard scales
+var nodeScale = d3.scale.ordinal()
+	.domain([1,2,3,4,5])
+	.range([10,20,30,40,50]);
+var fontScale = d3.scale.ordinal()
+	.domain([1,2,3,4,5])
+	.range(['0px','9px','12px','14px','20px']);
+var strokeScale = d3.scale.ordinal()
+	.domain([1,2,3,4,5])
+	.range([1,3,5,7,10]);
+var distanceScale = d3.scale.ordinal()
+	.domain([1,2,3,4,5])
+	.range([25,50,75,100,125]);
+var chargeScale = d3.scale.ordinal()
+	.domain([1,2,3,4,5])
+	.range([-200,-700,-1200,-1750,-2500]);
+
+var backgroundScale = d3.scale.ordinal()
+	.domain([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+	.range(['GhostWhite','Lavender','LightCyan','LightYellow','MistyRose','PapayaWhip','Wheat',
+	        '#E5DDDB','#BC9BA7','#8D7197','#718E97','#746E8F','#8B8C69','SlateGray','#6E6B6A']);
+
+var semanticGroupsScale = d3.scale.ordinal()
+	.domain(["acty","bhvr","dora","evnt",
+	         "gora","inbe","mcha","ocac",
+	         "socb","anst","blor","bpoc","bsoj","bdsu","bdsy","cell",
+	         "celc","emst","ffas","tisu","aapp","antb","bacs",
+	         "bodm","carb","chem","chvf","chvs",
+	         "clnd","eico","elii","enzy","hops",
+	         "horm","imft","irda","inch","lipd",
+	         "nsba","nnon","orch","opco","phsu",
+	         "rcpt","strd","vita","clas","cnce",
+	         "ftcn","grpa","idcn","inpr","lang",
+	         "qlco","qnco","rnlw","spco","tmco",
+	         "drdd","medd","resd","acab","anab","comd","cgab","dsyn","emod",
+	         "fndg","inpo","mobd","neop","patf","sosy","amas",
+	         "crbs","gngm","mosq",
+	         "nusq","geoa","aggp","alga","amph",
+	         "anim","arch","bact","bird","famg","fish",
+	         "fngs","grup","humn","invt","mamm","orgm",
+	         "podg","plnt","popg","prog","rept","rich",
+	         "vtbt","virs","enty","food","mnob","phob","sbst","bmod",
+	         "ocdi","hcro","orgt","pros","shro","biof","eehu",
+	         "hcpp","lbtr","npop","phpr","celf","clna","genf","menp",
+	         "moft","ortf","orga","orgf","phsf","diap","adac","hlca",
+	         "lbpr","mbrt","resa","topp"])
+	.range(["Activities & Behaviors","Activities & Behaviors","Activities & Behaviors","Activities & Behaviors",
+			"Activities & Behaviors","Activities & Behaviors","Activities & Behaviors","Activities & Behaviors",
+			"Activities & Behaviors","Anatomy","Anatomy","Anatomy","Anatomy","Anatomy","Anatomy","Anatomy",
+			"Anatomy","Anatomy","Anatomy","Anatomy","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+			"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+			"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+			"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+			"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+			"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Concepts & Ideas","Concepts & Ideas",
+			"Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas",
+			"Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas",
+			"Devices","Devices","Devices","Disorders","Disorders","Disorders","Disorders","Disorders","Disorders",
+			"Disorders","Disorders","Disorders","Disorders","Disorders","Disorders","Genes & Molecular Sequences",
+			"Genes & Molecular Sequences","Genes & Molecular Sequences","Genes & Molecular Sequences",
+			"Genes & Molecular Sequences","Geographic Areas","Living Beings","Living Beings","Living Beings",
+			"Living Beings","Living Beings","Living Beings","Living Beings","Living Beings","Living Beings",
+			"Living Beings","Living Beings","Living Beings","Living Beings","Living Beings","Living Beings",
+			"Living Beings","Living Beings","Living Beings","Living Beings","Living Beings","Living Beings",
+			"Living Beings","Living Beings","Objects","Objects","Objects","Objects","Objects","Occupations",
+			"Occupations","Organizations","Organizations","Organizations","Organizations","Phenomena","Phenomena",
+			"Phenomena","Phenomena","Phenomena","Phenomena","Physiology","Physiology","Physiology","Physiology",
+			"Physiology","Physiology","Physiology","Physiology","Physiology","Procedures","Procedures","Procedures",
+			"Procedures","Procedures","Procedures","Procedures"]);
+
+var nodeColorScale = d3.scale.ordinal()
+	.domain(["Activities & Behaviors","Anatomy","Chemicals & Drugs","Concepts & Ideas","Devices","Disorders",
+	         "Genes & Molecular Sequences","Geographic Areas","Living Beings","Objects","Occupations","Organizations",
+	         "Phenomena","Physiology","Procedures"])
+	.range(["#FFA16D","#CBFFA7","#FFFFC6","#96FF4F","#FFFF66","#EEC8DE",
+			"#D2A2A2","#B16363","#C6EFF7","#6FD6EB","#A88FCD","#FFD7C1",
+			"#DE93BD","#DCD1EB","#C0C0C0"]);
+
+var linkColorScale = d3.scale.ordinal()
+	.domain(["ADMINISTERED_TO","AFFECTS","ASSOCIATED_WITH","AUGMENTS","CAUSE","CAUSES","COEXISTS_WITH",
+	         "compared_with","COMPLICATES","CONVERTS_TO","CO-OCCURS_WITH","DIAGNOSES","DISRUPTS","higher_than",
+	         "ENHANCES","INHIBIT","INHIBITS","INTERACT_WITH","INTERACTS_WITH","ISA","LOCATION_OF",
+	         "lower_than","MANIFESTATION_OF","METHOD_OF","NEG_ADMINISTERED_TO","NEG_AFFECTS","NEG_ASSOCIATED_WITH","NEG_AUGMENTS",
+	         "NEG_CAUSES","NEG_COEXISTS_WITH","NEG_COMPLICATES","NEG_CONVERTS_TO","NEG_DIAGNOSES","NEG_DISRUPTS","NEG_higher_than",
+	 		 "NEG_INHIBITS","NEG_INTERACTS_WITH","NEG_LOCATION_OF","NEG_lower_than","NEG_MANIFESTATION_OF","NEG_METHOD_OF","NEG_OCCURS_IN",
+	 		 "NEG_PART_OF","NEG_PRECEDES","NEG_PREDISPOSES","NEG_PREVENTS","NEG_PROCESS_OF","NEG_PRODUCES","NEG_STIMULATES",
+	 		 "NEG_TREATS","NEG_USES","OCCURS_IN","PART_OF","PREDISPOSE","PRECEDES","PREDISPOSES",
+	         "PREVENTS","PROCESS_OF","PRODUCES","same_as","than_as","STIMULATE","STIMULATES",
+	         "TREATS","USES"])
+	.range(["#6B8E23","#32CD32","#D19275","#40E0D0","#FF0000","#FF0000","#2F4F4F",
+	        "#872AD2","#BC8F8F","#4B0082","#808080","#D2691E","#FFFF00","#91683F",
+	        "#40E0D0","#800080","#800080","#FF00FF","#FF00FF","#00FFFF","#008000",
+	        "#9BA5AC","#CD853F","#9FBE3E","#6B8E23","#32CD32","#D19275","#40E0D0",
+	        "#FF0000","#2F4F4F","#BC8F8F","#4B0082","#D2691E","#FFFF00","#91683F",
+	        "#800080","#FF00FF","#008000","#9BA5AC","#CD853F","#9FBE3E","#FFA500",
+	        "#008080","#DD2ECC","#7FFFD4","#4682B4","#FA8072","#E55FF0","#A52A2A",
+	        "#0000FF","#EF9D5D","#FFA500","#008080","#7FFFD4","#DD2ECC","#7FFFD4",
+	        "#4682B4","#FA8072","#E55FF0","#E76C39","#EB84CB","#A52A2A","#A52A2A",
+	        "#0000FF","#EF9D5D"]);
+
+var predColumn = d3.scale.ordinal()
+	.domain(["PID","SID","PNUMBER","PMID","predicate","s_cui","s_name","s_type","s_novel","o_cui",
+		"o_name","o_type","o_novel"])
+	.range([0,1,2,3,4,5,6,7,8,9,10,11,12]);
+
+var loadNet =  {"id":"0", "searchTerms":"", fileName:"",
+
+		"nodes":[
+					{"network":"0", "id":"1",  "symbol":"A", "name":"SemMeD  ", "semtype":"aapp", "visible":true, "sColor":"black", "x":350, "y":400, "anchor":true},
+					{"network":"0", "id":"2",  "symbol":"B", "name":" ", "semtype":"tisu", "visible":true, "sColor":"black", "x":375, "y":401, "anchor":false},
+					{"network":"0", "id":"3",  "symbol":"C", "name":" ", "semtype":"genf", "visible":true, "sColor":"black", "x":400, "y":400, "anchor":false},
+					{"network":"0", "id":"4",  "symbol":"D", "name":" ", "semtype":"bpoc", "visible":true, "sColor":"black", "x":425, "y":401, "anchor":false},
+					{"network":"0", "id":"5",  "symbol":"E", "name":" ", "semtype":"celf", "visible":true, "sColor":"black", "x":450, "y":400, "anchor":false},
+					{"network":"0", "id":"6",  "symbol":"F", "name":" ", "semtype":"orgf", "visible":true, "sColor":"black", "x":375, "y":401, "anchor":false},
+					{"network":"0", "id":"7",  "symbol":"G", "name":" ", "semtype":"gngm", "visible":true, "sColor":"black", "x":400, "y":400, "anchor":false},
+					{"network":"0", "id":"8",  "symbol":"H", "name":" ", "semtype":"biof", "visible":true, "sColor":"black", "x":425, "y":401, "anchor":false},
+					{"network":"0", "id":"9",  "symbol":"I", "name":" ", "semtype":"enzy", "visible":true, "sColor":"black", "x":450, "y":400, "anchor":false},
+					{"network":"0", "id":"10", "symbol":"J", "name":" ", "semtype":"bdsu", "visible":true, "sColor":"black", "x":450, "y":400, "anchor":false},
+					{"network":"0", "id":"11", "symbol":"K", "name":" ", "semtype":"sbst", "visible":true, "sColor":"black", "x":350, "y":400, "anchor":false},
+					{"network":"0", "id":"12", "symbol":"L", "name":" ", "semtype":"sosy", "visible":true, "sColor":"black", "x":375, "y":401, "anchor":false},
+					{"network":"0", "id":"13", "symbol":"M", "name":" ", "semtype":"bdsy", "visible":true, "sColor":"black", "x":400, "y":400, "anchor":false},
+					{"network":"0", "id":"14", "symbol":"N", "name":" ", "semtype":"virs", "visible":true, "sColor":"black", "x":425, "y":401, "anchor":false},
+					{"network":"0", "id":"15", "symbol":"O", "name":" ", "semtype":"cell", "visible":true, "sColor":"black", "x":450, "y":400, "anchor":false},
+					{"network":"0", "id":"16", "symbol":"P", "name":" ", "semtype":"vita", "visible":true, "sColor":"black", "x":375, "y":401, "anchor":false},
+					{"network":"0", "id":"17", "symbol":"Q", "name":" ", "semtype":"gora", "visible":true, "sColor":"black", "x":400, "y":400, "anchor":false}
+			],
+		"links":[
+
+					{"source":"1", "target":"2", "sColor":"black", "predicate":[{"label":"INTERACTS_WITH", "visible":true,
+						"sentence": [{"PMID":"14759819", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"3", "sColor":"black", "predicate":[{"label":"PRODUCES", "visible":true,
+						"sentence": [{"PMID":"15360864", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"4", "sColor":"black", "predicate":[{"label":"USES", "visible":true,
+						"sentence": [{"PMID":"17238342", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"5", "sColor":"black", "predicate":[{"label":"TREATS", "visible":true,
+						"sentence": [{"PMID":"18694079", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"6", "sColor":"black", "predicate":[{"label":"PROCESS_OF", "visible":true,
+						"sentence": [{"PMID":"21575741", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"7", "sColor":"black", "predicate":[{"label":"PREVENTS", "visible":true,
+						"sentence": [{"PMID":"22195216", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"8", "sColor":"black", "predicate":[{"label":"PREDISPOSES", "visible":true,
+						"sentence": [{"PMID":"22294819", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"9", "sColor":"black", "predicate":[{"label":"PART_OF", "visible":true,
+						"sentence": [{"PMID":"23044550", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"10", "sColor":"black", "predicate":[{"label":"STIMULATES", "visible":true,
+						"sentence": [{"PMID":"22294819", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"11", "sColor":"black", "predicate":[{"label":"LOCATION_OF", "visible":true,
+						"sentence": [{"PMID":"23044550", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"12", "sColor":"black", "predicate":[{"label":"ISA", "visible":true,
+						"sentence": [{"PMID":"14759819", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"13", "sColor":"black", "predicate":[{"label":"INHIBITS", "visible":true,
+						"sentence": [{"PMID":"15360864", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"14", "sColor":"black", "predicate":[{"label":"DISRUPTS", "visible":true,
+						"sentence": [{"PMID":"17238342", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"15", "sColor":"black", "predicate":[{"label":"CAUSES", "visible":true,
+						"sentence": [{"PMID":"18694079", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"16", "sColor":"black", "predicate":[{"label":"AUGMENTS", "visible":true,
+						"sentence": [{"PMID":"21575741", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] },
+					{"source":"1", "target":"17", "sColor":"black", "predicate":[{"label":"AFFECTS", "visible":true,
+						"sentence": [{"PMID":"22195216", SID:"", "abti":"ab", "sNumber":"n", "text":"Search or load file to begin."}] }] }
+			]
+		};
+
+////////////////////////////////////////////////////////////////
+// main networks
+var width = 0.98*window.innerWidth;
+    height = 0.90*window.innerHeight; // subtract space for the bottom buttons
+
+var nodes = [],
+    links = [],
+    labels = [],
+    pointers = [],
+    deletedNodes = [],
+    deletedLinks = [];
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .links(links)
+    .charge(function(d) { return -1000 * (Math.sqrt(d.weight)); })
+    .linkDistance(function(d) { return 125 + ((d.source.weight*d.target.weight/2) * 12.5); })
+    .friction(0.5)
+    .size([width, height])
+    .on("tick", tick);
+
+var svg1 = d3.select("#container").append("svg")
+	.attr("id","svg1")
+	.attr({"width": width+"px","height": height+"px"})
+	.attr("viewBox", "0 0 " + width + " " + height)
+      	.attr("preserveAspectRatio", "xMidYMid meet")
+      	.attr("pointer-events", "all")
+	.call(d3.behavior.zoom().on("zoom", redraw))
+	.append('svg:g');
+
+// turn off default context menu for svg1 background
+d3.select("#svg1"
+		).on("contextmenu", function(data, index) {d3.event.preventDefault();} );
+
+var link = svg1.append("svg:g").selectAll(".link"),
+    node = svg1.append("svg:g").selectAll(".node"),
+    label = svg1.append("svg:g").selectAll(".label"),
+    pointer = svg1.append("svg:g").selectAll(".pointer");
+
+//////////////////////////////////////////////////////////
+//storage networks
+var nodes2 = [],
+    links2 = [],
+    labels2 = [];
+
+var force2 = d3.layout.force()
+    .nodes(nodes2)
+    .links(links2)
+    .charge(-50)
+    .linkDistance(1)
+    .size([500, 900])
+    .on("tick", tick2);
+
+var svg2 = d3.select("#container2").append("svg")
+    .attr("width",500)
+    .attr("height", height*0.9)
+	.call(d3.behavior.zoom().on("zoom", redraw2));
+
+var node2 = svg2.selectAll(".node"),
+    link2 = svg2.selectAll(".link"),
+    label2 = svg2.selectAll(".label");
+
+
+// chain networks
+var nodes3 = [],
+    links3 = [],
+    labels3 = [],
+    linkLabels2 = [];
+
+var force3 = d3.layout.force()
+    .nodes(nodes3)
+    .links(links3)
+    .charge(-1000)
+    .linkDistance(width/6 - 20) // 20 provides buffer of 10 on each side
+    .size([width*0.9, height*0.9])
+    .on("tick", tick3);
+
+var svg3 = d3.select("#container3").append("svg")
+	.attr("id", "svg3")
+	.attr({"width": "100%","height": "100%"})
+	.style("min-height","400px")
+	.attr("viewBox", "0 0 1000 800")
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("pointer-events", "all")
+	.call(d3.behavior.zoom().on("zoom", redraw3))
+	.append('svg:g');
+
+var link3 = svg3.append("svg:g").selectAll(".link"),
+    node3 = svg3.append("svg:g").selectAll(".node"),
+    label3 = svg3.append("svg:g").selectAll(".label"),
+    linkLabel3 = svg3.append("svg:g").selectAll(".label");
+
+// global vars
+var MAXDATE = "2014/12/31";
+var searchResult = [];
+	searchResult[0] = " ",
+	searchLimits = "\"1900/01/01\":\"" + MAXDATE + "\"[edat]&retmax=500";
+
+var currentNetwork = 0,
+    networks = [];
+
+var selection = {};
+var summaryNodes = [],
+    summaryLinks = [];
+
+var lastBottom = 8;
+
+var maxDegree = 0;
+
+// File handler2
+var reader;
+var progress = document.querySelector('.percent');
+var progress2 = document.querySelector('.percent2');
+var progress3 = document.querySelector('.percent3');
+
+//////////////////////////////////////////////////////////////////////////
+// functions
+
+// File handler
+function abortRead() {
+	reader.abort();
+	}
+
+function errorHandler(evt) {
+	switch(evt.target.error.code) {
+		case evt.target.error.NOT_FOUND_ERR:
+			myDialog('File Not Found!', 310, "OK", function() {$(this).dialog("close");});
+			break;
+		case evt.target.error.NOT_READABLE_ERR:
+			myDialog('File is not readable', 310, "OK", function() {$(this).dialog("close");});
+			break;
+		case evt.target.error.ABORT_ERR:
+			break; // noop
+		default:
+			myDialog('An error occurred reading this file.', 310, "OK", function() {$(this).dialog("close");});
+	};
+}
+
+function updateProgress(evt) {
+	// evt is an ProgressEvent.
+	if (evt.lengthComputable) {
+		var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+		// Increase the progress bar length.
+		if (percentLoaded < 100) {
+			progress.style.width = percentLoaded + '%';
+			progress.textContent = percentLoaded + '%';
+		}
+	}
+}
+
+function handleFileSelect(evt) {
+    // Reset progress indicator on new file selection.
+    progress.style.width = '0%';
+    progress.textContent = '0%';
+
+    reader = new FileReader();
+    reader.onerror = errorHandler;
+    reader.onprogress = updateProgress;
+    reader.onabort = function(e) {
+    	myDialog('File read cancelled', 310, "OK", function() {$(this).dialog("close");});
+    };
+    reader.onloadstart = function(e) {
+      document.getElementById('progress_bar').className = 'loading';
+    };
+    reader.onload = function(e) {
+      // Ensure that the progress bar displays 100% at the end.
+      progress.style.width = '100%';
+      progress.textContent = '100%';
+      setTimeout("document.getElementById('progress_bar').className='';", 2000);
+    }
+
+    reader.onloadend = function(e) {
+		// load into networks
+    	loadGraph(reader.result);
+        openFileClick();
+    }
+
+    // Read in the image file as a data url
+    reader.readAsText(evt.target.files[0])
+
+}
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+function updateProgress2(evt) {
+	// evt is an ProgressEvent.
+	if (evt.lengthComputable) {
+		var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+		// Increase the progress bar length.
+		if (percentLoaded < 100) {
+			progress2.style.width = percentLoaded + '%';
+			progress2.textContent = percentLoaded + '%';
+		}
+	}
+}
+
+function handleFileSelect2(evt) {
+    // Reset progress indicator on new file selection.
+    progress2.style.width = '0%';
+    progress2.textContent = '0%';
+
+    reader = new FileReader();
+    reader.onerror = errorHandler;
+    reader.onprogress = updateProgress;
+    reader.onabort = function(e) {
+    	myDialog('File read cancelled', 310, "OK", function() {$(this).dialog("close");});
+    };
+    reader.onloadstart = function(e) {
+      document.getElementById('progress_bar2').className = 'loading';
+    };
+    reader.onload = function(e) {
+      // Ensure that the progress bar displays 100% at the end.
+      progress2.style.width = '100%';
+      progress2.textContent = '100%';
+      setTimeout("document.getElementById('progress_bar2').className='';", 2000);
+    }
+
+    reader.onloadend = function(e) {
+		// load into networks
+
+    	$(".slider12").toggle("fast");
+    	loadGraph2(reader.result);
+    }
+
+    // Read in the image file as a data url
+    reader.readAsText(evt.target.files[0])
+}
+
+document.getElementById('files2').addEventListener('change', handleFileSelect2, false);
+
+//p3.js
+Ui.P3 = function() {
+};
+
+Ui.P3.prototype = Object.create(Ui.prototype);
+
+Ui.P3.prototype.createElement = function() {
+  Ui.prototype.createElement.apply(this, arguments);
+  this.addComponent(new Ui.Arc({
+    arcWidth: this.width/5
+  }));
+  this.merge(this.options, {arcWidth: this.width/5});
+
+  this.addComponent(new Ui.Text());
+  var arc = new Ui.El.Arc(this.options);
+  arc.setAngle(this.options.anglerange);
+  this.el.node.appendChild(arc.node);
+  this.el.node.setAttribute("class", "p3");
+};
+
+// create knobs from inputs
+Array.prototype.slice.call(
+	document.getElementsByClassName('preset3')).forEach(function(el) { new Knob(el, new Ui['P3']()); }
+);
+
+function advancedSearchClick(){
+
+    $(".slider7").toggle("fast");
+}
+
+function openFileClick(){
+
+    $(".slider9").toggle("fast");
+}
+
+function setAdvanced(mode){
+
+    $(".slider7").toggle("fast");
+
+    if (mode == 1) { // Save
+
+	    var dateType = document.getElementById("pDate").checked == true ? "pdat" : "edat";
+	    searchLimits = "\"" + document.getElementById("startDatePicker").value + "\":\""
+	    					+ document.getElementById("endDatePicker").value + "\"[" + dateType + "]"
+	    					+ "&retmax=" + document.getElementById("maxResultSelector").value;
+    }
+}
+
+
+$(document).ready(function() {
+
+	$("a").click(function(){
+
+		switch(this.id) {
+
+			case 'a1':	//Storage
+			        $(".slider").toggle("fast");
+			        $("a1").toggleClass("active");
+	        		return false;
+
+			case 'b':	// LogicBuilder
+			        $(".slider2").toggle("fast");
+			        $("#b").toggleClass("active");
+	        		return false;
+
+			case 'c':	// Sentences
+			        $(".slider3").toggle("fast");
+			        $("#c").toggleClass("active");
+
+			       // move below sentence button when closed
+			        if ($("#c").attr("class") == "trigger") { // closing panel
+			        	document.getElementById("chains").style.top = "55px";
+			    		document.getElementById("b").style.top = "55px";
+					}
+			        else shiftChains();
+
+	        		return false;
+
+			case 'e':	// Search
+			        $(".slider5").toggle("fast");
+			        $("#e").toggleClass("active");
+			        document.getElementById("searchTerm").focus();
+
+	        		return false;
+
+			case 'f':	// Summarization
+			        $(".slider6").toggle("fast");
+			        $("#f").toggleClass("active");
+
+			        // shift Filter below Summarization
+			        if ($("#f").attr("class") == "trigger") { // closing panel
+			        	document.getElementById("filter").style.top = "105px";
+			    		document.getElementById("g").style.top = "105px";
+					} else {
+			        	document.getElementById("filter").style.top = "285px";
+			    		document.getElementById("g").style.top = "285px";
+
+			    		fillNetworkSelector();
+				        fillSchemaSelector();
+				        fillSeedSelector(getSelectedNetwork());
+
+					}
+
+		        	return false;
+
+			case 'g':	// Filter
+			        $(".slider8").toggle("fast");
+			        $("#g").toggleClass("active");
+
+			        setFindAutocomplete();
+
+	        		return false;
+/*
+			case 'h':	// File
+			        $(".slider9").toggle("fast");
+			        $("#h").toggleClass("active");
+	        		return false;
+*/
+			case 'i':	// Find
+			        $(".slider10").toggle("fast");
+			        $("#i").toggleClass("active");
+			        document.getElementById("findTerm").focus();
+	        		return false;
+
+			case 'j':	// Metrics
+			        $(".slider11").toggle("fast");
+			        $("#j").toggleClass("active");
+
+			        setGraphMetrics();
+
+	        		return false;
+
+			case 'k':	// Help
+
+		        window.open("SMQuickStart.pdf");
+
+        		return false;
+		}
+		return false;
+	    });
+
+	d3.select("body")
+    		.on("keydown", function() {
+			  switch(d3.event.keyCode){
+
+				case 13: // enter
+					if (document.getElementById('searchTerm') == document.activeElement)
+						citationSearch();
+					break;
+			  }
+			});
+
+	// resize the svg1 canvas to fill browser window dynamically
+	window.addEventListener('resize', resizeCanvas, false);
+
+	function resizeCanvas() {
+		var width = 0.98*window.innerWidth;//($(document).width()),
+	    	height = 0.90*window.innerHeight;//($(document).height()); // subtract space for the bottom buttons
+
+		var svg = document.getElementById("svg1");
+
+		svg.setAttribute("height",height);
+		svg.setAttribute("width", width);
+
+		force.size([width, height]);
+        }
+
+	resizeCanvas();
+
+	/////////////////////////////////////////
+	// Load logo network
+
+	// replace indexes with actual nodes
+	for (var i = 0; i < loadNet.links.length; i++) {
+
+		var target = loadNet.links[i].target,
+		    source = loadNet.links[i].source;
+
+		loadNet.links[i].source = loadNet.nodes[findNode(source,loadNet.nodes)];
+		loadNet.links[i].target = loadNet.nodes[findNode(target,loadNet.nodes)];
+	}
+
+	networks.push(loadNet); // add to the master network list temporarily
+
+	viewNetwork(0); // copy to viewed Nets
+
+	networks.pop(); // remove logo network from master - only for viewing
+
+	// anchor = highest degree node
+	setDegree();
+	var Anchor = setAnchor(0);
+	createAnchorGradient(Anchor);
+
+	start();
+
+	// Set network size
+	document.getElementById("knob1").value = 3;
+	document.getElementById("knob4").value = 3;
+
+	//open search panel
+	document.getElementById("e").click();
+
+	//open sentence panel
+	document.getElementById("c").click();
+
+	// Scroll to top left
+	window.scrollTo(0, 0);
+
+	// set file selected boxes to change with newly selected file
+	document.getElementById("files").onchange = function () {
+	    document.getElementById("uploadFile").value = this.value.substring(this.value.lastIndexOf('\\')+1);
+	};
+	document.getElementById("files2").onchange = function () {
+	    document.getElementById("uploadFile2").value = this.value.substring(this.value.lastIndexOf('\\')+1);
+	};
+
+	//Set up dates in advanced search menu
+	var endDate = new Date(MAXDATE); // set end of SemRep processing
+	var today = new Date(); // get today's date
+	var days = -1*Math.round(Math.abs(endDate.getTime() - today.getTime())/(1000 * 60 * 60 * 24)) + 1; // get the difference from today to the endDate in days
+
+	$("#startDatePicker").datepicker({ dateFormat: "yy/mm/dd", minDate: -73000, maxDate: days});
+	$("#startDatePicker").val("1900/01/01");
+	$("#endDatePicker").datepicker({ dateFormat: "yy/mm/dd", minDate: -73000, maxDate: days});
+	$("#endDatePicker").val(MAXDATE);
+
+	// fade in
+	svg1.style("opacity", 1e-6)
+		.transition()
+		.duration(500)
+		.style("opacity", 1);
+
+});
+
+function start() {
+
+  var zoomValue = document.getElementById("knob1").value;
+
+  link = link.data(force.links(), function(d) { return d.source.id + "-" + d.target.id; });
+
+  link.enter().append("svg:path")
+	.on("click", function(d) {if (d3.event.ctrlKey == 1) linkClick(d); else fillInfoText(d);})
+	.attr("class", "link")
+	.attr("fill", function(d) { return linkColorScale(d.predicate[0].label); })
+	.style("stroke", "#222")
+	.style("stroke-width", function() { return strokeScale(zoomValue); })
+	.attr("opacity", 0.65)
+	.attr("pointer-events", "all")
+	.on("mouseover", showNodes(0))
+	.on("mouseout", showNodes(1))
+	.on("contextmenu", function(data, index) {
+
+    	if (d3.event.pageX || d3.event.pageY) {
+            var x = d3.event.pageX - 10;
+            var y = d3.event.pageY - 10;
+        } else if (d3.event.clientX || d3.event.clientY) {
+            var x = d3.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            var y = d3.event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        d3.select('#linkContextMenu')
+          .style('position', 'absolute')
+          .style('left', x + 'px')
+          .style('top', y + 'px')
+          .style("fill", "white")
+          .style('display', 'inline-block')
+          .on('mouseleave', function() {d3.select('#linkContextMenu').style('display', 'none');});
+        d3.select('#linkItem1')
+        	.on("click", function(d,i) {linkClick(data); d3.select('#linkContextMenu').style('display', 'none');});
+        d3.select('#linkItem2')
+	    	.on("click", function(d,i) {fillInfoText(data); d3.select('#linkContextMenu').style('display', 'none');});
+    	d3.select('#linkItem3')
+    		.on("click", function(d,i) {saveNetwork(1); d3.select('#linkContextMenu').style('display', 'none');});
+    	d3.select('#linkItem4')
+    		.on("click", function(d,i) {selectAll(1); d3.select('#linkContextMenu').style('display', 'none');});
+		d3.select('#linkItem5')
+			.on("click", function(d,i) {clearAll(1); d3.select('#linkContextMenu').style('display', 'none');});
+
+        d3.event.preventDefault();
+    })
+    .append("title")
+	.text(function(d)	{	var text = "";
+      						text += d.source.name + " " + d.predicate[0].label + " " + d.target.name;
+      						for (var i = 1; i < d.predicate.length; i++) {
+      							text += "; " + d.source.name + " " + d.predicate[i].label + " " + d.target.name;
+      						}
+      						return text; });
+  link.exit().remove();
+
+  node = node.data(force.nodes(), function(d) { return d.id;});
+  node.enter()
+	.append("circle")
+	.attr("class", "node")
+	.attr("id", function(d){return "node-" + d.id;})
+    .on("click", function(d) {if (d3.event.ctrlKey == 1) addToSearch(d); else toggleColor(d);})
+	.attr("r", function(d) { return d.weight; })
+	.attr("x",2000)
+	.attr("y", 1000)
+	.style("fill", function(d) {return nodeColorScale(d.semtype); })
+	.style("stroke", function(d) { return d.sColor; })
+	.style("stroke-width", 1)
+	.attr("opacity", 0.9)
+	.attr("pointer-events", "all")
+	.call(force.drag)
+	.on("mouseover", showConnected(true))
+    .on("mouseout", showConnected(false))
+    .on("contextmenu", function(data, index) {
+
+    	if (d3.event.pageX || d3.event.pageY) {
+            var x = d3.event.pageX - 10;
+            var y = d3.event.pageY - 10;
+        } else if (d3.event.clientX || d3.event.clientY) {
+            var x = d3.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            var y = d3.event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        d3.select('#nodeContextMenu')
+          .style('position', 'absolute')
+          .style('left', x + 'px')
+          .style('top', y + 'px')
+          .style("fill", "white")
+          .style('display', 'inline-block')
+          .on('mouseleave', function() {d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.select('#nodeItem0')
+    		.on("click", function(d,i) {
+    									document.getElementById("searchTerm").value = nodes[index].name;
+    									citationSearch();
+    									d3.select('#nodeContextMenu').style('display', 'none');
+    									});
+        d3.select('#nodeItem1')
+        	.on("click", function(d,i) {addToSearch(nodes[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+        d3.select('#nodeItem2')
+	    	.on("click", function(d,i) {toggleColor(nodes[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+    	d3.select('#nodeItem3')
+			.on("click", function(d,i) {saveNetwork(1); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem4')
+			.on("click", function(d,i) {selectAll(1); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem5')
+			.on("click", function(d,i) {clearAll(1); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem6')
+			.on("click", function(d,i) {data.showPoint = true; d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem7')
+			.on("click", function(d,i) {data.showPoint = false; d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.event.preventDefault();
+    })
+    .append("title")
+  	.text(function(d) { return d.symbol + ": " + d.name + " (" + d.semtype + ")"; });
+  node.exit().remove();
+
+  labels = nodes;
+  label = label.data(labels, function(d) { return d.id;});
+  label.enter()
+	.append("text")
+	.text(function(d) { return d.name;})
+        .on("click", function(d) {if (d3.event.ctrlKey == 1) addToSearch(d); else toggleColor(d);})
+	.attr("dx", -10)
+	.attr("dy", -200)
+	.attr("fill", "black")
+	.style('font-family', 'arial')
+	.style('cursor', 'move')
+	.style('font-size', function() { return fontScale(zoomValue); })
+	.attr("opacity", 0)
+	.call(force.drag)
+	.attr("pointer-events", "all")
+	.on("mouseover", showConnected(true))
+	.on("mouseout", showConnected(false))
+    .on("contextmenu", function(data, index) {
+
+    	if (d3.event.pageX || d3.event.pageY) {
+            var x = d3.event.pageX - 10;
+            var y = d3.event.pageY - 10;
+        } else if (d3.event.clientX || d3.event.clientY) {
+            var x = d3.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            var y = d3.event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        d3.select('#nodeContextMenu')
+          .style('position', 'absolute')
+          .style('left', x + 'px')
+          .style('top', y + 'px')
+          .style("fill", "white")
+          .style('display', 'inline-block')
+          .on('mouseleave', function() {d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.select('#nodeItem0')
+		.on("click", function(d,i) {
+									document.getElementById("searchTerm").value = nodes[index].name;
+									citationSearch();
+									d3.select('#nodeContextMenu').style('display', 'none');
+									});
+        d3.select('#nodeItem1')
+        	.on("click", function(d,i) {addToSearch(nodes[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+        d3.select('#nodeItem2')
+	    	.on("click", function(d,i) {toggleColor(nodes[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+    	d3.select('#nodeItem3')
+			.on("click", function(d,i) {saveNetwork(1); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem4')
+			.on("click", function(d,i) {selectAll(1); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem5')
+			.on("click", function(d,i) {clearAll(1); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem6')
+			.on("click", function(d,i) {data.showPoint = true; d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem7')
+			.on("click", function(d,i) {data.showPoint = false; d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.event.preventDefault();
+    })
+    .append("title")
+  	.text(function(d) { return d.symbol + ": " + d.name + " (" + d.semtype + ")"; });
+  label.exit().remove();
+
+  pointers = nodes;
+  pointer = pointer.data(pointers, function(d) { return "P-" + d.id; });
+  pointer.enter().append("svg:path")
+	.attr("class", "pointer")
+    .on("click", function(d) {d.showPoint = false;})
+	.attr("fill", "#A11")
+	.style("stroke", "darkred")
+	.style("stroke-width", 0.5)
+	.attr("opacity", 0);
+  pointer.exit().remove();
+
+  force.friction(0.01);
+  d3.timer(function(){for (var i = 0; i < nodes.length*1; i++) force.friction(i/(nodes.length*1.5));}, 100);
+  force.start();
+
+/*  node.append("title")
+  	.text(function(d) { return d.symbol + ": " + d.name + " (" + d.semtype + ")"; });
+
+  link.append("title")
+	.text(function(d)	{	var text = "";
+      						text += d.source.name + " " + d.predicate[0].label + " " + d.target.name;
+      						for (var i = 1; i < d.predicate.length; i++) {
+      							text += "; " + d.source.name + " " + d.predicate[i].label + " " + d.target.name;
+      						}
+      						return text; });
+*/
+  setFindAutocomplete();
+}
+
+function start2() {
+
+  link2 = link2.data(force2.links(), function(d) { return d.source.id + "-" + d.target.id; });
+  link2.enter().insert("line", ".node")
+	.attr("class", "link")
+	.style("stroke-width", 1)
+	.style("stroke", function(d) { return linkColorScale(d.predicate[0].label); })
+    .on("click",function(d){selectNetwork(d.source.network);});
+  link2.exit().remove();
+
+  node2 = node2.data(force2.nodes(), function(d) { return d.id;});
+  node2.enter().append("circle")
+	.attr("class", "node")
+	.attr("r", 2)
+	.attr("y", function(d){return d.y + 100*d.network;})
+	.style("fill", function(d) { return nodeColorScale(d.semtype); })
+	.style("stroke", "#222")
+	.call(force2.drag)
+    .on("click",function(d){selectNetwork(d.network);});
+  node2.exit().remove();
+
+  labels2 = nodes2;
+  label2 = label2.data(labels2, function(d) { return d.id;});
+  label2.enter()
+	.append("text")
+	.text(function(d) { return Number(d.network)+1;})
+	.attr("dx", 50)
+	.attr("dy", 50)
+	.attr("fill", function(d){d.sColor = "#79B"; return d.sColor; })
+	.attr("stroke", "black")
+	.style('font-family', 'arial')
+	.style('font-size', '80px')
+	.style('font-weight', 'bold')
+	.attr("opacity", 0)
+	.style('cursor', 'pointer')
+	.call(force2.drag)
+    .on("click",function(d){selectNetwork(d.network);})
+    .on("contextmenu", function(data, index) {
+
+    	if (d3.event.pageX || d3.event.pageY) {
+            var x = d3.event.pageX - 10;
+            var y = d3.event.pageY - 10;
+        } else if (d3.event.clientX || d3.event.clientY) {
+            var x = d3.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            var y = d3.event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        d3.select('#networkContextMenu')
+          .style('position', 'absolute')
+          .style('left', x + 'px')
+          .style('top', y + 'px')
+          .style("fill", "white")
+          .style('display', 'inline-block')
+          .on('mouseleave', function() {d3.select('#networkContextMenu').style('display', 'none');});
+        d3.select('#networkItem1')
+        	.style('font-weight', function(d){document.getElementById("networkItem1").innerHTML = (data.network+1) + ") " +
+        							networks[data.network].searchTerms + " " + networks[data.network].fileName; return 'normal';})
+			.on("click", function(d,i) {selectNetwork(data.network); d3.select('#networkContextMenu').style('display', 'none');});
+		d3.select('#networkItem2')
+			.on("click", function(d,i) {selectAll(2); d3.select('#networkContextMenu').style('display', 'none');});
+		d3.select('#networkItem3')
+		.on("click", function(d,i) {clearAll(2); d3.select('#networkContextMenu').style('display', 'none');});
+        d3.select('#networkItem4')
+			.on("click", function(d,i) {moveGraph(2); d3.select('#networkContextMenu').style('display', 'none');});
+        d3.select('#networkItem5')
+			.on("click", function(d,i) {deleteSelectedNetwork(2); d3.select('#networkContextMenu').style('display', 'none');});
+
+        d3.event.preventDefault();
+    	});
+  label2.exit().remove();
+
+  node2.append("title")
+  	.text(function(d) { return (d.network+1) + ") " + networks[d.network].searchTerms + " " + networks[d.network].fileName; });
+
+  link2.append("title")
+  	.text(function(d) { return (d.source.network+1) + ") " + networks[d.source.network].searchTerms + " " + networks[d.source.network].fileName; });
+
+  force2.start();
+}
+
+function start3() {
+
+  link3 = link3.data(force3.links(), function(d) { return d.source.id + "-" + d.target.id; });
+  link3.enter().append("svg:path")
+    .on("click", function(d) { linkClick3(d); })
+	.on("contextmenu", function(data, index) {
+
+    	if (d3.event.pageX || d3.event.pageY) {
+            var x = d3.event.pageX - 10;
+            var y = d3.event.pageY - 10;
+        } else if (d3.event.clientX || d3.event.clientY) {
+            var x = d3.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            var y = d3.event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        d3.select('#linkContextMenu3')
+          .style('position', 'absolute')
+          .style('left', x + 'px')
+          .style('top', y + 'px')
+          .style("fill", "white")
+          .style('display', 'inline-block')
+          .on('mouseleave', function() {d3.select('#linkContextMenu3').style('display', 'none');});
+        d3.select('#linkItem3.2')
+	    	.on("click", function(d,i) {fillInfoText(data); d3.select('#linkContextMenu3').style('display', 'none');});
+    	d3.select('#linkItem3.3')
+    		.on("click", function(d,i) {saveNetwork(3); d3.select('#linkContextMenu3').style('display', 'none');});
+    	d3.select('#linkItem3.4')
+    		.on("click", function(d,i) {selectAll(3); d3.select('#linkContextMenu3').style('display', 'none');});
+		d3.select('#linkItem3.5')
+			.on("click", function(d,i) {clearAll(3); d3.select('#linkContextMenu3').style('display', 'none');});
+
+        d3.event.preventDefault();
+    })
+	.attr("class", "link")
+	.attr("d", function(d) { return (d.path); })
+	.attr("fill", function(d) { return linkColorScale(d.predicate[0].label); })
+	.attr("stroke", function (d) { return d.sColor; })
+	.attr("opacity", 0.75)
+	.style("stroke-width", 2);
+  link3.exit().remove();
+
+  node3 = node3.data(force3.nodes(), function(d) { return d.symbol;});
+  node3.enter().append("circle")
+	.on("click", function(d) {if (d3.event.ctrlKey == 1) addToSearch(d); else toggleColor(d);})
+	.attr("class", "node")
+	.attr("r", 30)
+	.style("fill", function(d) { return nodeColorScale(d.semtype); })
+	.style("stroke", function(d) { return d.sColor; })
+	.style("stroke-width", 3)
+	.attr("opacity", 0.75)
+	.call(force3.drag)
+    .on("contextmenu", function(data, index) {
+
+    	if (d3.event.pageX || d3.event.pageY) {
+            var x = d3.event.pageX - 10;
+            var y = d3.event.pageY - 10;
+        } else if (d3.event.clientX || d3.event.clientY) {
+            var x = d3.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            var y = d3.event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        d3.select('#nodeContextMenu')
+          .style('position', 'absolute')
+          .style('left', x + 'px')
+          .style('top', y + 'px')
+          .style("fill", "white")
+          .style('display', 'inline-block')
+          .on('mouseleave', function() {d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.select('#nodeItem0')
+		.on("click", function(d,i) {
+									document.getElementById("searchTerm").value = nodes3[index].name;
+									citationSearch();
+									d3.select('#nodeContextMenu').style('display', 'none');
+									});
+        d3.select('#nodeItem1')
+        	.on("click", function(d,i) {addToSearch(nodes3[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+        d3.select('#nodeItem2')
+	    	.on("click", function(d,i) {toggleColor(nodes3[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+    	d3.select('#nodeItem3')
+			.on("click", function(d,i) {saveNetwork(3); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem4')
+			.on("click", function(d,i) {selectAll(3); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem5')
+			.on("click", function(d,i) {clearAll(3); d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.event.preventDefault();
+    });
+  node3.exit().remove();
+
+  labels3 = nodes3;
+  label3 = label3.data(labels3, function(d) { return d.symbol;});
+  label3.enter()
+	.append("text")
+	.text(function(d) { return d.name; })
+    .on("click", function(d) {if (d3.event.ctrlKey == 1) addToSearch(d); else toggleColor(d);})
+	.attr("stroke-width", 0.05)
+	//.attr("stroke", "white")
+	.attr("fill", "black")
+	.style('font-family', 'arial')
+	.style('font-size', '18px')
+	.style('cursor', 'pointer')
+	.call(force3.drag)
+    .on("contextmenu", function(data, index) {
+
+    	if (d3.event.pageX || d3.event.pageY) {
+            var x = d3.event.pageX - 10;
+            var y = d3.event.pageY - 10;
+        } else if (d3.event.clientX || d3.event.clientY) {
+            var x = d3.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            var y = d3.event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        d3.select('#nodeContextMenu')
+          .style('position', 'absolute')
+          .style('left', x + 'px')
+          .style('top', y + 'px')
+          .style("fill", "white")
+          .style('display', 'inline-block')
+          .on('mouseleave', function() {d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.select('#nodeItem0')
+		.on("click", function(d,i) {
+									document.getElementById("searchTerm").value = nodes3[index].name;
+									citationSearch();
+									d3.select('#nodeContextMenu').style('display', 'none');
+									});
+        d3.select('#nodeItem1')
+        	.on("click", function(d,i) {addToSearch(nodes3[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+        d3.select('#nodeItem2')
+	    	.on("click", function(d,i) {toggleColor(nodes3[index]); d3.select('#nodeContextMenu').style('display', 'none');});
+    	d3.select('#nodeItem3')
+			.on("click", function(d,i) {saveNetwork(3); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem4')
+			.on("click", function(d,i) {selectAll(3); d3.select('#nodeContextMenu').style('display', 'none');});
+		d3.select('#nodeItem5')
+			.on("click", function(d,i) {clearAll(3); d3.select('#nodeContextMenu').style('display', 'none');});
+
+        d3.event.preventDefault();
+    });
+  label3.exit().remove();
+
+  linkLabels3 = links3;
+  linkLabel3 = linkLabel3.data(linkLabels3, function(d) { return d.source.symbol + "-" + d.target.symbol; });
+  linkLabel3.enter()
+	.append("text")
+	.text(function(d) { return d.predicate[0].label;})
+    .on("click", function(d){ linkClick3(d); })
+	.attr("stroke-width", 0.05)
+	//.attr("stroke", "white")
+	.attr("fill", "black")
+	.style('font-family', 'arial')
+	.style('font-size', '14px')
+	.attr("opacity", function(){ if (document.getElementById("hideLabels").value == "Hide Labels"){ return 1;} else {return 0;} })
+	.style('cursor', 'pointer')
+	.call(force3.drag);
+  linkLabel3.exit().remove();
+
+  node3.append("title")
+    .text(function(d) { return d.symbol + ": " + d.name + " (" + d.semtype + ")"; });
+
+  link3.append("title")
+	   .text(function(d)	{	var text = "";
+      							text += d.source.name + " " + d.predicate[0].label + " " + d.target.name;
+      							for (var i = 1; i < d.predicate.length; i++) {
+      								text += "; " + d.source.name + " " + d.predicate[i].label + " " + d.target.name;
+      							}
+      						return text; });
+
+  force3.start();
+}
+
+function tick() {
+
+  var spaceValue = document.getElementById("knob4").value;
+  var zoomValue = document.getElementById("knob1").value;
+  var background = document.getElementById("knob3").value;
+
+
+  node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+	.style("stroke", function(d) { return d.sColor; })
+	.style("fill", function(d) { if (d.anchor == true) {return "url(#" + d.id + ".gradient)";}else{return nodeColorScale(semanticGroupsScale(d.semtype));} })
+	.attr("opacity", function(d){ if (d.visible == true) return 1; else return 0;})
+	.attr("r", function(d) { if(d.weight>maxDegree) maxDegree = d.weight; d.degree = d.weight; return Math.pow(zoomValue,1.75) + ((20*d.weight)/maxDegree); })
+	.attr("x", function(d) {if (d.x > 2000) d.x -= 1000; if (d.x < -2000) d.x += 1000;})
+	.attr("y", function(d) {if (d.y > 2000) d.y -= 1000; if (d.y < -2000) d.y += 1000;});
+
+  label.attr("dx", function(d) { return (d.x - ((zoomValue*(d.name.length)) + (zoomValue*zoomValue)/4)); })
+        .attr("dy", function(d) { return d.y + (zoomValue*zoomValue)/4; })
+	.attr("opacity", function(d){ if (d.visible == true) return 1; else return 0;})
+	.style('font-size', function() { return fontScale(zoomValue); });
+
+  link.attr("d", function(d) {
+    	var tx = d.target.x, sx = d.source.x, ty = d.target.y, sy = d.source.y, xDisp = (tx-sx), yDisp = (ty-sy);
+
+		var d1 = Math.sqrt(xDisp*xDisp + yDisp*yDisp);
+		var d2 = 1.25*zoomValue;
+		var d3 = d1 - d.source.weight*zoomValue;
+		var theta = Math.atan((ty-sy)/(tx-sx));
+		var x1 = sx + d2*Math.cos(theta+90);
+		var radius = 0.9*(Math.pow(zoomValue,1.75) + ((20*d.source.weight)/maxDegree));
+
+		if (d.source === d.target){ // if loop, draw arc instead of triangle
+
+			var dr = Math.sqrt(xDisp * xDisp + yDisp * yDisp),
+			drx = 15*zoomValue,
+    	  	dry = 15*zoomValue,
+      		xRotation = -45;
+
+        	// slight displacement of start and end
+        	tx = tx + 1;
+        	ty = ty + 1;
+
+ 			return "M " + (sx-radius/2) + " " + sy + " C " + (sx-radius-30*Math.pow(zoomValue,0.3)) + " " + (sy-(3.85-1/Math.pow(zoomValue,0.1))*radius) + " " + // inner loop
+ 						(sx+radius+30*Math.pow(zoomValue,0.3)) + " " + (sy-(3.85-1/Math.pow(zoomValue,0.1))*radius) + " " + (sx+radius/2) + " " + sy +
+				" M " + (sx+radius/2) + " " + sy + " C " + (sx+radius+50*Math.pow(zoomValue,0.3)) + " " + (sy-(4-0.5/zoomValue)*radius) + " " + // outer loop
+						(sx-radius-50*Math.pow(zoomValue,0.3)) + " " + (sy-(4-0.5/zoomValue)*radius) + " " + (sx-radius/2) + " " + sy;
+    	}
+ 		else {
+			var y1 = sy + d2*Math.sin(theta+90);
+			var x2 = sx + d2*Math.cos(theta-90);
+			var y2 = sy + d2*Math.sin(theta-90);
+			var x3 = sx + d3*Math.cos(theta);
+			var y3 = sy + d3*Math.sin(theta);
+
+	    	return "M " + x1 + "," + y1 + " L " + (sx + xDisp*0.95).toFixed(3) + "," + (sy + yDisp*0.95).toFixed(3)
+				+ " L " + x2 + "," + y2 + " z";
+ 		}
+	 })
+	.style("stroke-width", function(d) { return d.predicate.length*strokeScale(zoomValue)/5;})
+	.attr("opacity", function(d){
+		for (var i = 0; i < d.predicate.length; i++) {
+			if (d.predicate[i].visible == true) return 0.65;
+		}
+		return 0;})
+	.attr("fill", function(d) {
+		for (var i = 0; i < d.predicate.length; i++) {
+			if (d.predicate[i].visible == true) return linkColorScale(d.predicate[i].label);
+		}
+		return linkColorScale(d.predicate[0].label); });
+
+  pointer.attr("d", function(d) {
+
+	  // draw arrow
+	    var x1 = d.x - 125;
+		var x2 = d.x - 20;
+		var x3 = d.x;
+		var y1 = d.y - 5;
+		var y2 = d.y - 15;
+		var y3 = d.y + 0;
+		var y4 = d.y + 5;
+		var y5 = d.y + 15;
+
+     	return "M" + x1 + "," + y1 + "L" + x2 + "," + y1 + "L" + x2 + "," + y2 + "L" + x3 + "," + y3 +
+		     	"L" + x2 + "," + y5 + "L" + x2 + "," + y4 + "L" + x1 + "," + y4 + "z";})
+
+	.attr("opacity", function(d){ if (d.showPoint == true) return 0.9; else return 0;});
+
+  // adjust link length and node repulsion charge by user controls
+  force
+    .linkDistance(function(d) { return distanceScale(spaceValue) + ((d.source.weight + d.target.weight) * distanceScale(spaceValue)/20); })
+	.charge(function(d) { return chargeScale(spaceValue) * (Math.sqrt(d.weight)); });
+  force.start();
+
+  // set background color to knob3 setting
+  var tmp = document.getElementById("container");
+  var svg = tmp.getElementsByTagName("svg")[0];
+  svg.style.backgroundColor = backgroundScale(background);
+  var back = document.getElementById("t2-2");
+  back.style.backgroundColor = backgroundScale(background);
+}
+
+function tick2() {
+
+  node2.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+	.attr("r", 2);
+
+  link2.attr("x1", function(d) { return d.source.x; })
+	.attr("y1", function(d) { return d.source.y;} )
+	.attr("x2", function(d) { return d.target.x;})
+	.attr("y2", function(d) { return d.target.y; });
+
+  label2.attr("dx", function(d) { if (d.anchor == true) {return d.x;} })
+        .attr("dy", function(d){ if (d.anchor == true){ return d.y; } })
+	.attr("fill", function(d){return d.sColor;})
+	.attr("opacity", function(d){ if (d.anchor == true) {return 0.5;} else {return 0;} });
+}
+
+
+function tick3() {
+
+  var background = document.getElementById("knob3").value;
+
+  node3.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+	.style("stroke", function(d) { return d.sColor; });
+
+  link3.attr("d", function(d){
+
+		var xNotch = 250;
+		var yNotch = 70;
+		var xDiff = d.source.x - d.target.x;
+		var yDiff = d.source.y - d.target.y;
+
+		if (Math.abs(xDiff) > Math.abs(yDiff)){ // horizontal arrow
+
+			if (d.source.x < d.target.x){
+
+			// right arrow
+
+			if (d.source.fixed == false && d.target.fixed == false) {
+				d.target.x = d.source.x + xNotch;
+				d.target.y = d.source.y;
+			}
+
+			if (d.source.fixed == true && d.target.fixed == false) {
+				var children = getOtherChildren(d.source.id, d.target.id);
+				d.target.fixed = true;
+				d.target.x = d.source.x + xNotch;
+				d.target.y = d.source.y + children.length*yNotch;
+			}
+
+			if (d.source.fixed == false && d.target.fixed == true) {
+				var parents = getOtherParents(d.target.id, d.source.id);
+				d.source.fixed = true;
+				d.source.x = d.source.x - xNotch;
+				d.source.y = d.source.y + parents.length*yNotch;
+			}
+
+			var x1, x2, x3, x4, x5;
+			var y1, y2, y3, y4, y5, y6, y7;
+			x1 = d.source.x + 50;
+			x2 = d.source.x + 75
+			x3 = d.target.x -100
+			x4 = d.target.x - 75;
+			x5 = d.target.x - 50;
+
+			y1 = d.source.y - 15;
+			y2 = d.target.y - 15;
+			y3 = d.target.y - 30;
+			y4 = d.target.y;
+			y5 = d.target.y + 30;
+			y6 = d.target.y + 15;
+			y7 = d.source.y + 15;
+
+
+			d.path = "M " + x1+","+y1+" L "+x2+","+y1+" L "+x3+","+y2+" L "+x4+","+y2+
+				" L "+x4+","+y3+" L "+x5+","+y4+" L "+x4+","+y5+" L "+x4+","+y6+
+				" L "+x3+","+y6+" L "+x2+","+y7+" L "+x1+","+y7+"z";
+
+		  } // right arrow
+
+		  else {
+
+			// left arrow
+			var x1, x2, x3, x4, x5;
+			var y1, y2, y3, y4, y5, y6, y7;
+			x1 = d.source.x - 50;
+			x2 = d.source.x - 75
+			x3 = d.target.x +100
+			x4 = d.target.x + 75;
+			x5 = d.target.x + 50;
+
+			y1 = d.source.y - 15;
+			y2 = d.target.y - 15;
+			y3 = d.target.y - 30;
+			y4 = d.target.y;
+			y5 = d.target.y + 30;
+			y6 = d.target.y + 15;
+			y7 = d.source.y + 15;
+
+
+			d.path = "M " + x1+","+y1+" L "+x2+","+y1+" L "+x3+","+y2+" L "+x4+","+y2+
+				" L "+x4+","+y3+" L "+x5+","+y4+" L "+x4+","+y5+" L "+x4+","+y6+
+				" L "+x3+","+y6+" L "+x2+","+y7+" L "+x1+","+y7+"z";
+
+		  }
+
+		} else { //vertical arrow
+
+		  if (d.source.y < d.target.y){
+
+			// down arrow
+			var x1, x2, x3, x4, x5, x6, x7;
+			var y1, y2, y3, y4, y5;
+
+			x1 = d.source.x - 15;
+			x2 = d.target.x - 15;
+			x3 = d.target.x - 30;
+			x4 = d.target.x;
+			x5 = d.target.x + 30;
+			x6 = d.target.x + 15;
+			x7 = d.source.x + 15;
+
+			y1 = d.source.y + 50;
+			y2 = d.source.y + 75
+			y3 = d.target.y -100
+			y4 = d.target.y - 75;
+			y5 = d.target.y - 50;
+
+			d.path = "M " + x1+","+y1+" L "+x1+","+y2+" L "+x2+","+y3+" L "+x2+","+y4+
+				" L "+x3+","+y4+" L "+x4+","+y5+" L "+x5+","+y4+" L "+x6+","+y4+
+				" L "+x6+","+y3+" L "+x7+","+y2+" L "+x7+","+y1+"z";
+
+		  } // down arrow
+		  else {
+
+		  		// up arrow
+				var x1, x2, x3, x4, x5, x6, x7;
+				var y1, y2, y3, y4, y5;
+
+				x1 = d.source.x - 15;
+				x2 = d.target.x - 15;
+				x3 = d.target.x - 30;
+				x4 = d.target.x;
+				x5 = d.target.x + 30;
+				x6 = d.target.x + 15;
+				x7 = d.source.x + 15;
+
+				y1 = d.source.y - 50;
+				y2 = d.source.y - 75
+				y3 = d.target.y +100
+				y4 = d.target.y + 75;
+				y5 = d.target.y + 50;
+
+				d.path = "M " + x1+","+y1+" L "+x1+","+y2+" L "+x2+","+y3+" L "+x2+","+y4+
+					" L "+x3+","+y4+" L "+x4+","+y5+" L "+x5+","+y4+" L "+x6+","+y4+
+					" L "+x6+","+y3+" L "+x7+","+y2+" L "+x7+","+y1+"z";
+
+		  }
+
+		} // vertical arrow
+
+		return (d.path);
+	});
+  link3.style("stroke", function(d) { return d.sColor; });
+
+  label3.attr("dx", function(d) { return d.x - 30; })
+        .attr("dy", function(d){ return d.y - 10; });
+
+  linkLabel3.attr("dx", function(d) { return (d.target.x+d.source.x)/2 - 60; })
+    .attr("dy", function(d){ return (d.target.y+d.source.y)/2 + 5; })
+	.text(function(d) { return d.predicate[0].label;})
+	.attr("opacity", function(){ if (document.getElementById("hideLabels").value == "Hide Labels"){ return 1;} else {return 0;} });
+
+	start3();
+
+  // set background color to knob3 setting
+  var tmp = document.getElementById("container3");
+  var svg3 = tmp.getElementsByTagName("svg")[0];
+  svg3.style.backgroundColor = backgroundScale(background);
+  tmp.style.backgroundColor = backgroundScale(background);
+}
+
+function openNetClick(){
+
+	currentNetwork = networks.length;
+
+	var terms = "" + document.getElementById("searchTerm").value;
+	networks.push({id:currentNetwork, searchTerms:terms, fileName:"", deleted:false, nodes:[], links:[]});
+
+	document.getElementById('progress_bar3').className = 'loading';
+	$(".slider14").toggle("fast");
+
+	// Reset progress indicator on new file selection.
+	progress3.style.width = '0%';
+	progress3.textContent = '0%';
+
+	if(typeof(Worker) !== "undefined") {
+
+		var workerNodes;
+		var workerLinks;
+
+		var w = new Worker("worker.js");
+		w.onmessage =  function(e) {
+
+			if (e.data.name == "progress3"){
+
+				progress3.style.width = e.data.width;
+				progress3.textContent = e.data.textContent;
+
+			}
+			else {
+			    workerNodes = e.data.nodes;
+			    workerLinks = e.data.links;
+
+			    networks[currentNetwork].nodes = workerNodes;
+			    networks[currentNetwork].links = workerLinks;
+
+				progress3.style.width = '100%';
+				progress3.textContent = '100%';
+				$(".slider14").toggle("fast");
+
+				// remove SEMMED network
+				if (nodes.length == 17) {
+					if (nodes[1].symbol == "B") {
+
+						links.splice(0, links.length);
+						nodes.splice(0, nodes.length);
+						labels.splice(0, labels.length);
+
+						start();
+					}
+				}
+
+				// delete any networks
+				if (nodes.length > 0) {
+
+					var nets = [];
+					for (var i = 0; i < nodes.length; i++) {
+						nodes[i].sColor = "red";
+						if (nets.indexOf(nodes[i].network) == -1) nets.push(nodes[i].network);
+					}
+
+					// delete all networks
+					for (var i = 0; i < nets.length; i++) deleteNetwork(nets[i],1);
+				}
+
+				// copy network to svg1 network per summarization requirements
+				viewNetwork(currentNetwork);
+
+				// anchor = highest degree node
+				setDegree();
+				var Anchor = setAnchor(currentNetwork);
+				createAnchorGradient(Anchor);
+
+				forceSummarizeLargeGraph();
+				start();
+
+				freezeNetwork(true); // unfreeze all networks
+
+				// fade in
+				svg1.style("opacity", function(){return 1e-6;})
+					.transition()
+					.duration(2000)
+					.style("opacity", function(){return 1;});
+
+				searchResult.splice(0,searchResult.length);
+
+				fillSummarySelectors();
+			    setFindAutocomplete();
+				resetPredCheckboxes();
+				resetSemGroupCheckboxes();
+
+				w.terminate();
+			}
+		  };
+
+		var workerJSON = {};
+		workerJSON.searchResult = searchResult;
+		workerJSON.currentNetwork = currentNetwork;
+		w.postMessage(workerJSON);
+
+	}
+
+	else { // Worker not supported in browser
+
+		var nodeIdCounter = 0;
+
+		// Reset progress indicator on new file selection.
+		progress3.style.width = '0%';
+		progress3.textContent = '0%';
+
+		document.getElementById('progress_bar3').className = 'loading';
+
+		// get nodes from subject
+		for (var i = 0; i < searchResult.length; i++) {
+
+			var node1 = { id:" ", anchor:false, sColor:"black", visible:true };
+
+			node1.network = currentNetwork;
+			node1.id = "" + currentNetwork + "." + nodeIdCounter;
+			node1.symbol = clean(searchResult[i][predColumn("s_cui")], "|||");
+			node1.name = clean(searchResult[i][predColumn("s_name")], "|||");
+			node1.semtype = clean(searchResult[i][predColumn("s_type")], "|||");
+			node1.novel = searchResult[i][predColumn("s_novel")];
+			node1.x = 200;
+			node1.y = 200;
+
+			//if node1.symbol not in network, push
+			if (findNode(node1.symbol, currentNetwork) == -1){
+
+				networks[currentNetwork].nodes.push(node1);
+				nodeIdCounter++;
+
+			}
+
+			var node2 = { id:" ", anchor:false, sColor:"black", visible:true };
+
+			node2.network = currentNetwork;
+			node2.id = "" + currentNetwork + "." + nodeIdCounter + ".5";
+			node2.symbol = clean(searchResult[i][predColumn("o_cui")], "|||");
+			node2.name =  clean(searchResult[i][predColumn("o_name")], "|||");
+			node2.semtype = clean(searchResult[i][predColumn("o_type")], "|||");
+			node2.novel = searchResult[i][predColumn("o_novel")];
+			node2.x = 200;
+			node2.y = 200;
+
+			//if node2.symbol not in network, push
+			if (findNode(node2.symbol, currentNetwork) == -1){
+				networks[currentNetwork].nodes.push(node2);
+				nodeIdCounter++;
+			}
+
+
+			//get links
+
+			var link1 = { source:" ", target:" ", sColor:"black",
+					predicate:[{label:" ", visible:true, sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+
+			link1.source = networks[currentNetwork].nodes[findNode(clean(searchResult[i][predColumn("s_cui")], "|||"),
+											currentNetwork)];
+			link1.target = networks[currentNetwork].nodes[findNode(clean(searchResult[i][predColumn("o_cui")], "|||"),
+											currentNetwork)];
+			link1.predicate[0].label = searchResult[i][predColumn("predicate")];
+
+			link1.predicate[0].sentence[0].PMID = searchResult[i][predColumn("PMID")];
+			link1.predicate[0].sentence[0].SID = searchResult[i][predColumn("SID")];
+
+			var linkFound = findLink(link1, currentNetwork);
+
+			if (linkFound != -1) { // link exists
+
+				var predicateFound = findPredicate(link1.predicate[0], linkFound, currentNetwork );
+
+				if (predicateFound != -1 ) { // predicate exists
+
+					networks[currentNetwork].links[linkFound].predicate[predicateFound].sentence.push(link1.predicate[0].sentence[0]);
+				}
+
+				else { // predicate doesn't exist
+
+					networks[currentNetwork].links[linkFound].predicate.push(link1.predicate[0]);
+				}
+			}
+
+
+			else { networks[currentNetwork].links.push(link1); }
+
+			var percentLoaded = Math.round((i / searchResult.length) * 100);
+			// Increase the progress bar length.
+			if (percentLoaded < 100) {
+				progress3.style.width = percentLoaded + '%';
+				progress3.textContent = percentLoaded + '%';
+			}
+
+		} // for each searchResult
+
+		// remove SEMMED network
+		if (nodes.length == 17) {
+			if (nodes[1].symbol == "B") {
+
+				links.splice(0, links.length);
+				nodes.splice(0, nodes.length);
+				labels.splice(0, labels.length);
+
+				start();
+			}
+		}
+
+		// delete any networks
+		if (nodes.length > 0) {
+
+			var nets = [];
+			for (var i = 0; i < nodes.length; i++) {
+				nodes[i].sColor = "red";
+				if (nets.indexOf(nodes[i].network) == -1) nets.push(nodes[i].network);
+			}
+
+			// delete all networks
+			for (var i = 0; i < nets.length; i++) deleteNetwork(nets[i],1);
+		}
+
+		// copy network to svg1 network per summarization requirements
+		viewNetwork(currentNetwork);
+
+		// anchor = highest degree node
+		setDegree();
+		var Anchor = setAnchor(currentNetwork);
+		createAnchorGradient(Anchor);
+
+		forceSummarizeLargeGraph();
+		start();
+
+		freezeNetwork(true); // unfreeze all networks
+
+		// fade in
+		svg1.style("opacity", function(){return 1e-6;})
+			.transition()
+			.duration(2000)
+			.style("opacity", function(){return 1;});
+
+		searchResult.splice(0,searchResult.length);
+
+		fillSummarySelectors();
+	    setFindAutocomplete();
+		resetPredCheckboxes();
+		resetSemGroupCheckboxes();
+
+		progress3.style.width = '100%';
+		progress3.textContent = '100%';
+		setTimeout("document.getElementById('progress_bar3').className='';", 2000);
+		$(".slider14").toggle("fast");
+
+	} // Worker not supported in browser
+
+
+	function findNode(symb, net) {
+		for (var i = 0; i < networks[net].nodes.length; i++) {
+
+			if (networks[net].nodes[i].symbol == symb && networks[net].nodes[i].network == net) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	function findLink(link1, net) {
+		for (var i = 0; i < networks[net].links.length; i++) {
+			if (networks[net].links[i].source == link1.source && networks[net].links[i].target == link1.target
+				&& networks[net].links[i].source.network == net) {
+
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	function findPredicate(predicate1, linkIndex, net) {
+
+		for (var j = 0; j < networks[net].links[linkIndex].predicate.length; j++ ) {
+
+			if (networks[net].links[linkIndex].predicate[j].label == predicate1.label) {
+
+				return j;
+			}
+		}
+
+
+		return -1;
+	}
+
+	function clean(text, stop){
+		var found = text.indexOf(stop);
+		if (found != -1) return text.substr(0,found); else return text;
+	}
+
+}
+
+function viewNetwork(net) {
+
+	var Nodes = nodes,
+	    Links = links;
+
+	for (var i = 0; i < networks[net].nodes.length; i++) {
+
+		networks[net].nodes[i].x = width/2 + ((i % 3 - 1) * i);
+		networks[net].nodes[i].y = height/2 + ((i % 3 - 1) * i);
+		Nodes.push(networks[net].nodes[i]);
+	}
+
+	for (var j = 0; j < networks[net].links.length; j++) {
+
+		Links.push(networks[net].links[j]);
+	}
+
+	maxDegree = 0;
+	start();
+}
+
+function forceSummarizeLargeGraph() {
+
+	if (nodes.length > 200) {
+
+        svg1.append("text")
+        	.attr("x",width/6)
+        	.attr("y",height/2)
+        	.style("font-family","Arial New")
+        	.style("font-size","300px")
+        	.style("font-weight","bolder")
+        	.attr("fill", "steelblue")
+        	.attr("stroke", "black")
+        	.text("SUMMARIZED")
+      		.transition().duration(6000)
+        		.style("font-size","1px")
+        		.style("opacity",".1")
+      		.remove();
+
+		if ($("#f").attr("class") == "trigger") document.getElementById("f").click(); // open Summarize panel if closed
+		document.getElementById('connectivitySelector').value = 1; // Always use 2 connections for forced summarization
+		fillNetworkSelector();
+	    fillSchemaSelector();
+        fillSeedSelector(getSelectedNetwork());
+		summarize();
+	}
+	else {
+
+        svg1.append("text")
+    	.attr("x",width/6)
+    	.attr("y",height/2)
+    	.style("font-family","Arial New")
+    	.style("font-size","300px")
+    	.style("font-weight","bolder")
+    	.attr("fill", "steelblue")
+    	.attr("stroke", "black")
+    	.text("COMPLETE")
+  		.transition().duration(6000)
+    		.style("font-size","1px")
+    		.style("opacity",".1")
+  		.remove();
+	}
+}
+
+function loadGraph(file){
+
+	var AnchorNode;
+
+	var xmlDoc = jQuery.parseXML(file);
+
+ 	var graphType;
+ 	var graphAtts = xmlDoc.getElementsByTagName("graph")[0].getElementsByTagName("att");
+ 	for (var i = 0; i < graphAtts.length; i++){
+ 		if (graphAtts[0].getAttributeNode("name").nodeValue == "type") {
+ 			graphType = graphAtts[0].getAttributeNode("value").nodeValue;
+ 		}
+
+ 	}
+
+ 	if (graphType != undefined && graphType == "SemanticMedline") { // SemMed2 graph
+
+ 		currentNetwork = networks.length;
+
+		var file = document.getElementById("files").value.substring(document.getElementById("files").value.lastIndexOf('\\')+1);
+		networks.push({id:currentNetwork, searchTerms:"", fileName:file, deleted:false, nodes:[], links:[]});
+
+		// get nodes
+		var xmlNodes = xmlDoc.getElementsByTagName("node");
+		for (var i = 0; i < xmlNodes.length; i++) {
+
+			var node1 = { id:" ", anchor:false, sColor:"black", novel:"", visible:true };
+
+			node1.symbol = xmlNodes[i].attributes.getNamedItem("id").nodeValue;
+			node1.name = xmlNodes[i].attributes.getNamedItem("label").nodeValue;
+
+			var atts = xmlDoc.getElementsByTagName("node")[i].getElementsByTagName("att");
+			for (var j = 0; j < atts.length; j++){
+				var variable = atts[j].getAttributeNode("name").nodeValue;
+				node1[variable] = atts[j].getAttributeNode("value").nodeValue;
+			}
+
+			// convert from string to number or Boolean
+			node1.x = Number(node1.x);
+			node1.y = Number(node1.y);
+			node1.visible = true;
+			node1.fixed = false;
+			node1.novel = true;
+			node1.anchor = false;
+
+			node1.network = currentNetwork;
+			node1.id = "" + currentNetwork + "." + i;
+
+			networks[currentNetwork].nodes.push(node1);
+
+		} // for nodes
+
+		//get links
+		var xmlEdges = xmlDoc.getElementsByTagName("edge");
+		for (var i = 0; i < xmlEdges.length; i++) {
+
+			var currentEdge = xmlEdges[i];
+
+			var link1 = { source:" ", target:" ", sColor:"black",
+					predicate:[{label:" ", visible:true, sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+			link1.source = networks[currentNetwork].nodes[findNode(currentEdge.attributes.getNamedItem("source").nodeValue, currentNetwork)];
+			link1.target = networks[currentNetwork].nodes[findNode(currentEdge.attributes.getNamedItem("target").nodeValue, currentNetwork)];
+			link1.path = currentEdge.attributes.getNamedItem("path").nodeValue;
+
+			var predicates = currentEdge.childNodes;
+			for (var j = 0; j < predicates.length; j++) {
+
+				var pred = {label:" ", visible:true, sentence:[] };
+
+				pred.label = predicates[j].attributes.getNamedItem("label").nodeValue;
+				link1.predicate[j] = pred;
+
+				var sentences = predicates[j].childNodes;
+				for (var k = 0; k < sentences.length; k++){
+
+					var sentence1 = {PMID:"", SID:"", sNumber:"", abti:"", text:""};
+
+					sentence1.PMID = sentences[k].attributes.getNamedItem("PMID").nodeValue;
+					sentence1.SID = sentences[k].attributes.getNamedItem("SID").nodeValue;
+					sentence1.abti = sentences[k].attributes.getNamedItem("abti").nodeValue;
+					sentence1.sNumber = sentences[k].attributes.getNamedItem("sNumber").nodeValue;
+					sentence1.text = sentences[k].attributes.getNamedItem("text").nodeValue;
+
+					link1.predicate[j].sentence[k] = sentence1;
+				}
+			}
+
+			var linkFound = findLink(link1, currentNetwork);
+
+			if (linkFound != -1) {
+
+				var predicateFound = findPredicate(link1.predicate[0], currentNetwork, linkFound);
+
+				if (predicateFound != -1 ) { // predicate exists so push each sentence
+
+					for (var k = 0; k < link1.predicate[0].sentence.length; k++) {
+
+						networks[currentNetwork].links[linkFound].predicate[predicateFound].sentence.push(link1.predicate[0].sentence[k]);
+					}
+				}
+
+				else { // predicate doesn't exist so push the whole predicate
+
+					networks[currentNetwork].links[linkFound].predicate.push(link1.predicate[0]);
+				}
+			}
+
+			else { // link doesn't exist at all so add entire link
+
+				networks[currentNetwork].links.push(link1);
+			}
+
+		} // for links
+
+ 	} // SemMed2 graph
+
+ 	else if (xmlDoc.getElementsByTagName("seed").length == 1) { // traditional SemMed graph xml
+
+		// get anchor
+		var Anchor = xmlDoc.getElementsByTagName("seed")[0].attributes.getNamedItem("value").nodeValue;
+
+		currentNetwork = networks.length;
+
+		var file = document.getElementById("files").value.substring(document.getElementById("files").value.lastIndexOf('\\')+1);
+
+		networks.push({id:currentNetwork, searchTerms:"", fileName:file, deleted:false, nodes:[], links:[]});
+
+		// get nodes
+		for (var i = 0, n; n = xmlDoc.getElementsByTagName("node")[i]; i++) {
+
+			var node1 = { id:" ", anchor:false, sColor:"black", novel:"", visible:true };
+
+			node1.network = currentNetwork;
+			node1.id = "" + currentNetwork + "." + i;
+			node1.symbol = xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("id").nodeValue;
+			node1.name = xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("name").nodeValue;
+			node1.semtype = xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("semtype").nodeValue;
+			node1.visible = true;
+			node1.x = Number(xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("x").nodeValue);
+			node1.y = Number(xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("y").nodeValue);
+			node1.novel = true;
+
+
+			if(node1.name == Anchor) {
+				node1.anchor = true;
+				AnchorNode = node1;
+			}
+
+			networks[currentNetwork].nodes.push(node1);
+
+		} // for nodes
+
+		//get links
+		for (var j = 0, m; m = xmlDoc.getElementsByTagName("edge")[j]; j++) {
+
+			var link1 = { source:" ", target:" ", sColor:"black",
+					predicate:[{label:" ", visible:true, sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+
+			link1.source = networks[currentNetwork].nodes[findNode(xmlDoc.getElementsByTagName("edge")[j].attributes.getNamedItem("source").nodeValue, currentNetwork)];
+			link1.target = networks[currentNetwork].nodes[findNode(xmlDoc.getElementsByTagName("edge")[j].attributes.getNamedItem("target").nodeValue, currentNetwork)];
+			link1.predicate[0].label = xmlDoc.getElementsByTagName("edge")[j].attributes.getNamedItem("label").nodeValue;
+
+			var children = xmlDoc.getElementsByTagName("edge")[j].childNodes;
+
+			for (var i = 0; i < children.length; i++) {
+
+				var sentence1 = {PMID:"", SID:"", sNumber:"", abti:"", text:""};
+
+				var sentence_id = children[i].attributes.getNamedItem("id").nodeValue;
+				sentence1.PMID = sentence_id.substr(0,sentence_id.indexOf("."));
+				sentence1.abti = sentence_id.substr(sentence_id.indexOf(".") + 1, 2);
+				sentence1.sNumber = sentence_id.substr(sentence_id.indexOf(".") + 4, 3);
+				sentence1.text = children[i].attributes.getNamedItem("text").nodeValue;
+
+				link1.predicate[0].sentence[i] = sentence1;
+			}
+
+			var linkFound = findLink(link1, currentNetwork);
+
+			if (linkFound != -1) {
+
+				var predicateFound = findPredicate(link1.predicate[0], currentNetwork, linkFound);
+
+				if (predicateFound != -1 ) { // predicate exists so push each sentence
+
+					for (var k = 0; k < link1.predicate[0].sentence.length; k++) {
+
+						networks[currentNetwork].links[linkFound].predicate[predicateFound].sentence.push(link1.predicate[0].sentence[k]);
+					}
+				}
+
+				else { // predicate doesn't exist so push the whole predicate
+
+					networks[currentNetwork].links[linkFound].predicate.push(link1.predicate[0]);
+				}
+			}
+
+			else { // link doesn't exist at all so add entire link
+
+				networks[currentNetwork].links.push(link1);
+			}
+
+		} // for links
+
+	} // traditional SemMed graph xml
+
+	else { // graph type not recognized
+
+		myDialog("Unfortunately, this graph is not readable.", 310, "OK", function() {$(this).dialog("close");});
+		return -1;
+	}
+
+	// remove SEMED network
+	if (nodes.length == 17) {
+		if (nodes[1].symbol == "B") {
+
+			links.splice(0, links.length);
+			nodes.splice(0, nodes.length);
+			labels.splice(0, labels.length);
+			start();
+		}
+	}
+
+	// delete any networks
+	if (nodes.length > 0) {
+
+		var nets = [];
+		for (var i = 0; i < nodes.length; i++) {
+			nodes[i].sColor = "red";
+			if (nets.indexOf(nodes[i].network) == -1) nets.push(nodes[i].network);
+		}
+
+		// delete all networks
+		for (var i = 0; i < nets.length; i++) deleteNetwork(nets[i],1);
+	}
+
+	// copy network to svg1 network per summarization requirements
+	viewNetwork(currentNetwork);
+
+	if (AnchorNode == undefined) {
+		// anchor = highest degree node
+		setDegree();
+		var AnchorNode = setAnchor(currentNetwork);
+	}
+	createAnchorGradient(AnchorNode);
+
+	start();
+
+	freezeNetwork(true); // unfreeze all networks
+
+	svg1.style("opacity", 1e-6)
+		.transition()
+		.duration(function() {return links.length;})
+		.style("opacity", 1);
+
+	fillNetworkSelector();
+    fillSchemaSelector();
+    fillSeedSelector(getSelectedNetwork());
+    setFindAutocomplete();
+	resetPredCheckboxes();
+	resetSemGroupCheckboxes();
+
+	function findNode(symb, net) {
+
+		for (var i = 0; i < networks[net].nodes.length; i++) {
+
+			if (networks[net].nodes[i].symbol == symb && networks[net].nodes[i].network == net) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	function findLink(link1, net) {
+		for (var i = 0; i < networks[net].links.length; i++) {
+			if (networks[net].links[i].source == link1.source && networks[net].links[i].target == link1.target
+				&& networks[net].links[i].source.network == net) {
+
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	function findPredicate(predicate1, net, linkIndex) {
+
+		for (var j = 0; j < networks[net].links[linkIndex].predicate.length; j++ ) {
+
+			if (networks[net].links[linkIndex].predicate[j].label == predicate1.label) {
+
+				return j;
+			}
+		}
+
+
+		return -1;
+	}
+
+}
+
+function moveGraph(from){
+
+	var toNodes = nodes, toLinks = links, fromNodes = nodes2, fromLinks = links2, Labels = labels2;
+
+	if (from == 1) {
+		toNodes = nodes2, toLinks = links2, fromNodes = nodes, fromLinks = links, Labels = labels;
+	}
+
+	// find selected network(s)
+	var selectedNets = [];
+
+	if (from == 1) { // from main screen to storage
+
+		for (var i = 0; i < fromNodes.length; i++) {
+
+			if (fromNodes[i].sColor == "red") {
+
+				if(selectedNets.indexOf(fromNodes[i].network) == -1) {
+					selectedNets.push(fromNodes[i].network);
+				}
+
+			}
+		}
+	}
+
+	else { // storage networks to main screen, for = 2 or 3 (combine)
+
+		for (var i = 0; i < fromNodes.length; i++) {
+
+			if (Labels[i].sColor == "red") {
+
+				if(selectedNets.indexOf(Labels[i].network) == -1) {
+					selectedNets.push(Labels[i].network);
+				}
+			}
+		}
+	}
+
+
+	// if none selected select only network (if only one)
+	if (selectedNets.length == 0) {
+
+		if (from == 3) {
+
+			myDialog("Networks to be combined must be selected first.", 310, "OK", function() {$(this).dialog("close");});
+			return;
+		}
+
+		var networkList = [];
+
+		fromNodes.forEach(function (d, i){
+
+			if (networkList.indexOf(d.network) == -1)
+				networkList.push(d.network);
+			});
+
+		if (networkList.length == 1) selectedNets[0] = networkList[0];
+
+	}
+
+	// if combining networks, create new network
+	if (from == 3) {
+
+		currentNetwork = networks.length;
+		networks.push({id:currentNetwork, searchTerms:"Combined Network", fileName:"", deleted:false, nodes:[], links:[]});
+
+		toNodes = networks[currentNetwork].nodes;
+		toLinks = networks[currentNetwork].links;
+
+	}
+
+	var nodeIdCounter = 0;
+
+	// go through each of the selected networks
+	for (var h=0; h<selectedNets.length; h++) {
+
+		var nStart = findFirstNode(selectedNets[h],fromNodes);
+		var nStop  = findLastNode (selectedNets[h],fromNodes);
+		var lStart = findFirstLink(selectedNets[h],fromLinks);
+		var lStop  = findLastLink (selectedNets[h],fromLinks);
+
+		// copy nodes
+		for (var i = nStart; i <= nStop; i++) {
+
+			var node2 = { id:" " };
+
+			if (from == 3) {
+				node2.network = currentNetwork;
+				node2.id = "" + currentNetwork + "." + nodeIdCounter;
+				node2.oldId = fromNodes[i].id;
+			}
+			else {
+				node2.network = fromNodes[i].network;
+				node2.id = fromNodes[i].id;
+			}
+
+			node2.symbol = fromNodes[i].symbol;
+			node2.name = fromNodes[i].name;
+			node2.semtype = fromNodes[i].semtype;
+			node2.visible = fromNodes[i].visible;
+			node2.novel = fromNodes[i].novel;
+			node2.sColor = fromNodes[i].sColor;
+			node2.x = fromNodes[i].x;
+			node2.y = fromNodes[i].y + 100*node2.network;
+			node2.anchor = fromNodes[i].anchor;
+
+			//if node2.symbol not in network, push
+			if (from != 3) {
+				if (findNode(node2.id, toNodes) == -1){
+					toNodes.push(node2);
+					nodeIdCounter++;
+				}
+			}
+			else {
+
+				if (findNodeBySymbol(node2.symbol, toNodes) == -1){
+					toNodes.push(node2);
+					nodeIdCounter++;
+				}
+			}
+
+		} // for nodes
+
+		// copy links
+		for (var j = lStart; j <= lStop; j++) {
+
+			var link2 = { source:"", target:"", sColor:"black",
+				predicate:[{label:" ", sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+
+			if (from == 3){
+
+				link2.source = toNodes[findNodeBySymbol(fromLinks[j].source.symbol, toNodes)];
+				link2.target = toNodes[findNodeBySymbol(fromLinks[j].target.symbol, toNodes)];
+
+			}
+			else {
+
+				link2.source = toNodes[findNode(fromLinks[j].source.id, toNodes)];
+				link2.target = toNodes[findNode(fromLinks[j].target.id, toNodes)];
+
+			}
+
+			link2.predicate = fromLinks[j].predicate;
+			addLink(link2, toLinks);
+
+	       	}// for links
+
+	    if (from != 3) {
+			// delete links, nodes for selected net(s)
+			fromLinks.splice(lStart, (lStop-lStart)+1);
+			fromNodes.splice(nStart, (nStop - nStart)+1);
+	    }
+
+	}
+
+	// for combine mode, copy from networks to SVG1's nodes and links
+	if (from == 3) {
+
+		viewNetwork(currentNetwork);
+
+		// anchor = highest degree node
+		setDegree();
+		var Anchor = setAnchor(currentNetwork);
+		createAnchorGradient(Anchor);
+	}
+
+	start();
+	start2();
+
+	freezeNetwork(true); // unfreeze all networks
+
+	fillNetworkSelector();
+    fillSchemaSelector();
+    fillSeedSelector(getSelectedNetwork());
+    setFindAutocomplete();
+	resetPredCheckboxes();
+	resetSemGroupCheckboxes();
+
+}
+
+// findNode takes the node.id and the nodes array and returns the index of the node with the passed id in the passed array.
+function findNode(ID, Nodes) {
+
+	for (var i = 0; i < Nodes.length; i++) {
+		if (Nodes[i].id == ID) {return i;}
+	}
+
+	return -1;
+}
+
+function findNodeBySymbol(symb, Nodes) {
+
+	for (var i = 0; i < Nodes.length; i++) {
+
+		if (Nodes[i].symbol == symb) return i;
+
+	}
+
+	return -1;
+}
+
+function findLink(link1, Links) {
+
+	for (var i = 0; i < Links.length; i++) {
+		if (Links[i].source == link1.source && Links[i].target == link1.target) {	return i;}
+	}
+
+	return -1;
+}
+
+function findPredicate(predicate1, link1) {
+
+	for (var j = 0; j < link1.predicate.length; j++ ) {
+
+		if (link1.predicate[j].label == predicate1.label) {
+
+			return j;
+		}
+	}
+
+
+	return -1;
+}
+
+function combineGraph(intersect){
+
+	var toNodes = nodes, toLinks = links, fromNodes = nodes2, fromLinks = links2, Labels = labels2;
+
+	// find selected network(s)
+	var selectedNets = [];
+
+	for (var i = 0; i < fromNodes.length; i++) {
+
+		if (Labels[i].sColor == "red") {
+
+			if(selectedNets.indexOf(Labels[i].network) == -1) {
+				selectedNets.push(Labels[i].network);
+			}
+		}
+	}
+
+	if (selectedNets.length == 0) {
+
+		myDialog("Networks to be combined must be selected first.", 310, "OK", function() {$(this).dialog("close");});
+		return;
+	}
+
+	var networkList = [];
+
+	fromNodes.forEach(function (d, i){
+
+		if (networkList.indexOf(d.network) == -1)
+			networkList.push(d.network);
+		});
+
+	if (networkList.length == 1) selectedNets[0] = networkList[0];
+
+	// Go through all links and make a list of subject-object pairs that exist in all selected networks
+	var intersectList = [];
+	for (var i = 0; i < fromLinks.length; i++) {
+
+		if (selectedNets.indexOf(fromLinks[i].source.network) != -1){ // if link is in selected network
+
+			var foundList = [];
+
+			for (var j = 0; j < selectedNets.length; j++) {
+
+				var found = false;
+
+				for (var k = 0; k < fromLinks.length; k++){
+
+					if (fromLinks[k].source.network == selectedNets[j] &&
+							(
+								(fromLinks[i].source.symbol == fromLinks[k].source.symbol &&
+										fromLinks[i].target.symbol == fromLinks[k].target.symbol) ||
+								(fromLinks[i].source.symbol == fromLinks[k].target.symbol &&
+										fromLinks[i].target.symbol == fromLinks[k].source.symbol)
+							)
+						){
+							found = true;
+							break;
+						}
+					}
+
+				if (found == true) foundList.push(true);
+				else {
+					foundList.push(false);
+					break;
+				}
+			}
+
+			// if subject-object combos found in all networks push to intersectList
+			var check = true;
+			for (var j = 0; j < foundList.length; j++) check = check && foundList[j];
+			if (foundList.length == 0) check = false;
+
+			if (check == true) intersectList.push(fromLinks[i]);
+		}
+	}
+
+	if (intersectList.length == 0)
+		myDialog("No common concept pairs found.", 310, "OK", function() {$(this).dialog("close");});
+	else {
+
+		currentNetwork = networks.length;
+		networks.push({id:currentNetwork, searchTerms:"Combined Network", fileName:"", deleted:false, nodes:[], links:[]});
+
+		toNodes = networks[currentNetwork].nodes;
+		toLinks = networks[currentNetwork].links;
+
+		var nodeIdCounter = 0;
+
+		for (var h = 0; h < intersectList.length; h++) {
+
+			var node1 = { id:" " };
+
+			node1.network = currentNetwork;
+			node1.id = "" + currentNetwork + "." + nodeIdCounter;
+			node1.oldId = intersectList[h].source.id;
+			node1.symbol = intersectList[h].source.symbol;
+			node1.name = intersectList[h].source.name;
+			node1.semtype = intersectList[h].source.semtype;
+			node1.visible = intersectList[h].source.visible;
+			node1.novel = intersectList[h].source.novel;
+			node1.sColor = "black";
+			node1.x = intersectList[h].source.x;
+			node1.y = intersectList[h].source.y + 100*node1.network;
+			node1.weight = 1;
+			node1.anchor = intersectList[h].source.anchor;
+
+			//if node1.symbol not in network, push
+			if (findNodeBySymbol(node1.symbol, toNodes) == -1){
+				toNodes.push(node1);
+				nodeIdCounter++;
+			}
+
+			var node2 = { id:" " };
+
+			node2.network = currentNetwork;
+			node2.id = "" + currentNetwork + "." + nodeIdCounter + ".5";
+			node2.oldId = intersectList[h].target.id;
+			node2.symbol = intersectList[h].target.symbol;
+			node2.name = intersectList[h].target.name;
+			node2.semtype = intersectList[h].target.semtype;
+			node2.visible = intersectList[h].target.visible;
+			node2.novel = intersectList[h].target.novel;
+			node2.sColor = "black";
+			node2.x = intersectList[h].target.x;
+			node2.y = intersectList[h].target.y + 100*node2.network;
+			node2.weight = 1;
+			node2.anchor = intersectList[h].target.anchor;
+
+			//if node2.symbol not in network, push
+			if (findNodeBySymbol(node2.symbol, toNodes) == -1){
+				toNodes.push(node2);
+				nodeIdCounter++;
+			}
+
+			// copy link
+			var link2 = { source:"", target:"", sColor:"black",
+				predicate:[{label:" ", sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+
+			link2.source = toNodes[findNodeBySymbol(intersectList[h].source.symbol, toNodes)];
+			link2.target = toNodes[findNodeBySymbol(intersectList[h].target.symbol, toNodes)];
+			link2.predicate = intersectList[h].predicate;
+
+			addLink(link2, toLinks);
+		}
+
+	// copy from networks to SVG1's nodes and links
+	viewNetwork(currentNetwork);
+
+	// anchor = highest degree node
+	setDegree();
+	var Anchor = setAnchor(currentNetwork);
+	createAnchorGradient(Anchor);
+
+	start();
+	start2();
+
+	freezeNetwork(true); // unfreeze all networks
+
+	fillNetworkSelector();
+    fillSchemaSelector();
+    fillSeedSelector(getSelectedNetwork());
+    setFindAutocomplete();
+	resetPredCheckboxes();
+	resetSemGroupCheckboxes();
+
+	} // else (intersectList != 0)
+
+}
+
+function addLink(Link, Links){
+
+	var linkFound = findLink(Link, Links);
+
+	if (linkFound == -1) { // Link not found
+
+		Links.push(Link);
+
+	} else { // Link found
+
+		var predicateFound = findPredicate(Link.predicate[0], Links[linkFound]);
+
+		if (predicateFound != -1 ) { // predicate exists so push each sentence
+
+			for (var k = 0; k < Link.predicate[0].sentence.length; k++) {
+
+				if (Links[linkFound].predicate[predicateFound].sentence.indexOf(Link.predicate[0].sentence[k]) == -1)
+					Links[linkFound].predicate[predicateFound].sentence.push(Link.predicate[0].sentence[k]);
+			}
+		}
+
+		else { // predicate doesn't exist so push the whole predicate
+
+			if (Links[linkFound].predicate.indexOf(Link.predicate[0]) == -1)
+				Links[linkFound].predicate.push(Link.predicate[0]);
+		}
+	}
+
+}
+
+function combineDialog() {
+	$( "#combineDialog" ).dialog({
+
+		width: 310,
+		buttons: {
+				"Union": function() {
+
+					$( this ).dialog( "close" );
+					moveGraph(3);
+
+				},
+
+				"Intersection": function() {
+
+					$( this ).dialog( "close" );
+					combineGraph(true);
+
+				}
+			},
+	    open: function() {
+
+	    	// Union button image
+	    	var imgUrl = "images/union.png";
+	    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('background', 'url('+imgUrl+')');
+	    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('background-size', 'cover');
+	    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('width', '135px');
+	    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('height', '100px');
+
+	    	// Intersection button image
+	    	imgUrl = "images/intersection.png";
+	    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('background', 'url('+imgUrl+')');
+	    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('background-size', 'cover');
+	    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('width', '135px');
+	    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('height', '100px');
+
+	    	$('.ui-dialog').css('background', 'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+	    	$(".ui-dialog-titlebar").css("background","none repeat scroll 0% 0% #FFE384");
+	    	$(".ui-dialog-titlebar").css("border", "1px solid #444");
+	    	$('.ui-dialog-buttonpane').find("button").css("box-shadow", "2px 2px 3px #000");
+	    	$('.ui-dialog-buttonpane').find("button").css("border", "1px solid #444");
+	    	$(".ui-widget-content").css("background",'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+	    	$("#combineDialog").css("background","none");
+	    	$(".ui-dialog").css("box-shadow", "2px 2px 3px #000");
+	    	$(".ui-dialog").css("border", "1.5px solid #333");
+	    }
+	});
+}
+
+function myDialog(message, inWidth, value1, function1, value2, function2) {
+
+	if (message == undefined || message == null) message = "";
+	if (inWidth == undefined || inWidth < 100) inWidth = 310;
+
+	if (value2 == null || value2 == undefined) {
+
+		$( "#myDialog" ).dialog({
+
+			width: inWidth,
+			buttons: [{
+					text:value1,
+					click: function1
+					}],
+
+		    open: function() {
+
+		    	// Union button image
+		    	var imgUrl = "images/union.png";
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('background', 'url('+imgUrl+')');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('background-size', 'cover');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('width', '135px');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('height', '100px');
+
+		    	// Intersection button image
+		    	imgUrl = "images/intersection.png";
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('background', 'url('+imgUrl+')');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('background-size', 'cover');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('width', '135px');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('height', '100px');
+
+		    	$('.ui-dialog').css('background', 'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+		    	$(".ui-dialog-titlebar").css("background","none repeat scroll 0% 0% #FFE384");
+		    	$(".ui-dialog-titlebar").css("border", "1px solid #444");
+		    	$('.ui-dialog-buttonpane').find("button").css("box-shadow", "2px 2px 3px #000");
+		    	$('.ui-dialog-buttonpane').find("button").css("border", "1px solid #444");
+		    	$(".ui-widget-content").css("background",'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+		    	$("#combineDialog").css("background","none");
+		    	$(".ui-dialog").css("box-shadow", "2px 2px 3px #000");
+		    	$(".ui-dialog").css("border", "1.5px solid #333");
+		    }
+		});
+	}
+	else {
+
+		$( "#myDialog" ).dialog({
+
+			width: inWidth,
+			buttons: [
+			        {text:value1, click: function1},
+					{text:value2, click: function2}
+					],
+
+		    open: function() {
+
+		    	// Union button image
+		    	var imgUrl = "images/union.png";
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('background', 'url('+imgUrl+')');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('background-size', 'cover');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('width', '135px');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Union")').css('height', '100px');
+
+		    	// Intersection button image
+		    	imgUrl = "images/intersection.png";
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('background', 'url('+imgUrl+')');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('background-size', 'cover');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('width', '135px');
+		    	$('.ui-dialog-buttonpane').find('button:contains("Intersection")').css('height', '100px');
+
+		    	$('.ui-dialog').css('background', 'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+		    	$(".ui-dialog-titlebar").css("background","none repeat scroll 0% 0% #FFE384");
+		    	$(".ui-dialog-titlebar").css("border", "1px solid #444");
+		    	$('.ui-dialog-buttonpane').find("button").css("box-shadow", "2px 2px 3px #000");
+		    	$('.ui-dialog-buttonpane').find("button").css("border", "1px solid #444");
+		    	$(".ui-widget-content").css("background",'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+		    	$("#combineDialog").css("background","none");
+		    	$(".ui-dialog").css("box-shadow", "2px 2px 3px #000");
+		    	$(".ui-dialog").css("border", "1.5px solid #333");
+		    }
+		});
+	}
+
+	document.getElementById("myDialogP").innerHTML = message;
+}
+
+function deleteSelectedNetwork(SVG) {
+
+	if (confirm("Do you really want to delete the selected network(s)?") == false) return;
+
+	var Nodes = nodes, Links = links, Labels = labels, currentSVG = svg1;
+
+	if (SVG == 2) {
+		Nodes = nodes2, Links = links2, Labels = labels2, currentSVG = svg2;
+	}
+
+	var selectedNets = [];
+
+	// find selected network(s)
+	if (SVG == 1) {
+		for (var i = 0; i < Nodes.length; i++) {
+
+			if (Nodes[i].sColor == "red") {
+
+				if(selectedNets.indexOf(Nodes[i].network) == -1) {
+					selectedNets.push(Nodes[i].network);
+				}
+
+			}
+		}
+	}
+
+	else {
+		for (var i = 0; i < Nodes.length; i++) {
+
+			if (Labels[i].sColor == "red") {
+
+				if(selectedNets.indexOf(Nodes[i].network) == -1) {
+					selectedNets.push(Nodes[i].network);
+				}
+			}
+		}
+
+	}
+
+	for (var i=0; i<selectedNets.length; i++) {
+
+		var lStart = findFirstLink(selectedNets[i],Links);
+		var lStop  = findLastLink (selectedNets[i],Links);
+		var nStart = findFirstNode(selectedNets[i],Nodes);
+		var nStop  = findLastNode (selectedNets[i],Nodes);
+
+		// delete links, nodes, and labels for selected net(s)
+		Links.splice(lStart, (lStop-lStart)+1);
+		Nodes.splice(nStart, (nStop - nStart)+1);
+
+		// mark network as deleted and remove extra data (nodes & links)
+		networks[i].deleted = true;
+		networks[i].links = [];
+		networks[i].nodes = [];
+	}
+
+	start();
+	start2();
+}
+
+function deleteNetwork(net,SVG) {
+
+	var Nodes = nodes, Links = links, Labels = labels;
+
+	if (SVG == 2) {
+		Nodes = nodes2, Links = links2, Labels = labels2;
+	}
+
+	var lStart = findFirstLink(net,Links);
+	var lStop  = findLastLink (net,Links);
+	var nStart = findFirstNode(net,Nodes);
+	var nStop  = findLastNode (net,Nodes);
+
+	// delete links, nodes, and labels for selected net(s)
+	Links.splice(lStart, (lStop-lStart)+1);
+	Nodes.splice(nStart, (nStop - nStart)+1);
+
+	start();
+}
+
+function deleteChain() {
+
+	if (confirm("Delete all selected links?") == false) return;
+
+	var Nodes = nodes3;
+	var Links = links3;
+	// delete selected links
+	for (var i = 0; i<Links.length; i++) {
+
+		if (Links[i].sColor == "yellow") {
+			Links.splice(i,1);
+			i--;
+		}
+	}
+
+
+	// clean up dangling nodes
+	for (var j=0; j < Nodes.length; j++) {
+
+		var parents = getOtherParents(Nodes[j].id, "@#$%");   // get all parents
+		var children = getOtherChildren(Nodes[j].id, "@#$%"); // get all children
+		if (parents.length == 0 && children.length == 0) {
+			Nodes.splice(j,1);
+			j--;
+		}
+	}
+
+	// clean up last node if no links left
+	if (Nodes.length == 1) Nodes.pop();
+
+	labels3 = null;
+	start3();
+
+	// Update LogicBuilder button with count
+	document.getElementById("b").innerHTML = "LogicBuilder [" + links3.length +"]";
+
+}
+
+function hideLabels() {
+
+	if (document.getElementById("hideLabels").value == "Hide Labels") {
+
+		linkLabel3.attr("opacity", 0);
+		document.getElementById("hideLabels").value = "Show Labels";
+	} else {
+		linkLabel3.attr("opacity", 1);
+		document.getElementById("hideLabels").value = "Hide Labels";
+	}
+	start3();
+}
+
+function findFirstNode(net, Nodes){
+
+	for (var i=0; i<Nodes.length; i++) {
+		if (Nodes[i].network == net) {return i;}
+	}
+
+	return -1;
+}
+
+function findLastNode(net, Nodes){
+
+	var count = 0;
+	var i = 0;
+	while (i<Nodes.length) {
+		if (Nodes[i].network == net) {count++;}
+		else if (count > 0) {return (i-1);}
+		i++;
+	}
+
+	if (count > 0) {return i-1;} else {return -1;}
+}
+
+function findFirstLink(net, Links){
+
+	for (var i=0; i<Links.length; i++) {
+		if (Links[i].source.network == net) {return i;}
+	}
+
+	return -1;
+}
+
+function findLastLink(net, Links){
+
+	var count = 0;
+	var i = 0;
+	while (i<Links.length) {
+		if (Links[i].source.network == net) {count++;}
+		else if (count > 0) {return (i-1);}
+		i++;
+	}
+
+	if (count > 0) {return i-1;} else {return -1;}
+}
+
+function setAnchor(net){
+
+	var Nodes = nodes;
+	var locMaxDegree = 0;
+	var Anchor = 0;
+
+	for (var i = 0; i < Nodes.length; i++) {
+
+		if (Nodes[i].network == net) {
+
+			Nodes[i].anchor = false;
+
+			if (Nodes[i].degree > locMaxDegree) {
+				locMaxDegree = Nodes[i].degree;
+				Anchor = i;
+			}
+		}
+	}
+
+	Nodes[Anchor].anchor = true;
+
+	return Nodes[Anchor];
+}
+
+function createAnchorGradient (node) {
+
+	var gradient = svg1.append("svg:defs")
+			.append("svg:radialGradient")
+			.attr("id", function () { return "" + node.id + ".gradient"; })
+			.attr("x1", "0%")
+			.attr("x2", "70%")
+			.attr("x2", "95%")
+			.attr("y2", "100%");
+
+	gradient.append("svg:stop")
+		.attr("offset", "5%")
+		.attr("stop-color", "white");
+
+	gradient.append("svg:stop")
+		.attr("offset", "15%")
+		.attr("stop-color", function () { return nodeColorScale(semanticGroupsScale(node.semtype));});
+
+	gradient.append("svg:stop")
+		.attr("offset", "85%")
+		.attr("stop-color", function () { return nodeColorScale(semanticGroupsScale(node.semtype));});
+
+	gradient.append("svg:stop")
+		.attr("offset", "90%")
+		.attr("stop-color", "white");
+
+	gradient.append("svg:stop")
+		.attr("offset", "100%")
+		.attr("stop-color", "DarkOrange");
+}
+
+function freezeNetwork(forceUnfreeze){
+
+    if (forceUnfreeze == true) {
+
+		for (var i = 0; i < nodes.length; i++) {nodes[i].fixed = false;}
+		document.getElementById("freezeSVG").value = "Freeze";
+    }
+
+    else {
+
+		if (document.getElementById("freezeSVG").value=="Freeze") {
+
+			for (var i = 0; i < nodes.length; i++) {nodes[i].fixed = true;}
+			document.getElementById("freezeSVG").value = "Unfreeze";
+		}
+		else {
+
+			for (var i = 0; i < nodes.length; i++) {nodes[i].fixed = false;}
+			document.getElementById("freezeSVG").value = "Freeze";
+		}
+    }
+
+}
+
+function setDegree(){
+/*
+	for (var j = 0; j < nodes.length; j++) {
+
+		var linkCount = 0;
+		for (var i = 0; i < links.length; i++) {
+
+			if(links[i].source.id == nodes[j].id || links[i].target.id == nodes[j].id) {
+				linkCount += 1;
+			}
+		}
+
+		nodes[j].degree = linkCount;
+	}
+*/
+	for (var i = 0; i < links.length; i++) {
+
+		links[i].source.degree += 1;
+		links[i].target.degree += 1;
+
+	}
+
+}
+
+function getMostConnectedNode(network){
+
+	var maxNode = network.nodes[0];
+	var linkCount;
+	var maxLinkCount = 0;
+
+	for (var i = 0; i < network.nodes.length; i++) {
+
+		linkCount = 0;
+		for (var j = 0; j < network.links.length; j++) {
+
+			if(network.links[j].source.id == network.nodes[i].id || network.links[j].target.id == network.nodes[i].id) {
+				linkCount += 1;
+			}
+		}
+
+		if (linkCount > maxLinkCount) maxNode = network.nodes[i];
+	}
+
+	return maxNode;
+}
+
+function selectAll(SVG) {
+	if (SVG == 1) {
+		for (var i=0; i<nodes.length; i++) {nodes[i].sColor = "red";}
+		start();
+	}
+
+	if (SVG == 2) {
+		for (var i=0; i<labels2.length; i++) {labels2[i].sColor ="red";}
+		start2();
+	}
+
+	if (SVG == 3) {
+		for (var i=0; i<nodes3.length; i++) {nodes3[i].sColor = "red";}
+		start3();
+	}
+
+}
+
+function clearAll(SVG) {
+
+	if (SVG == 1) {
+		for (var i=0; i<nodes.length; i++) {nodes[i].sColor = "black";}
+		start();
+	}
+
+	if (SVG == 2) {
+		for (var i=0; i<labels2.length; i++) {labels2[i].sColor ="#79B";}
+		start2();
+	}
+
+	if (SVG == 3) {
+		for (var i=0; i<nodes3.length; i++) {nodes3[i].sColor = "black";}
+		start3();
+	}
+}
+
+function selectAllLinks(SVG) {
+
+	if (SVG == 3) {
+		for (var i=0; i<links3.length; i++) {links3[i].sColor = "yellow";}
+		start3();
+	}
+
+}
+
+function clearAllLinks(SVG) {
+
+	if (SVG == 3) {
+		for (var i=0; i<links3.length; i++) {links3[i].sColor = "black";}
+		start3();
+	}
+}
+
+function selectNetwork(currentNetwork){
+
+
+	for (var i=0; i<labels2.length; i++) {
+		if (labels2[i].network == currentNetwork) {
+
+
+	var currentFill = labels2[i].sColor;
+	currentFill = currentFill == "#79B" ? "red" : "#79B";
+			labels2[i].sColor = currentFill;
+		}
+	}
+
+	start2();
+}
+
+function showConnected(show){
+
+	return function(thisNode, index) {
+
+		if (show == true){
+			for (var j = 0; j < links.length; j++) {
+				// if not connected to the hovered over node make the link invisible
+				if (links[j].source.id != thisNode.id && links[j].target.id != thisNode.id)
+					for (var k = 0; k < links[j].predicate.length; k++) links[j].predicate[k].visible = false;
+			}
+		} else {
+
+			// get filtered predicates
+			var filteredPreds = [];
+			var predCheckboxes = document.getElementsByName("PC");
+			for (var n = 0; n < predCheckboxes.length; n++) {
+				if (predCheckboxes[n].checked == false) {
+					filteredPreds.push(predCheckboxes[n].parentNode.innerHTML.substring(predCheckboxes[n].parentNode.innerHTML.lastIndexOf(">")+1, predCheckboxes[n].parentNode.innerHTML.length));
+				}
+			}
+
+			for (var j = 0; j < links.length; j++) {
+				// if not connected to the hovered over node AND both source and target are visible (not filtered) then make visible
+				if (links[j].source != thisNode && links[j].target != thisNode && links[j].source.visible == true && links[j].target.visible == true) {
+
+					for (var k = 0; k < links[j].predicate.length; k++){
+						// if predicate is not filtered out, make it visible
+						if (filteredPreds.indexOf(links[j].predicate[k].label) != -1) links[j].predicate[k].visible = false;
+						else links[j].predicate[k].visible = true;
+					}
+				}
+			}
+		}
+	};
+
+}
+
+function showNodes(opacity){
+/*
+	var linkOpacity = opacity ? 0.65 : 0.2,
+		nodeOpacity = opacity ? 0.9 : 0.3,
+		labelOpacity = opacity ? 1 : 0.3
+		var timer = !opacity*2000 + 300;
+
+	return function(g, i) {
+
+		// hide labels, nodes, and links that are not in this link
+		label.filter(function(d) { return d.index != g.source.index && d.index != g.target.index; })
+			.transition()
+			.duration(timer)
+			.style("opacity", labelOpacity);
+		node.filter(function(d) { return d.index != g.source.index && d.index != g.target.index; })
+			.transition()
+			.duration(timer)
+			.style("opacity", nodeOpacity);
+		link.filter(function(d) {
+			return d.source.index != g.source.index || d.target.index != g.target.index; })
+			.transition()
+			.duration(timer)
+			.style("opacity", linkOpacity);
+	};
+*/
+}
+
+function toggleColor(d){
+
+	var currentColor = d.sColor;
+
+        currentColor = currentColor == "black" ? "red" : "black";
+        d.sColor = currentColor;
+}
+
+function addToSearch(d){
+
+	var text = " \"" + d.name + "\" ";
+	document.getElementById("searchTerm").value += text;
+}
+
+function linkClick3(d){
+
+	var currentColor = d.sColor;
+
+        currentColor = currentColor == "black" ? "yellow" : "black";
+        d.sColor = currentColor;
+
+	fillInfoText(d);
+}
+
+function MySet() {
+    var setObj = {};
+    var lastIndex = 0;
+
+    this.add = function(input) {
+        var hasItem = false;
+        for(var i =0; i < lastIndex; i++)  {
+        	if(setObj[i] == input) {
+        		hasItem = true;
+        		break;
+        	}
+        }
+        if(hasItem == false) {
+        	setObj[lastIndex] = input;
+        	lastIndex++;
+        }
+    };
+
+    this.length = function(str) {
+        return lastIndex ;
+    };
+
+}
+
+function fillInfoText(d) {
+
+	var predRow = "";
+	var PMIDRow = "";
+	var sentenceRow = "";
+	var SIDTerms = "";
+	var numPred =0;
+	var numSent = 0;
+	var numCit = 0;
+	var citset = new MySet();
+
+	// reset old text
+	document.getElementById("infoText").innerHTML = "";
+	document.getElementById("infoSummary").innerHTML = "";
+
+	// open panel if not open
+	if ($("#c").attr("class") == "trigger") { // closed panel
+		document.getElementById("c").click();
+	}
+
+	for (var i = 0; i < d.predicate.length; i++) {
+		for (var j = 0; j < d.predicate[i].sentence.length; j++) {
+
+			numPred++;
+			citset.add(d.predicate[i].sentence[j].PMID);
+			if (d.predicate[i].sentence[j].text == "") { // sentence lookup
+				predRow += "<td colspan='10'>" + d.source.name + "-" + d.predicate[i].label + "-" + d.target.name + "</td>";
+				PMIDRow += "<td colspan='10'><b>PMID:" + "<a rel='search' target='_blank' "
+					+ "href='http://www.ncbi.nlm.nih.gov/pubmed?cmd=search&term=" + d.predicate[i].sentence[j].PMID
+					+ "'>" + d.predicate[i].sentence[j].PMID + "</b></a></td>";
+				sentenceRow += "<td colspan='10' id='sentence." + d.predicate[i].sentence[j].PMID + "."
+				+ d.predicate[i].sentence[j].SID;
+
+				// add occurrence number to id for sentence lookup when multiple predications have the same PMID and SID
+				// (unique id required to select each html component using document.getElementById())
+				var n = 0; // current iteration
+				var count = 0; // count of instances
+				var target = "sentence." + d.predicate[i].sentence[j].PMID + "." + d.predicate[i].sentence[j].SID;
+
+				while (n < sentenceRow.lastIndexOf(target)){
+					n = sentenceRow.indexOf(target,n)+1;
+					count++;
+				}
+				count--; // adjust because index starts at 0 not 1
+				sentenceRow += "." + count + "' class='sentence'>Fetching sentence...</td>";
+
+				// add commas between SIDs for database lookup - no comma for last sentence of last predicate
+				var connector;
+				if (i == (d.predicate.length - 1) && j == (d.predicate[i].sentence.length - 1)) {
+					connector = "";
+				} else {
+					connector = ",";
+				}
+
+				SIDTerms += "'" + d.predicate[i].sentence[j].SID + "'" + connector; // add to sentence database lookup terms
+
+			} else { // no sentence lookup necessary
+
+				predRow += "<td colspan='10'>" + d.source.name + "-" + d.predicate[i].label + "-" + d.target.name + "</td>";
+				PMIDRow += "<td colspan='10'><b>PMID:" +"<a rel='search' target='_blank' "
+					+ "href='http://www.ncbi.nlm.nih.gov/pubmed?cmd=search&term=" + d.predicate[i].sentence[j].PMID
+					+ "'>" + d.predicate[i].sentence[j].PMID + "</b></a></td>";
+				sentenceRow += "<td colspan='10' id='sentence." + d.predicate[i].sentence[j].PMID + "."
+				+ d.predicate[i].sentence[j].SID + "' class='sentence''>" + d.predicate[i].sentence[j].text + "</td>";
+
+				if (d.predicate[i].sentence[j].SID != "") {
+
+					// add commas between SIDs for database lookup - no comma for last sentence of last predicate
+					var connector;
+					if (i == (d.predicate.length - 1) && j == (d.predicate[i].sentence.length - 1)) {
+						connector = "";
+					} else {
+						connector = ",";
+					}
+					SIDTerms += "'" + d.predicate[i].sentence[j].SID + "'" + connector; // add to sentence database lookup terms
+				}
+
+			}
+
+		} // for each sentence
+
+	} // for each predicate
+	numCit = citset.length();
+
+	// build table rows
+	document.getElementById("infoSummary").innerHTML += "<tr><td>Number of predications: " + numPred + "</td><td>; Number of Citations: " + numCit + "</td></tr>";
+	document.getElementById("infoText").innerHTML += "<tr>" + predRow + "</tr>";
+	document.getElementById("infoText").innerHTML += "<tr>" + PMIDRow + "</tr>";
+	document.getElementById("infoText").innerHTML += "<tr>" + sentenceRow + "</tr>";
+
+
+	// look up sentences
+	if (d.predicate.length > 0 && SIDTerms != "") {
+
+	    querySemMedDB2(SIDTerms, function(data){
+
+	    	// when database call is returned, add sentence to html
+			for (var k = 0; k < data.length; k++) {
+				var target = "sentence." + data[k][1] + "." + data[k][0]; // build the id of the target html element (sentence.PMID.SID)
+				var n = 0;
+				var count = 0;
+				var infoText = document.getElementById("infoText").innerHTML;
+
+				while (n < infoText.lastIndexOf(target)){
+					n = infoText.indexOf(target,n)+1;
+					count++;
+				}
+
+				for (var i = 0; i < count; i++) {
+					var targetCell = document.getElementById(target+"."+i); // get all of the html elements waiting for this sentence
+					targetCell.innerHTML = data[k][4]; // copy the sentence into each element
+				}
+			}
+			shiftChains();
+	    });
+
+	} else shiftChains();
+}
+
+function linkClick(thisLink) {
+
+	var sourceNode = { network:[""], id:"", oldId:[""], symbol:""};
+
+	sourceNode.network[0] = thisLink.source.network;
+	sourceNode.id = thisLink.source.symbol;
+	sourceNode.oldId[0] = thisLink.source.id;
+	sourceNode.symbol = thisLink.source.symbol;
+	sourceNode.name = thisLink.source.name;
+	sourceNode.semtype = thisLink.source.semtype;
+	sourceNode.visible = thisLink.source.visible;
+	sourceNode.novel = thisLink.source.novel;
+	sourceNode.sColor = "black";
+	sourceNode.anchor = thisLink.source.anchor;
+	sourceNode.fixed = true;
+
+	var nodeCheck = findNode(sourceNode.id, nodes3);
+
+	if (nodeCheck == -1) {nodes3.push(sourceNode);}
+	else {
+		if (nodes3[nodeCheck].network.indexOf(sourceNode.network[0]) == -1) nodes3[nodeCheck].network.push(sourceNode.network[0]);
+		if (nodes3[nodeCheck].oldId.indexOf(sourceNode.oldId[0]) == -1) nodes3[nodeCheck].oldId.push(sourceNode.oldId[0]);
+	}
+
+	var targetNode = { network:[""], id:"", oldId:[""], symbol:""};
+
+	targetNode.network[0] = thisLink.target.network;
+	targetNode.id = thisLink.target.symbol;
+	targetNode.oldId[0] = thisLink.target.id;
+	targetNode.symbol = thisLink.target.symbol;
+	targetNode.name = thisLink.target.name;
+	targetNode.semtype = thisLink.target.semtype;
+	targetNode.visible = thisLink.target.visible;
+	targetNode.novel = thisLink.target.novel;
+	targetNode.sColor = "black";
+	targetNode.anchor = thisLink.target.anchor;
+	sourceNode.fixed = true;
+
+	nodeCheck = findNode(targetNode.id, nodes3);
+
+	if (nodeCheck == -1) {nodes3.push(targetNode);}
+	else {
+		if (nodes3[nodeCheck].network.indexOf(sourceNode.network[0]) == -1) nodes3[nodeCheck].network.push(targetNode.network[0]);
+		if (nodes3[nodeCheck].oldId.indexOf(sourceNode.oldId[0]) == -1) nodes3[nodeCheck].oldId.push(targetNode.oldId[0]);
+	}
+
+	var link1 = { source:"", target:"", sColor:"black",
+				predicate:[{label:"", sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+
+	link1.source = nodes3[findNode(sourceNode.id, nodes3)];
+	link1.target = nodes3[findNode(targetNode.id, nodes3)];
+	link1.predicate = thisLink.predicate;
+
+	var linkFound = findLink(link1, links3);
+	if (linkFound == -1) { // link1 not found
+
+		links3.push(link1);
+
+	} else { // link1 found
+
+		var predicateFound = findPredicate(link1.predicate[0], linkFound);
+
+		if (predicateFound != -1 ) { // predicate exists so push each sentence
+
+			for (var k = 0; k < link1.predicate[0].sentence.length; k++) {
+
+				if (links3[linkFound].predicate[predicateFound].sentence.indexOf(link1.predicate[0].sentence[k]) == -1)
+					links3[linkFound].predicate[predicateFound].sentence.push(link1.predicate[0].sentence[k]);
+			}
+		}
+
+		else { // predicate doesn't exist so push the whole predicate
+
+			if (links3[linkFound].predicate.indexOf(link1.predicate[0]) == -1)
+				links3[linkFound].predicate.push(link1.predicate[0]);
+		}
+	}
+
+	// position nodes
+	var buffer = 40;
+	var xNotch = 250;
+	var yNotch = 70;
+
+	var sourceChildren = getOtherChildren(sourceNode.id, targetNode.id);
+	var targetParents = getOtherParents(targetNode.id, sourceNode.id);
+	var sourceParents = getOtherParents(sourceNode.id,"@#$");
+	var targetChildren = getOtherChildren(targetNode.id,"@#$");
+
+	if (sourceChildren.length == 0 && targetParents.length == 0) {
+
+		// put source in left most slot and target xNotch over, below any other nodes
+
+		if (sourceParents.length == 0 && targetChildren.length == 0) {
+
+			if (nodes3.length == 2) { //first link
+				sourceNode.fixed = true;
+				targetNode.fixed = true;
+				sourceNode.x = buffer;
+				sourceNode.y = buffer;
+				targetNode.x = buffer + xNotch;
+				targetNode.y = buffer;
+			} else {
+				sourceNode.fixed = false;
+				targetNode.fixed = false;
+			}
+
+		} else if (sourceParents.length == 0 && targetChildren.length > 0) {
+
+			sourceNode.fixed = true;
+			var target = nodes3[findNode(targetNode.id,nodes3)];
+			sourceNode.x = target.x - xNotch;
+			sourceNode.y = target.y + targetParents.length*yNotch;
+
+		} else if (sourceParents.length > 0 && targetChildren.length == 0) {
+
+			targetNode.fixed = true;
+			var source = nodes3[findNode(sourceNode.id,nodes3)];
+			targetNode.x = source.x + xNotch;
+			targetNode.y = source.y + sourceChildren.length*yNotch;
+
+		} else {//(sourceParents.length > 0 && targetChildren.length > 0)
+
+			//do nothing already in position
+		}
+
+
+	} else if (sourceChildren.length == 0 && targetParents.length > 0) {
+
+		// put source below the others, target already in position
+		sourceNode.fixed = true;
+		var target = nodes3[findNode(targetNode.id,nodes3)];
+		sourceNode.x = target.x - xNotch;
+		sourceNode.y = target.y + targetParents.length*yNotch;
+
+	} else if (sourceChildren.length > 0 && targetParents.length == 0) {
+
+		// put target under others, source already in position
+		targetNode.fixed = true;
+		var source = nodes3[findNode(sourceNode.id,nodes3)];
+		targetNode.x = source.x + xNotch;
+		targetNode.y = source.y + sourceChildren.length*yNotch
+
+	} // else if (sourceChildren.length > 0 && targetParents.length > 0)
+
+		// no positioning necessary - both already in position
+
+
+	start3();
+
+	// Update LogicBuilder button with count
+	document.getElementById("b").innerHTML = "LogicBuilder [" + links3.length +"]";
+
+	function findPredicate(predicate1, linkIndex) {
+
+		for (var j = 0; j < links[linkIndex].predicate.length; j++ ) {
+
+			if (links[linkIndex].predicate[j].label == predicate1.label) {
+
+				return i;
+			}
+		}
+
+
+		return -1;
+	}
+
+}
+
+function getOtherParents(ID, sourceID){
+
+	var parents = [" "];
+	parents.pop();
+
+	for (var i=0; i<links3.length; i++) {
+
+		if ( (links3[i].target.id == ID) && (links3[i].source.id != sourceID)
+			&& (parents.indexOf(links3[i].source.id) == -1) ) {
+			parents.push(links3[i].source.id);
+		}
+	}
+
+	return parents;
+}
+
+function getOtherChildren(ID, childID){
+
+	var children = [" "];
+	children.pop();
+
+	for (var i=0; i<links3.length; i++) {
+
+		if ( (links3[i].source.id == ID) && (links3[i].target.id != childID)
+			&& (children.indexOf(links3[i].target.id) == -1) ) {
+			children.push(links3[i].target.id);
+		}
+	}
+
+	return children;
+}
+
+function fillPredicateFilter() {
+
+	// if checkboxes are displayed then delete them else build the list
+	var predCheckboxes = document.getElementsByName("PC");
+
+	if (predCheckboxes.length > 0) { // Close predicate checkboxes and reset graph
+
+		resetPredCheckboxes();
+
+	} else { // add pred checkboxes
+
+
+		// if semGroup checkboxes are displayed then delete them
+		var semGroupCheckboxes = document.getElementsByName("SC");
+		if (semGroupCheckboxes.length > 0) resetSemGroupCheckboxes();
+
+		var predList = [];
+		// Get list of predicates in SVG1
+		for (var i = 0; i < links.length; i++) {
+
+			for (var j = 0; j < links[i].predicate.length; j++) {
+
+				predList.push(links[i].predicate[j].label);
+
+			}
+		}
+
+		// Unique and sort predList
+		predList2 = predList.sort().filter(function(el,i,a){if(i==a.indexOf(el))return 1;return 0});
+
+		// Add list of predicates as checkboxes to filter slider
+		var rowText = "";
+
+		predList2.forEach(function (d, i){
+			var row = document.createElement('tr');
+			var checkbox = document.createElement('input');
+			var description = document.createTextNode(d);
+			checkbox.type = "checkbox";
+			checkbox.id = "CB"+i;
+			checkbox.name = "PC";
+			checkbox.checked = true;
+			row.style.backgroundColor = linkColorScale(d);
+			row.style.opacity = 0.65;
+			row.appendChild(checkbox);
+			row.appendChild(description);
+			predicateTable.appendChild(row);
+		});
+
+		var tempCheckboxes = document.getElementsByName("PC");
+		for (var i = 0; i < tempCheckboxes.length; i++) tempCheckboxes[i].addEventListener("change", predFilterCheckboxClicked, false);
+
+	} // add pred checkboxes
+
+}
+
+function resetPredCheckboxes(){
+
+	var predCheckboxes = document.getElementsByName("PC");
+
+	if (predCheckboxes.length > 0) {
+		// set all checks to true/show all predicates/reset
+		for (var i = 0; i < predCheckboxes.length; i++) if (predCheckboxes[i].checked == false) predCheckboxes[i].click();
+		// remove checkboxes
+		var predTableNode = predCheckboxes[0].parentNode.parentNode; //predTable.row.checkbox&description
+		while( predTableNode.children.length > 1 ){ predTableNode.removeChild(predTableNode.lastChild);}
+	}
+
+	deletedNodes.splice(0,deletedNodes.length);
+	deletedLinks.splice(0,deletedLinks.length);
+}
+
+function predFilterCheckboxClicked(event) {
+
+	var checkbox = event.target;
+
+	if (checkbox.checked) { // make the predicate visible as well as all of the nodes connected to it
+
+		for (var i = 0; i < deletedLinks.length; i++) {
+
+			for (var j = 0; j < deletedLinks[i].predicate.length; j++) {
+
+				if(deletedLinks[i].predicate[j].label == checkbox.parentNode.innerHTML.substring(checkbox.parentNode.innerHTML.lastIndexOf(">")+1, checkbox.parentNode.innerHTML.length)){
+
+					var source = deletedLinks[i].source;
+					var target = deletedLinks[i].target;
+
+					deletedLinks[i].predicate[j].visible = true;
+					// set both nodes.visible to true
+					deletedLinks[i].source.visible = true;
+					deletedLinks[i].target.visible = true;
+
+					// move source node from deletedNodes if necessary
+					if (nodes.indexOf(source) == -1) {
+						nodes.push(source);
+					}
+					if (deletedNodes.indexOf(source) == -1) {
+						deletedNodes.splice(deletedNodes.indexOf(source),1);
+					}
+
+					// move target node from deletedNodes if necessary
+					if (nodes.indexOf(target) == -1) {
+						nodes.push(target);
+					}
+					if (deletedNodes.indexOf(target) != -1) {
+						deletedNodes.splice(deletedNodes.indexOf(target,1));
+					}
+
+					if (links.indexOf(deletedLinks[i]) == -1) {
+						links.push(deletedLinks[i]);
+						deletedLinks.splice(i,1);
+						i--;
+						break;
+					}
+
+				}
+			}
+
+		}
+	}
+	else { // checkbox unchecked so make predicate invisible as well as any nodes that are not connected to any other predicate
+
+		for (var i = 0; i < links.length; i++) {
+
+			// hide edge
+			var visible = false;
+			for (var j = 0; j < links[i].predicate.length; j++) {
+
+				if(links[i].predicate[j].label == checkbox.parentNode.innerHTML.substring(checkbox.parentNode.innerHTML.lastIndexOf(">")+1, checkbox.parentNode.innerHTML.length))
+					links[i].predicate[j].visible = false;
+
+				visible = visible || links[i].predicate[j].visible;
+			}
+
+			// get nodes in this link
+			var source = links[i].source;
+			var target = links[i].target;
+
+			// if no visible predicates move link to deletedLinks
+			if (visible == false) {
+				deletedLinks.push(links[i]);
+				links.splice(i,1);
+				i--;
+			}
+
+			// move node to deltedNodes if not connected to other edge
+
+			// for each node get every link that contains it
+			// source
+			visible = false;
+			for (var j = 0; j < links.length; j++){
+
+				// find any visible predicates; if no visible set node.visible to false
+				if (links[j].source == source || links[j].target == source) {
+
+					for (var k = 0; k < links[j].predicate.length; k++) {
+						visible = visible || links[j].predicate[k].visible;
+					}
+				}
+			}
+			// no visible links found that contains this node
+			if (visible == false) {
+				source.visible = false;
+				deletedNodes.push(source);
+				nodes.splice(nodes.indexOf(source),1);
+			}
+
+			// target
+			visible = false;
+			for (var j = 0; j < links.length; j++){
+
+				// find any visible predicates; if no visible set link.visible to false
+				if (links[j].source == target || links[j].target == target) {
+
+					for (var k = 0; k < links[j].predicate.length; k++) {
+						visible = visible || links[j].predicate[k].visible;
+					}
+				}
+			}
+			// no visible linke found that contains this node
+			if (visible == false) {
+				target.visible = false;
+				deletedNodes.push(target);
+				nodes.splice(nodes.indexOf(target),1);
+			}
+
+		}
+	}
+
+	start();
+}
+
+function fillSemanticGroupFilter() {
+
+	// if checkboxes are displayed then delete them else build the list
+	var semGroupCheckboxes = document.getElementsByName("SC");
+	if (semGroupCheckboxes.length > 0) {
+
+		resetSemGroupCheckboxes();
+
+	} else { // add pred checkboxes
+
+		// if predicate checkboxes are displayed then delete them
+		var predCheckboxes = document.getElementsByName("PC");
+		if (predCheckboxes.length > 0) resetPredCheckboxes();
+
+		var semList = [];
+		// Get list of semTypes in SVG1
+		for (var i = 0; i < nodes.length; i++) {
+			semList.push(semanticGroupsScale(nodes[i].semtype));
+		}
+
+		// Unique and sort predList
+		semList2 = semList.sort().filter(function(el,i,a){if(i==a.indexOf(el))return 1;return 0});
+
+		// Add list of predicates as checkboxes to filter slider
+		var rowText = "";
+
+		semList2.forEach(function (d, i){
+			var row = document.createElement('tr');
+			var checkbox = document.createElement('input');
+			var description = document.createTextNode(d);
+			checkbox.type = "checkbox";
+			checkbox.id = "CB"+i;
+			checkbox.name = "SC";
+			checkbox.checked = true;
+			row.style.backgroundColor = nodeColorScale(d);
+			row.style.opacity = 0.85;
+			row.appendChild(checkbox);
+			row.appendChild(description);
+			semGroupTable.appendChild(row);
+		});
+
+		var tempCheckboxes = document.getElementsByName("SC");
+		for (var i = 0; i < tempCheckboxes.length; i++) tempCheckboxes[i].addEventListener("change", semGroupFilterCheckboxClicked, false);
+
+
+	} // add semGroup checkboxes
+}
+
+function resetSemGroupCheckboxes(){
+
+	var semGroupCheckboxes = document.getElementsByName("SC");
+
+	if (semGroupCheckboxes.length > 0){
+			// set all checks to true/show all semGroups/reset
+		for (var i = 0; i < semGroupCheckboxes.length; i++) if (semGroupCheckboxes[i].checked == false) semGroupCheckboxes[i].click();
+
+		// remove checkboxes
+		var semGroupTableNode = semGroupCheckboxes[0].parentNode.parentNode; //semGroupTable.row.checkbox&description
+		while (semGroupTableNode.children.length > 1){ semGroupTableNode.removeChild(semGroupTableNode.lastChild);}
+	}
+
+	deletedNodes.splice(0,deletedNodes.length);
+	deletedLinks.splice(0,deletedLinks.length);
+}
+
+function semGroupFilterCheckboxClicked(event){
+
+	var checkbox = event.target;
+
+	if (checkbox.checked) { // make the nodes visible as well as all of the predicates connected to them
+
+		var checkedGroup = checkbox.parentNode.innerHTML.substring(checkbox.parentNode.innerHTML.lastIndexOf(">")+1, checkbox.parentNode.innerHTML.length);
+
+		//for each semGroupCheckbox push the first three letters into the semGroups array
+		var semGroups = [];
+		var semGroupCheckboxes = document.getElementsByName("SC");
+		for (var n = 0; n < semGroupCheckboxes.length; n++)
+			if (semGroupCheckboxes[n].checked == true) {
+				semGroups.push(semGroupCheckboxes[n].parentNode.innerHTML.substring(semGroupCheckboxes[n].parentNode.innerHTML.lastIndexOf(">")+1, semGroupCheckboxes[n].parentNode.innerHTML.length).substring(0,3));
+			}
+
+		for (var i = 0; i < deletedNodes.length; i++) {
+
+			if (semanticGroupsScale(deletedNodes[i].semtype).substring(0,3) == checkedGroup.substring(0,3)){
+
+				deletedNodes[i].visible = true;
+
+				// move node from deletedNodes if necessary
+				if (nodes.indexOf(deletedNodes[i]) == -1) {
+					nodes.push(deletedNodes[i]);
+				}
+				deletedNodes.splice(i,1);
+				i--;
+
+				// set predicate.visible to true for links with this node
+				for (var j = 0; j < deletedLinks.length; j++) {
+
+					if ((semanticGroupsScale(deletedLinks[j].source.semtype).substring(0,3) == checkedGroup.substring(0,3) &&
+							semGroups.indexOf(semanticGroupsScale(deletedLinks[j].target.semtype).substring(0,3)) != -1) ||
+						(semanticGroupsScale(deletedLinks[j].target.semtype).substring(0,3) == checkedGroup.substring(0,3) &&
+							semGroups.indexOf(semanticGroupsScale(deletedLinks[j].source.semtype).substring(0,3)) != -1)){
+
+						deletedLinks[j].source.visible = true;
+						deletedLinks[j].target.visible = true;
+						for (var k = 0; k < deletedLinks[j].predicate.length; k++) deletedLinks[j].predicate[k].visible = true;
+
+						links.push(deletedLinks[j]);
+						deletedLinks.splice(j,1);
+						j--;
+
+					} // if nodes match
+
+				}// for each link
+
+			}// if node semtype is in the group from the checkbox
+
+		}// for each node
+
+		// check to see if any nodes have no visible links
+		for (var i = 0; i < nodes.length; i++) { // for each node check to see if it has visible predicates
+
+			var visible = false;
+			for (var j = 0; j < links.length; j++){ // go through each link and find those that contain the current node
+
+				if (links[j].source == nodes[i] || links[j].target == nodes[i]) { // link contains node
+
+					for (var k = 0; k < links[j].predicate.length; k++) visible = visible || links[j].predicate[k].visible;
+
+				} // link contains node
+
+			}// go through each link and find those that contain the current node
+
+			// if no visible links found that contains this node set visible to false
+			if (visible == false) nodes[i].visible = false;
+
+		}// for each node check to see if it has visible predicates
+
+	}// if checkbox is checked
+
+	else { // checkbox unchecked so make nodes invisible as well as any predicates that are connected to them
+		for (var i = 0; i < nodes.length; i++) {
+
+			if (semanticGroupsScale(nodes[i].semtype).substring(0,3) == checkbox.parentNode.innerHTML.substring(checkbox.parentNode.innerHTML.lastIndexOf(">")+1, checkbox.parentNode.innerHTML.length).substring(0,3)){
+
+				nodes[i].visible = false;
+
+				// set predicate.visible to false for links with this node
+				for (var j = 0; j < links.length; j++) {
+
+					if(links[j].source == nodes[i] || links[j].target == nodes[i]){
+
+						// set all predicates to invisible
+						for (var k = 0; k < links[j].predicate.length; k++){
+							links[j].predicate[k].visible = false;
+						}// fore each predicate in links[j]
+
+						// move link to deletedLinks
+						deletedLinks.push(links[j]);
+						links.splice(j,1);
+						j--;
+
+					} // if either source or target node matches hidden node
+
+				}// for each link
+
+				// move node to deletedNodes
+				deletedNodes.push(nodes[i]);
+				nodes.splice(i,1);
+				i--;
+
+			}// if node semtype is in the group from the checkbox
+
+		}// for each node
+
+		// check to see if any nodes have no visible links
+		for (var i = 0; i < nodes.length; i++) { // for each node check to see if it has visible predicates
+
+			var visible = false;
+			for (var j = 0; j < links.length; j++){ // go through each link and find those that contain the current node
+
+				if (links[j].source == nodes[i] || links[j].target == nodes[i]) { // link contains node
+
+					for (var k = 0; k < links[j].predicate.length; k++) visible = visible || links[j].predicate[k].visible;
+
+				} // link contains node
+
+			}// go through each link and find those that contain the current node
+
+			// if no visible links found that contains this node set visible to false
+			if (visible == false) nodes[i].visible = false;
+
+		}// for each node check to see if it has visible predicates
+
+	}// checkbox unchecked
+
+	start();
+}
+
+function citationSearch(){
+
+	var search = document.getElementById("searchTerm").value + " " + searchLimits;
+	var xml = getPubMedXML(search);
+	var query = "";
+
+	for (var i = 0; i < xml.length; i++) {
+		query += "'" + xml[i] + "',";
+	}
+	query = query.substring(0,query.length-1); //remove last comma
+	document.getElementById("citationInfo").innerHTML = "Searching PubMed...";
+
+	var spinner = document.getElementById("spinner");
+	while (spinner.hasChildNodes()) spinner.removeChild(spinner.lastChild);
+
+	var img = document.createElement('img');
+	img.src = "images/semmed.svg";
+	img.id = "searchSpinner";
+	spinner.appendChild(img);
+	var container = document.getElementById("container");
+	container.style.opacity = 0.5;
+
+	if (xml.length < 50000000 && xml.length > 0) {
+	    querySemMedDB(query,function(rawData){
+
+		    var data = JSON.parse(rawData);
+			searchResult.splice(0,searchResult.length);
+			for (var i = 0; i < data.length; i++) {
+				searchResult.push(data[i]);
+			}
+			var citationInfo = document.getElementById("citationInfo");
+			citationInfo.innerHTML = "Citations: " + xml.length  + " Predications: " + searchResult.length;
+
+			spinner.removeChild(img);
+			container.style.opacity = 1;
+
+			openNetClick();
+	    });
+	} else {
+		if (xml.length == 0){
+
+			var citationInfo = document.getElementById("citationInfo");
+			citationInfo.innerHTML = "Citations: 0. Refine your search.";
+
+			spinner.removeChild(img);
+			container.style.opacity = 1;
+		}
+		else {
+			document.getElementById("citationInfo").innerHTML="Too many predications. Refine your search.";
+
+			spinner.removeChild(img);
+			container.style.opacity = 1;
+		}
+	}
+
+}
+
+function getPubMedXML(query){
+
+	var search = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=" + query;
+	if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+		}
+	else
+		{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+	xmlhttp.open("GET",search,false);
+	xmlhttp.send();
+	xmlDoc=xmlhttp.responseXML;
+
+	var IDs = [];
+	var x=xmlDoc.getElementsByTagName("Id");
+	for(var i=0;i<x.length;i++){
+	  IDs[i] = x[i].childNodes[0].nodeValue;
+  	}
+
+	return IDs;
+}
+
+function querySemMedDB(query, setFxn) {
+
+	$.post("./servlet/SemMedDBServlet","qry="+query,function(data,status){
+  //   $.post("predication.php","qry="+query,function(data,status){
+	    setFxn(data);
+	  });
+
+	return 1;
+}
+
+function querySemMedDB2(SIDs, setFxn) {
+
+	// Send a http request with AJAX
+	var xhr = $.ajax({
+	url: './servlet/SemMedDBServlet',
+	// url: 'sentence.php',
+	data: 'SIDs='+SIDs,
+	dataType: 'json',
+	success: function(data, status, xhr) {
+		setFxn(data);
+		} ,
+	error: function(data){
+
+		return -1;  		}
+	});
+
+	return 1;
+}
+
+function querySemMedDBsentences(PMIDs, setFxn) {
+
+	// Send a http request with AJAX
+	var xhr = $.ajax({
+	url: './servlet/SemMedDBServlet',
+	// url: 'sentences.php',
+	data: 'PMIDs='+PMIDs,
+	dataType: 'json',
+	success: function(data, status, xhr) {
+		setFxn(data);
+		} ,
+	error: function(data){
+
+		return -1;  		}
+	});
+
+	return 1;
+}
+
+function setGraphMetrics(){
+
+	document.getElementById('graphInfoTable').innerHTML = "<tr>Nodes: " + nodes.length + "</tr>";
+	document.getElementById('graphInfoTable').innerHTML += "<tr>Edges: " + links.length + "</tr>";
+
+	//get highest degree nodes
+	var nodeDegrees = [];
+	for (var i = 0; i < nodes.length; i++) {
+		nodeDegrees.push({'name':nodes[i].name,'degree':nodes[i].weight});
+	}
+
+	nodeDegrees = nodeDegrees.sort(function(a, b) { return d3.descending(a.degree, b.degree); });
+
+	// Show top 5 node degrees
+	document.getElementById('graphInfoTable').innerHTML += "<tr>Most connected nodes:</tr>";
+	for (var i = 0; i < nodeDegrees.length; i++){
+		document.getElementById('graphInfoTable').innerHTML += "<tr><td class='nodeDegree'>" + nodeDegrees[i].name +
+																": " + nodeDegrees[i].degree + "</td></tr>";
+		if (i == 4) break;
+	}
+}
+
+function setFindAutocomplete(){
+	var sources = [];
+	for (var i = 0; i < nodes.length; i++) {
+		if (nodes[i].visible == true) sources.push({'label': nodes[i].name, 'value' : nodes[i].name});
+	}
+
+	$( "#findTerm" ).autocomplete({
+	    source: sources
+	});
+}
+
+function locateNode(){
+
+	var findTerm = document.getElementById("findTerm").value;
+
+	node.filter(function (d){
+			if (d.name == findTerm) {
+				d.showPoint = true;
+				return true;
+			}
+			else return false;
+		})
+		.attr("opacity", 0.9)
+		.style("stroke-width", 1)
+			.transition()
+			.duration(700)
+		.style("stroke-width", 3)
+			.transition()
+			.duration(2000)
+		.style("stroke-width", 1);
+
+}
+
+function clearAllArrows() {
+
+	nodes.forEach(function(d){d.showPoint = false;});
+}
+
+function redraw() {
+
+	var point = d3.event.translate;
+	svg1.attr("transform","translate(" + point + ")" + " scale(" + d3.event.scale + ")");
+}
+
+function redraw2() {
+
+	var point = d3.event.translate;
+	svg2.attr("transform","translate(" + point + ")" + " scale(" + d3.event.scale + ")");
+}
+
+function redraw3() {
+
+	var point = d3.event.translate;
+	svg3.attr("transform","translate(" + point + ")" + " scale(" + d3.event.scale + ")");
+
+}
+
+function resetClick() {
+
+	document.getElementById("searchTerm").value = "";
+	document.getElementById("citationInfo").innerHTML = "";
+}
+
+
+
+function shiftChains() { // move below sentence panel when it's open
+
+	// get location of bottom of sentence panel
+    var s3 = $(".slider3");
+    var rect = s3[0].getBoundingClientRect();
+    var s3Bottom = rect.bottom;
+
+    // get info to estimate bottom of sentence panel when has not yet been built
+    var infoTextHTML = document.getElementById("infoText").innerHTML;
+    var infoTextColCount;
+    if (infoTextHTML.length > 0 ) infoTextColCount = infoTextHTML.match(/PMID/g).length; else infoTextColCount = 0;
+
+ 	// find longest sentence
+ 	var maxSentenceLength = 0;
+    Class = "sentence";
+	var sentenceRows = document.getElementsByClassName(Class);
+	for (var j = 0; j < sentenceRows.length; j++) {
+    	var sentence = document.getElementsByClassName(Class)[j].innerHTML;
+    	var sentenceLength = sentence.length;
+    	if (sentenceLength > maxSentenceLength) maxSentenceLength = sentenceLength;
+	}
+
+	// Because panel may open before sentence is retrieved from database placement of Chains panel may need to be estimated
+    if (s3Bottom == 8 && lastBottom == 8){ // Sentences panel was closed. No prior sentence clicked
+    	document.getElementById("chains").style.top = "160px";
+        document.getElementById("b").style.top = "160px";
+        lastBottom = s3Bottom;
+    }
+    else if (lastBottom < 9){ // New sentence
+        document.getElementById("chains").style.top = (145+Math.floor(maxSentenceLength/3.2)) + "px";
+		document.getElementById("b").style.top = (145+Math.floor(maxSentenceLength/3.2)) + "px";
+		lastBottom = s3Bottom;
+    }
+    else if (s3Bottom == 8){ // Sentences panel was closed but sentences haven't changed
+		document.getElementById("chains").style.top = (lastBottom + 5) + "px";
+    	document.getElementById("b").style.top = (lastBottom + 5) + "px";
+    	lastBottom = s3Bottom;
+    }
+    else { // Default to below current sentence panel bottom
+    	document.getElementById("chains").style.top = (s3Bottom + 5) + "px";
+        document.getElementById("b").style.top = (s3Bottom + 5) + "px";
+        lastBottom = s3Bottom;
+    }
+}
+
+function saveNetwork(SVG) {
+
+	$( "#saveDialog" ).dialog({
+
+		width: 310,
+		buttons: [
+			{
+				text: "XML",
+				click: function() {
+					$( this ).dialog( "close" );
+
+
+					switch (SVG) {
+
+						case 3: // LogicBuilder SVG
+
+							// start with xgmml header
+							var xgmml = "<graph schemaLocation='http://sk3.nlm.nih.gov/SemMed.htm' directed='1' Rootnode=''>";
+							xgmml += "<att name='type' value='LogicBuilder'/>";
+
+							// add nodes
+							for (var i = 0; i < nodes3.length; i++){
+									xgmml += "<node id='" + nodes3[i].id + "' label=" + '"' + nodes3[i].name + '"' + " weight='" + nodes3[i].weight + "'>";
+									xgmml += "<att name='network' value='" + nodes3[i].network + "'/>";
+									xgmml += "<att name='symbol' value='" + nodes3[i].symbol + "'/>";
+									xgmml += "<att name='semtype' value='" + nodes3[i].semtype + "'/>";
+									xgmml += "<att name='visible' value='" + nodes3[i].visible + "'/>";
+									xgmml += "<att name='novel' value='" + nodes3[i].novel + "'/>";
+									xgmml += "<att name='sColor' value='" + nodes3[i].sColor + "'/>";
+									xgmml += "<att name='anchor' value='" + nodes3[i].anchor + "'/>";
+									xgmml += "<att name='fixed' value='" + nodes3[i].fixed + "'/>";
+									xgmml += "<att name='x' value='" + nodes3[i].x + "'/>";
+									xgmml += "<att name='y' value='" + nodes3[i].y + "'/>";
+								xgmml += "</node>";
+							}
+
+							// add edges
+							for (var i = 0; i < links3.length; i++){
+								xgmml += "<edge label='" + links3[i].source.id + "-" + links3[i].target.id;
+								xgmml += "' source='" + links3[i].source.id + "' target='" + links3[i].target.id;
+								xgmml += "' path='" + links3[i].path + "'>";
+								// add each predicate
+								for (var j = 0; j < links3[i].predicate.length; j++) {
+									xgmml += "<predicate label='" + links3[i].predicate[j].label + "'>";
+									// add each sentence
+									for (var k = 0; k < links3[i].predicate[j].sentence.length; k++){
+										xgmml += "<sentence PMID='" + links3[i].predicate[j].sentence[k].PMID + "' ";
+										xgmml += "SID='" + links3[i].predicate[j].sentence[k].SID + "' ";
+										xgmml += "sNumber='" + links3[i].predicate[j].sentence[k].sNumber + "' ";
+										xgmml += "abti='" + links3[i].predicate[j].sentence[k].abti + "' ";
+										xgmml += "text='" + links3[i].predicate[j].sentence[k].text + "'/>";
+									}
+									xgmml += "</predicate>";
+								}
+								xgmml += "</edge>";
+							}
+
+							xgmml += "</graph>";
+
+							var blob = new Blob([xgmml], {type: "text/xml;"});
+							saveAs(blob, "LogicBuilder.xgmml");
+
+							break;
+
+						case 1: // SemMed SVG
+
+							// find selected network(s)
+							var selectedNets = [];
+
+							for (var i = 0; i < nodes.length; i++) {
+
+								if (nodes[i].sColor == "red") {
+
+									if(selectedNets.indexOf(nodes[i].network) == -1) {
+										selectedNets.push(nodes[i].network);
+									}
+								}
+							}
+
+							// if none selected select only network (if only one)
+							if (selectedNets.length == 0) { // if none selected select only network (if only one)
+
+								var networkList = [];
+
+								nodes.forEach(function (d, i){
+
+									if (networkList.indexOf(d.network) == -1)
+										networkList.push(d.network);
+									});
+
+								if (networkList.length == 1) selectedNets[0] = networkList[0];
+
+							}
+
+							// for each selected network create a file and save dialog
+							if (selectedNets.length == 0) myDialog("No common concept pairs found.", 310, "OK", function() {$(this).dialog("close");});
+							for (var i = 0; i < selectedNets.length; i++){
+
+								// start with xgmml header
+								var xgmml = "<graph schemaLocation='http://sk3.nlm.nih.gov/SemMed.htm' directed='1' Rootnode=''>";
+								xgmml += "<att name='type' value='SemanticMedline'/>";
+
+								// add nodes
+								for (var j = 0; j < nodes.length; j++){
+
+									// add if in current selected network
+									if (nodes[j].network == selectedNets[i]){
+										xgmml += "<node id='" + nodes[j].id + "' label=" + '"' + nodes[j].name + '"' + " weight='" + nodes[j].weight + "'>";
+										xgmml += "<att name='network' value='" + nodes[j].network + "'/>";
+										xgmml += "<att name='symbol' value='" + nodes[j].symbol + "'/>";
+										xgmml += "<att name='semtype' value='" + nodes[j].semtype + "'/>";
+										xgmml += "<att name='visible' value='" + nodes[j].visible + "'/>";
+										xgmml += "<att name='novel' value='" + nodes[j].novel + "'/>";
+										xgmml += "<att name='sColor' value='" + nodes[j].sColor + "'/>";
+										xgmml += "<att name='anchor' value='" + nodes[j].anchor + "'/>";
+										xgmml += "<att name='fixed' value='" + nodes[j].fixed + "'/>";
+										xgmml += "<att name='x' value='" + nodes[j].x + "'/>";
+										xgmml += "<att name='y' value='" + nodes[j].y + "'/>";
+										xgmml += "</node>";
+									}
+								}
+
+								// add edges
+								for (var j = 0; j < links.length; j++){
+									// add if in current selected network
+									if (links[j].source.network == selectedNets[i]){
+										xgmml += "<edge label='" + links[j].source.symbol + "-" + links[j].target.symbol;
+										xgmml += "' source='" + links[j].source.symbol + "' target='" + links[j].target.symbol;
+										xgmml += "' path='" + links[j].path + "'>";
+										// add each predicate
+										for (var k = 0; k < links[j].predicate.length; k++) {
+											xgmml += "<predicate label='" + links[j].predicate[k].label + "'>";
+											// add each sentence
+											for (var l = 0; l < links[j].predicate[k].sentence.length; l++){
+												xgmml += "<sentence PMID='" + links[j].predicate[k].sentence[l].PMID + "' ";
+												xgmml += "SID='" + links[j].predicate[k].sentence[l].SID + "' ";
+												xgmml += "sNumber='" + links[j].predicate[k].sentence[l].sNumber + "' ";
+												xgmml += "abti='" + links[j].predicate[k].sentence[l].abti + "' ";
+												xgmml += "text='" + links[j].predicate[k].sentence[l].text + "'/>";
+											}
+											xgmml += "</predicate>";
+										}
+										xgmml += "</edge>";
+									}
+								}
+
+								xgmml += "</graph>";
+
+								var blob = new Blob([xgmml], {type: "text/xml;"});
+								saveAs(blob, "SemMed.xgmml");
+
+							} // for each selected network
+
+						break;
+
+					} // switch (SVG)
+
+				} // XML clicked
+			},
+			{
+				text: "SVG",
+				click: function() {
+					$( this ).dialog( "close" );
+
+					var tmp;
+					var svg;
+					switch (SVG) {
+
+						case 1:
+							tmp = document.getElementById("container");
+							svg = tmp.getElementsByTagName("svg")[0];
+							break;
+
+						case 3:
+							tmp = document.getElementById("container3");
+							svg = tmp.getElementsByTagName("svg")[0];
+							break;
+					}
+
+					// Extract the data as SVG text string
+					var svg_xml = (new XMLSerializer).serializeToString(svg);
+					svg_xml = svg_xml.substr( 0, svg_xml.indexOf(">") + 1) + "<title>image.svg</title>" + svg_xml.substr(svg_xml.indexOf(">") + 1, svg_xml.length);
+					var blob = new Blob([svg_xml], {
+					    type: "image/svg;",
+					});
+					saveAs(blob, "SemMed.svg");
+				}
+			},
+			{
+				text: "PNG",
+				click: function() {
+
+					$( this ).dialog( "close" );
+
+					$(".slider13").toggle("fast");
+
+					var tmp;
+					var svg;
+					var svg_xml;
+					var html;
+					var imgsrc;
+					var canvas;
+					var image;
+					var canvasdata;
+					var pngimg;
+					var a;
+
+					switch (SVG) {
+
+						case 1:
+							tmp = document.getElementById("container");
+							svg = tmp.getElementsByTagName("svg")[0];
+							svg_xml = (new XMLSerializer).serializeToString(svg);
+							html = svg_xml.substr( 0, svg_xml.indexOf(">") + 1) + "<title>image.svg</title>" + svg_xml.substr(svg_xml.indexOf(">") + 1, svg_xml.length);
+
+							imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+							canvas = document.querySelector("canvas");
+							canvas.width = width;
+							canvas.height = height;
+							context = canvas.getContext("2d");
+
+							break;
+
+						case 3:
+
+							tmp = document.getElementById("container3");
+							svg = tmp.getElementsByTagName("svg")[0];
+
+							svg_xml = (new XMLSerializer).serializeToString(svg);
+							html = svg_xml.substring(0, svg_xml.indexOf("width=") + 7);
+							html += "1000";
+							html += svg_xml.substring(svg_xml.indexOf("width=") + 11, svg_xml.indexOf("height=") + 8);
+							html += "800";
+							html += svg_xml.substring(svg_xml.indexOf("height=") + 12, svg_xml.length);
+
+							imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+							canvas = document.querySelector("canvas");
+							canvas.width = width/1.5;
+							canvas.height = height/1.25;
+							context = canvas.getContext("2d");
+
+							break;
+
+					}
+
+					var image = new Image;
+					image.src = imgsrc;
+
+					image.onload = function() {
+
+						context.drawImage(image, 0, 0);
+
+						var canvasdata = canvas.toDataURL("image/png");
+						var pngimg = '<img src="'+canvasdata+'">';
+						document.getElementById("pngdataurl").innerHTML = pngimg;
+
+						var a = document.createElement("a");
+						a.download = "SemMed.png";
+						a.href = canvasdata;
+						a.click();
+					};
+
+
+
+				}
+			},
+			{
+				text: "Citations",
+				click: function() {
+					$( this ).dialog( "close" );
+
+					buildCitationRTF("abstract", SVG);
+
+				} // citations function
+
+			}, // citations button
+			{
+				text: "Citations no abstract",
+				click: function() {
+
+					$( this ).dialog( "close" );
+
+					buildCitationRTF("noAbstract", SVG);
+				}
+			}
+		],
+	    open: function() {
+
+	    	$('.ui-dialog').css('background', 'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+	    	$(".ui-dialog-titlebar").css("background","none repeat scroll 0% 0% #FFE384");
+	    	$(".ui-dialog-titlebar").css("border", "1px solid #444");
+	    	$('.ui-dialog-buttonpane').find("button").css("box-shadow", "2px 2px 3px #000");
+	    	$('.ui-dialog-buttonpane').find("button").css("border", "1px solid #444");
+	    	$(".ui-widget-content").css("background",'linear-gradient(#AFE4B2, #C6E6B6, #97D68C) repeat scroll 0% 0% transparent');
+	    	$("#saveDialog").css("background","none");
+	    	$(".ui-dialog").css("box-shadow", "2px 2px 3px #000");
+	    	$(".ui-dialog").css("border", "1.5px solid #333");
+	    }
+		});
+
+	$( "#saveDialog" ).dialog( "open" );
+}
+
+function savePNG(){
+
+	var children = $("#pngdataurl").children("img");
+	var PNG = children[0];
+
+	var canvas = document.querySelector('canvas');
+	context = canvas.getContext('2d');
+	context.drawImage(PNG, 0,0);
+
+	canvas.toBlob(function(blob) {
+		saveAs(blob, "SemMed.png");
+		}, "image/png");
+
+}
+
+function buildCitationRTF(TYPE, SVG){
+
+	var tmp;
+	var Links;
+
+	switch (SVG) {
+
+		case 1:
+
+			Links = links;
+			break;
+		case 3:
+
+			Links = links3;
+			break;
+	}
+
+	// start searching spinner
+	var spinner = document.getElementById("spinner");
+	while (spinner.hasChildNodes()) spinner.removeChild(spinner.lastChild);
+
+	var img = document.createElement('img');
+	img.src = "images/semmed.svg";
+	img.id = "searchSpinner";
+	spinner.appendChild(img);
+	var container = document.getElementById("container");
+	container.style.opacity = 0.5;
+
+
+	// Get PMID list to pass to PHP
+	var pmidList = [];
+	var sidList = [];
+
+	//loop through all links
+	for (var i = 0; i < Links.length; i++) {
+
+		for (var j = 0; j < Links[i].predicate.length; j++) {
+
+			//loop through sentences
+			for (var k = 0; k < Links[i].predicate[j].sentence.length; k++){
+
+				//push pmid to pmidList
+				if (pmidList.indexOf(Links[i].predicate[j].sentence[k].PMID) == -1)
+					pmidList.push(Links[i].predicate[j].sentence[k].PMID);
+
+				//push sid to sidList
+				if (sidList.indexOf(Links[i].predicate[j].sentence[k].SID) == -1)
+					sidList.push(Links[i].predicate[j].sentence[k].SID);
+			}
+		}
+	}
+
+	//pass list to querySemMedDB3
+	var PMIDs = "";
+
+	// Make query to pass as string
+	for (var i = 0; i < pmidList.length; i++) {
+		PMIDs += "'" + pmidList[i] + "',";
+	}
+
+	PMIDs = PMIDs.substring(0,PMIDs.length-1); //remove last comma
+
+	// get all sentences for PMIDs from SemMedDB
+    querySemMedDBsentences(PMIDs, function(data){
+
+		// Build file
+		var text = "{\\rtf1\\ansi\\deff0 {\\fonttbl {\\f0 Arial;}}";
+		text += "{\\colortbl ;\\red0\\green0\\blue238;\\red255\\green255\\blue0;}";
+		if (SVG == 3) text += "\\b\\fs28 Semantic MEDLINE LogicBuilder Citation List\\b0 \\fs20 \\line ";
+		else text += "\\b\\fs28 Semantic MEDLINE Citation List\\b0 \\fs20 \\line ";
+
+		// Add today's date
+		var currentDate = new Date();
+		var day = currentDate.getDate();
+		var month = currentDate.getMonth() + 1;
+		var year = currentDate.getFullYear();
+		text += year + "/" + month + "/" + day + "\\line \\line ";
+
+		for (var i = 0; i < Links.length; i++){
+
+			// add each predicate
+			for (var j = 0; j < Links[i].predicate.length; j++) {
+
+				text += "\\ul[" + Links[i].source.name + "]-" + Links[i].predicate[j].label;
+				text += "-[" + Links[i].target.name + "]\\ul0 \\line \\line ";
+
+				var lastEntry = "";
+
+				for (var k = 0; k < Links[i].predicate[j].sentence.length; k++){
+
+			    	var title = "";
+			    	var abs = "";
+			    	var entry = "";
+					var highlighted = false;
+
+			    	// when database call is returned, add sentence to html
+					for (var m = 0; m < data.length; m++) {
+
+						if (data[m][1] == Links[i].predicate[j].sentence[k].PMID) {
+
+							if (data[m][2] == "ti" && data[m][3] == 1) {
+
+								// Highlight source text
+								if (sidList.indexOf(data[m][0]) != -1){
+									title += "\\highlight2 ";
+									highlighted = true;
+								}
+								title += data[m][4];
+								if (sidList.indexOf(data[m][0]) != -1) title += "\\highlight0 "; // end highlight
+							}
+
+							if (data[m][2] == "ab") {
+
+								// Highlight source text
+								if (sidList.indexOf(data[m][0]) != -1){
+									abs += "\\highlight2 ";
+									highlighted = true;
+								}
+								abs += data[m][4]; 				 // Sentence
+								if (abs[abs.length-1] != " ") abs += " "; // Add space after period
+								if (sidList.indexOf(data[m][0]) != -1) abs += "\\highlight0 "; // end highlight
+							}
+						}
+					}
+
+					if (abs == "") abs = "Abstract not available.";
+
+					// Put Title not available if ti/0 null or blank
+					if (title == "") title = "Title not available.";
+					if (highlighted == false) title = "\\highlight2 " + title + "\\highlight0 "; // Title must be source
+					entry += "\\fs24 " + title + "\\fs20 \\line \\line ";
+
+					// Linkout
+					entry += "PubMed: {\\field{\\*\\fldinst HYPERLINK " + '"' + "http://www.ncbi.nlm.nih.gov/pubmed/";
+					entry += Links[i].predicate[j].sentence[k].PMID;
+					entry += '"' + "}{\\fldrslt{\\ul\\cf1 http://www.ncbi.nlm.nih.gov/pubmed/";
+					entry += Links[i].predicate[j].sentence[k].PMID;
+					entry += "}}}\\line \\line ";
+
+					if (TYPE != "noAbstract") entry += abs + "\\line \\line ";
+
+					if (entry != lastEntry) text += entry;
+					lastEntry = entry;
+
+				}
+			}
+
+			text += "\\line ";
+		}
+
+		text += "}";
+
+		var blob = new Blob([text], {
+		    type: "application/rtf;",
+		});
+
+		spinner.removeChild(img);
+		container.style.opacity = 1;
+
+		saveAs(blob, "SemMed.rtf");
+    });
+}
+
+function openLogicBuilderFile(){
+
+    $(".slider12").toggle("fast");
+}
+
+function loadGraph2(file){
+
+	var xmlDoc = jQuery.parseXML(file);
+
+	var file = document.getElementById("files").value.substring(document.getElementById("files").value.lastIndexOf('\\')+1);
+
+	// get nodes
+	for (var i = 0; i < xmlDoc.getElementsByTagName("node").length; i++) {
+
+		var node1 = { id:" ", oldId: [""], anchor:false, sColor:"black", novel:"", visible:true };
+
+		node1.id = xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("id").nodeValue;
+		node1.name = xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("label").nodeValue;
+		node1.weight = Number(xmlDoc.getElementsByTagName("node")[i].attributes.getNamedItem("weight").nodeValue);
+
+		var atts = xmlDoc.getElementsByTagName("node")[i].getElementsByTagName("att");
+		for (var j = 0; j < atts.length; j++){
+			var variable = atts[j].getAttributeNode("name").nodeValue;
+			node1[variable] = atts[j].getAttributeNode("value").nodeValue;
+		}
+
+		// convert from string to number or Boolean
+		node1.x = Number(node1.x);
+		node1.y = Number(node1.y);
+		node1.visible = true;
+		node1.fixed = true;
+		node1.novel = true;
+		node1.anchor = false;
+
+		var nodeCheck = findNode(node1.id, nodes3);
+
+		if (nodeCheck == -1) nodes3.push(node1);
+
+	} // for nodes
+
+	//get links
+	var edges = xmlDoc.getElementsByTagName("edge");
+	for (var i = 0; i < edges.length; i++) {
+
+		var link1 = { source:"", target:"", sColor:"black",
+				predicate:[{label:"", visible:true, sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+		var currentEdge = edges[i];
+
+		link1.source = nodes3[findNode(currentEdge.attributes.getNamedItem("source").nodeValue, nodes3)];
+		link1.target = nodes3[findNode(currentEdge.attributes.getNamedItem("target").nodeValue, nodes3)];
+		link1.path = currentEdge.attributes.getNamedItem("path").nodeValue;
+
+		var predicates = currentEdge.childNodes;
+
+		for (var j = 0; j < predicates.length; j++) {
+
+			var pred = {label:" ", visible:true, sentence:[] };
+
+			pred.label = predicates[j].attributes.getNamedItem("label").nodeValue;
+			link1.predicate[j] = pred;
+
+			var sentences = predicates[j].childNodes;
+
+			for (var k = 0; k < sentences.length; k++){
+
+				var sentence1 = {PMID:"", SID:"", sNumber:"", abti:"", text:""};
+
+				sentence1.PMID = sentences[k].attributes.getNamedItem("PMID").nodeValue;
+				sentence1.SID = sentences[k].attributes.getNamedItem("SID").nodeValue;
+				sentence1.abti = sentences[k].attributes.getNamedItem("abti").nodeValue;
+				sentence1.sNumber = sentences[k].attributes.getNamedItem("sNumber").nodeValue;
+				sentence1.text = sentences[k].attributes.getNamedItem("text").nodeValue;
+
+				link1.predicate[j].sentence[k] = sentence1;
+			}
+		}
+
+		addLink(link1, links3);
+
+	} // for links
+
+	start3();
+
+	// Update LogicBuilder button with count
+	document.getElementById("b").innerHTML = "LogicBuilder [" + links3.length +"]";
+
+}
+
+function note(msg){
+	document.getElementById("note").innerHTML += "<p>" + msg + "</p>";
+}
+
+
+</script>
+<svg>
+    <filter id="dropshadow" height="150%" width="150%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+        <feOffset dx="0" dy="3" result="offsetblur"/>
+        <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+    </filter>
+    <filter id="dropshadow2" height="1000%" width="1000%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+        <feOffset dx="0" dy="2"/>
+        <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+    </filter>
+    <filter id="dropshadow3" height="130%">\
+    	<fegaussianblur in="SourceAlpha" stdDeviation="3"></fegaussianblur>
+    	<feoffset dx="2" dy="2" result="offsetblur"></feoffset>
+    	<fecomponenttransfer></fecomponenttransfer>
+    	<femerge></femerge>
+	</filter>
+    <filter id='inner-shadow'>
+
+        <!-- Shadow Offset -->
+        <feOffset
+                dx='0'
+                dy='5'
+                />
+
+        <!-- Shadow Blur -->
+        <feGaussianBlur
+                stdDeviation='5'
+                result='offset-blur'
+                />
+
+        <!-- Invert the drop shadow
+to create an inner shadow -->
+        <feComposite
+                operator='out'
+                in='SourceGraphic'
+                in2='offset-blur'
+                result='inverse'
+                />
+
+        <!-- Color & Opacity -->
+        <feFlood
+                flood-color='black'
+                flood-opacity='0.75'
+                result='color'
+                />
+
+        <!-- Clip color inside shadow -->
+        <feComposite
+                operator='in'
+                in='color'
+                in2='inverse'
+                result='shadow'
+                />
+
+        <!-- Put shadow over original object -->
+        <feComposite
+                operator='over'
+                in='shadow'
+                in2='SourceGraphic'
+                />
+    </filter>
+</svg>
+
+</body>

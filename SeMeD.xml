@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graph alreadyRendered="yes">
+<graphPosition x="490.5" y="412.35" />
+<graphZoom x="1" y="1" />
+<relationFilters>
+<relation id="">AFFECTS</relation>
+<relation id="">TREATS</relation>
+<relation id="">LOCATION_OF</relation>
+<relation id="">STIMULATES</relation>
+<relation id="">AUGMENTS</relation>
+<relation id="">DISRUPTS</relation>
+<relation id="">INTERACTS_WITH</relation>
+<relation id="">ISA</relation>
+</relationFilters>
+<node id="1" name="SeMeD" semtype="aapp" visible="true" color="#FFF" x="350" y = "400" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="2" name=" " semtype="tisu" visible="true" color="#FFF" x="375" y = "401" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="3" name=" " semtype="aapp" visible="true" color="#FFF" x="400" y = "400" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="4" name=" " semtype="bpoc" visible="true" color="#FFF" x="425" y = "401" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="5" name=" " semtype="celf" visible="true" color="#FFF" x="450" y = "400" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="6" name=" " semtype="orgf" visible="true" color="#FFF" x="375" y = "401" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="7" name=" " semtype="gngm" visible="true" color="#FFF" x="400" y = "400" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="8" name=" " semtype="biof" visible="true" color="#FFF" x="425" y = "401" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<node id="9" name=" " semtype="enzy" visible="true" color="#FFF" x="450" y = "400" umlsks_url="http://nlm.nih.gov/" entrezgene_url="http://www.ncbi.nlm.nih.gov/"/>
+<edge source="1" target="2"  label="Search or load file" color="#000" ><sentence id = "19562688.ab.n" text = "Search or load file to begin."/></edge>
+<edge source="1" target="3"  label="Search or load file" color="#000" ><sentence id = "19349877.ab.n" text = "Search or load file to begin."/></edge>
+<edge source="1" target="4" label="Search or load file" color="#000" ><sentence id = "19349877.ab.n" text = "Search or load file to begin."/></edge>
+<edge source="1" target="5"  label="Search or load file" color="#000" ><sentence id = "19349877.ab.n" text = "Search or load file to begin."/></edge>
+<edge source="1" target="6"  label="Search or load file" color="#000" ><sentence id = "19562688.ab.n" text = "Search or load file to begin."/></edge>
+<edge source="1" target="7"  label="Search or load file" color="#000" ><sentence id = "19349877.ab.n" text = "Search or load file to begin."/></edge>
+<edge source="1" target="8" label="Search or load file" color="#000" ><sentence id = "19349877.ab.n" text = "Search or load file to begin."/></edge>
+<edge source="1" target="9"  label="Search or load file" color="#000" ><sentence id = "19349877.ab.n" text = "Search or load file to begin."/></edge>
+<seed value="SeMeD"/>
+</graph>

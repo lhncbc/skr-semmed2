@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<meta name=“viewport” content=“width=device-width, initial-scale=1” />
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+<style type="text/css">
+a:focus, a:active
+{
+color:green;
+}
+
+
+/*** TEXT BOX ***/
+input[type="text"], input[id="predicateButton1"]{
+	background: #fafafa; /* Fallback color for non-css3 browsers */
+
+	/* Gradients */
+	background: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(250,250,250)), color-stop(1, rgb(230,230,230)));
+	background: -moz-linear-gradient( center top, rgb(250,250,250) 0%, rgb(230,230,230) 100%);
+
+	border: 0;
+	border-bottom: 1px solid #fff;
+	border-right: 1px solid rgba(255,255,255,.8);
+	font-size: x-large;
+	padding: 5px;
+	width: 100%;
+
+	/* Rounded Corners */
+	border-radius: 17px;
+	-webkit-border-radius: 17px;
+	-moz-border-radius: 17px;
+
+	/* Shadows */
+	box-shadow: -1px -1px 2px rgba(0,0,0,.3), 0 0 1px rgba(0,0,0,.2);
+	-webkit-box-shadow: -1px -1px 2px rgba(0,0,0,.3), 0 0 1px rgba(0,0,0,.2);
+	-moz-box-shadow: -1px -1px 2px rgba(0,0,0,.3), 0 0 1px rgba(0,0,0,.2);
+}
+
+/*** USER IS FOCUSED ON TEXT BOX ***/
+input[type="text"]:focus{
+	outline: none;
+	background: #fff; /* Fallback color for non-css3 browsers */
+
+	/* Gradients */
+	background: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(235,235,235)));
+	background: -moz-linear-gradient( center top, rgb(255,255,255) 0%, rgb(235,235,235) 100%);
+}
+
+
+
+<!-- Search box questions -->
+}
+#searchTable .search {
+                padding:1% 2%;
+                background:rgba(50, 50, 50, 0.2);
+                border:0px solid #dbdbdb;
+}
+
+#searchTable .button {
+                position:relative;
+                padding:1%x 2%;
+                left:-8px;
+                border:2px solid #207cca;
+                background-color:#207cca;
+                color:#fafafa;
+                font-size: xx-large;
+}
+#searchTable .button:hover  {
+                background-color:#fafafa;
+                color:#207cca;
+}
+
+
+#SemMedMTable {
+	background: white;
+	width: 100%
+	font-size: xx-large;
+	font-family: sans-serif;
+	text-align: center;
+}
+
+#SemMedMTable td{
+	font-size: xx-large;
+}
+
+#SemMedMTable input[id="searchButton"], #SemMedMTable input[type="text"]{
+	width: 100%;
+	font-size: xx-large;
+}
+
+#SemMedMTable input[id="leftArrow"]{
+	border-radius: 2px;
+	width: 40px;
+	height: 40px; 
+	background: #FFE url(images/leftArrow.png) no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    border: 1px #333;
+    padding: 0px 0px 7px 0px;
+	margin: 0px 60px 0px 60px;
+}
+
+#SemMedMTable input[id="searchSpinner"]{
+	border-radius: 2px;
+	width: 40px;
+	height: 40px; 
+	background: #FFE url(images/spin.gif) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    border: 1px #333;
+    padding: 0px 0px 7px 0px;
+	margin: 0px 60px 0px 60px;
+    opacity: 0;
+}
+
+#searchTable{
+	width: 100%;
+	position: fixed;
+}
+
+#dataTable{
+	width: 100%;
+	max-width: 100%;
+	background: white;
+	border: 0px;
+	border-spacing: 0px;
+	position: relative;
+}
+
+.dataTable input[type="button"] {
+	width: 100%;
+	border:1px solid #111;
+	font-size: xx-large;
+}
+
+</style>
+
+<html>
+
+<body bgcolor ="white">
+
+
+<!-- HTML Code Starts Here -->
+<table id = "SemMedMTable">
+ <tr>
+  <td> 
+  	<input id="leftArrow" type="button" onclick="back();">
+  	SemMedM
+  	<input id="searchSpinner" type="button">
+  </td>
+ </tr>
+ <tr>
+  <td valign="top" align="center">
+	<table id="searchTable">
+	  <tr>
+  		<input id="searchTerm" type="text"  placeholder="search..." required>
+  		<input id="searchButton" type="button" value="Search" onclick="citationSearch();" style="width: 100%; font-size=x-large;">
+  	  </tr>	
+  	 <table id="dataTable">
+  	<table>
+  </td>
+ </tr>
+</table>
+ 
+  <div id="note">
+  </div>
+
+</body>
+
+</html>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="lib/summarize.js"></script>
+
+<script type="text/javascript">
+
+//global vars
+var width = 0.98*window.innerWidth;
+    height = 0.90*window.innerHeight; // subtract space for the bottom buttons
+    
+var MAXDATE = "2014/3/31";
+var searchResult = [];
+	searchResult[0] = " ",
+	searchLimits = "\"1900/01/01\":\"" + MAXDATE + "\"[edat]&retmax=500";
+var sentenceResult =[];
+var titleResult = [];
+var sidList = [];
+
+var currentPage = 0;
+var currentPageFunction = [fillBlank, fillSeedConceptTable, fillRelationTable, fillArgumentTable, fillPredicationTable];
+
+var networks = [{nodes:[], links:[]}];
+
+var nodes = [],
+	links = [];
+
+var selection = {};
+var summaryNodes = [],
+    summaryLinks = [];
+	
+var linkColorScale = d3.scale.ordinal()
+.domain(["ADMINISTERED_TO","AFFECTS","ASSOCIATED_WITH","AUGMENTS","CAUSE","CAUSES","COEXISTS_WITH",
+         "compared_with","COMPLICATES","CONVERTS_TO","CO-OCCURS_WITH","DIAGNOSES","DISRUPTS","higher_than",
+         "ENHANCES","INHIBIT","INHIBITS","INTERACT_WITH","INTERACTS_WITH","ISA","LOCATION_OF",
+         "lower_than","MANIFESTATION_OF","METHOD_OF","NEG_ADMINISTERED_TO","NEG_AFFECTS","NEG_ASSOCIATED_WITH","NEG_AUGMENTS",
+         "NEG_CAUSES","NEG_COEXISTS_WITH","NEG_COMPLICATES","NEG_CONVERTS_TO","NEG_DIAGNOSES","NEG_DISRUPTS","NEG_higher_than",
+ 		 "NEG_INHIBITS","NEG_INTERACTS_WITH","NEG_LOCATION_OF","NEG_lower_than","NEG_MANIFESTATION_OF","NEG_METHOD_OF","NEG_OCCURS_IN",
+ 		 "NEG_PART_OF","NEG_PRECEDES","NEG_PREDISPOSES","NEG_PREVENTS","NEG_PROCESS_OF","NEG_PRODUCES","NEG_STIMULATES",
+ 		 "NEG_TREATS","NEG_USES","OCCURS_IN","PART_OF","PREDISPOSE","PRECEDES","PREDISPOSES",
+         "PREVENTS","PROCESS_OF","PRODUCES","same_as","than_as","STIMULATE","STIMULATES",
+         "TREATS","USES"])
+.range(["#6B8E23","#32CD32","#D19275","#40E0D0","#FF0000","#FF0000","#2F4F4F",
+        "#872AD2","#BC8F8F","#4B0082","#808080","#D2691E","#FFFF00","#91683F",
+        "#40E0D0","#800080","#800080","#FF00FF","#FF00FF","#00FFFF","#008000",
+        "#9BA5AC","#CD853F","#9FBE3E","#6B8E23","#32CD32","#D19275","#40E0D0",
+        "#FF0000","#2F4F4F","#BC8F8F","#4B0082","#D2691E","#FFFF00","#91683F",
+        "#800080","#FF00FF","#008000","#9BA5AC","#CD853F","#9FBE3E","#FFA500",
+        "#008080","#DD2ECC","#7FFFD4","#4682B4","#FA8072","#E55FF0","#A52A2A",
+        "#0000FF","#EF9D5D","#FFA500","#008080","#7FFFD4","#DD2ECC","#7FFFD4",
+        "#4682B4","#FA8072","#E55FF0","#E76C39","#EB84CB","#A52A2A","#A52A2A",
+        "#0000FF","#EF9D5D"]);
+        
+var semanticGroupsScale = d3.scale.ordinal()
+.domain(["acty","bhvr","dora","evnt",
+         "gora","inbe","mcha","ocac",
+         "socb","anst","blor","bpoc","bsoj","bdsu","bdsy","cell",
+         "celc","emst","ffas","tisu","aapp","antb","bacs",
+         "bodm","carb","chem","chvf","chvs",
+         "clnd","eico","elii","enzy","hops",
+         "horm","imft","irda","inch","lipd",
+         "nsba","nnon","orch","opco","phsu",
+         "rcpt","strd","vita","clas","cnce",
+         "ftcn","grpa","idcn","inpr","lang",
+         "qlco","qnco","rnlw","spco","tmco",
+         "drdd","medd","resd","acab","anab","comd","cgab","dsyn","emod",
+         "fndg","inpo","mobd","neop","patf","sosy","amas",
+         "crbs","gngm","mosq",
+         "nusq","geoa","aggp","alga","amph",
+         "anim","arch","bact","bird","famg","fish",
+         "fngs","grup","humn","invt","mamm","orgm",
+         "podg","plnt","popg","prog","rept","rich",
+         "vtbt","virs","enty","food","mnob","phob","sbst","bmod",
+         "ocdi","hcro","orgt","pros","shro","biof","eehu",
+         "hcpp","lbtr","npop","phpr","celf","clna","genf","menp",
+         "moft","ortf","orga","orgf","phsf","diap","adac","hlca",
+         "lbpr","mbrt","resa","topp"])
+.range(["Activities & Behaviors","Activities & Behaviors","Activities & Behaviors","Activities & Behaviors",
+		"Activities & Behaviors","Activities & Behaviors","Activities & Behaviors","Activities & Behaviors",
+		"Activities & Behaviors","Anatomy","Anatomy","Anatomy","Anatomy","Anatomy","Anatomy","Anatomy",
+		"Anatomy","Anatomy","Anatomy","Anatomy","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+		"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+		"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+		"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+		"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs",
+		"Chemicals & Drugs","Chemicals & Drugs","Chemicals & Drugs","Concepts & Ideas","Concepts & Ideas",
+		"Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas",
+		"Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas","Concepts & Ideas",
+		"Devices","Devices","Devices","Disorders","Disorders","Disorders","Disorders","Disorders","Disorders",
+		"Disorders","Disorders","Disorders","Disorders","Disorders","Disorders","Genes & Molecular Sequences",
+		"Genes & Molecular Sequences","Genes & Molecular Sequences","Genes & Molecular Sequences",
+		"Genes & Molecular Sequences","Geographic Areas","Living Beings","Living Beings","Living Beings",
+		"Living Beings","Living Beings","Living Beings","Living Beings","Living Beings","Living Beings",
+		"Living Beings","Living Beings","Living Beings","Living Beings","Living Beings","Living Beings",
+		"Living Beings","Living Beings","Living Beings","Living Beings","Living Beings","Living Beings",
+		"Living Beings","Living Beings","Objects","Objects","Objects","Objects","Objects","Occupations",
+		"Occupations","Organizations","Organizations","Organizations","Organizations","Phenomena","Phenomena",
+		"Phenomena","Phenomena","Phenomena","Phenomena","Physiology","Physiology","Physiology","Physiology",
+		"Physiology","Physiology","Physiology","Physiology","Physiology","Procedures","Procedures","Procedures",
+		"Procedures","Procedures","Procedures","Procedures"]);
+
+var nodeColorScale = d3.scale.ordinal()
+	.domain(["Activities & Behaviors","Anatomy","Chemicals & Drugs","Concepts & Ideas","Devices","Disorders",
+         "Genes & Molecular Sequences","Geographic Areas","Living Beings","Objects","Occupations","Organizations",
+         "Phenomena","Physiology","Procedures"])
+	.range(["#FFA16D","#CBFFA7","#FFFFC6","#96FF4F","#FFFF66","#EEC8DE",
+		"#D2A2A2","#B16363","#C6EFF7","#6FD6EB","#A88FCD","#FFD7C1",
+		"#DE93BD","#DCD1EB","#C0C0C0"]);       
+
+var predColumn = d3.scale.ordinal()
+	.domain(["PID","SID","PNUMBER","PMID","predicate","s_cui","s_name","s_type","s_novel","o_cui",
+				"o_name","o_type","o_novel"])
+	.range([0,1,2,3,4,5,6,7,8,9,10,11,12]);
+
+
+$(document).ready(function() {
+	
+    document.getElementById("searchTerm").focus();
+
+	d3.select("body")
+	.on("keydown", function() { 
+	  switch(d3.event.keyCode){
+			
+		case 13: // enter
+			citationSearch();
+			break;
+	  } 
+	});
+	
+	fillBlank();
+});
+
+function citationSearch(){
+	
+	var search = document.getElementById("searchTerm").value + " " + searchLimits;
+	var xml = getPubMedXML(search);
+	var query = "";
+	
+	// Reset nodes and links
+	nodes = [];
+	links = [];
+	
+	for (var i = 0; i < xml.length; i++) {
+		query += "'" + xml[i] + "',";
+	}
+	query = query.substring(0,query.length-1); //remove last comma
+
+	if (xml.length < 50000000) {
+		document.getElementById("searchSpinner").style.opacity = 1;
+	    querySemMedDB(query,function(rawData){
+
+	    var data = JSON.parse(rawData);
+		searchResult.splice(0,searchResult.length);
+		for (var i = 0; i < data.length; i++) {
+			searchResult.push(data[i]);
+		}
+
+		document.getElementById("searchSpinner").style.opacity = 0;
+		openNetClick();
+		fillSeedConceptTable(); 
+		window.open('#SemMedMTable', '_self');
+	    });
+	} 
+	else 
+	{
+		document.getElementById("citationInfo").innerHTML="Too many predications. Refine your search.";
+	}
+
+}
+
+function getPubMedXML(query){
+	
+	var search = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=" + query;
+	if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+		}
+	else
+		{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+	xmlhttp.open("GET",search,false);
+	xmlhttp.send();
+	xmlDoc=xmlhttp.responseXML;
+
+	var IDs = [];
+	var x=xmlDoc.getElementsByTagName("Id");
+	for(var i=0;i<x.length;i++){
+	  IDs[i] = x[i].childNodes[0].nodeValue;
+  	} 
+
+	return IDs;
+}
+
+function querySemMedDB(query, setFxn) {
+    $.post("predication.php","qry="+query,function(data,status){
+	    setFxn(data);
+	  });
+
+	return 1;
+}
+
+function openNetClick(){
+	var nodeIdCounter = 0;
+	
+	// delete old nodes and links
+	networks[0].nodes = [];
+	networks[0].links = [];
+
+	// get nodes from subject
+	for (var i = 0; i < searchResult.length; i++) 
+	{
+		var node1 = { id:" ", anchor:false };
+
+		node1.network = 0;
+		node1.id = "" + nodeIdCounter;
+		node1.symbol = clean(searchResult[i][predColumn("s_cui")], "|||");
+		node1.name = clean(searchResult[i][predColumn("s_name")], "|||");
+		node1.semtype = clean(searchResult[i][predColumn("s_type")], "|||");
+		node1.novel = searchResult[i][predColumn("s_novel")];
+		
+		//if node1.symbol not in network, push
+		if (findNodeBySymbol(node1.symbol, networks[0].nodes) == -1)
+		{
+			networks[0].nodes.push(node1);
+			nodeIdCounter++;
+		}
+
+		var node2 = { id:" ", anchor:false };
+
+		node2.network = 0;
+		node2.id = "" + nodeIdCounter + ".5";
+		node2.symbol = clean(searchResult[i][predColumn("o_cui")], "|||");
+		node2.name =  clean(searchResult[i][predColumn("o_name")], "|||");
+		node2.semtype = clean(searchResult[i][predColumn("o_type")], "|||");
+		node2.novel = searchResult[i][predColumn("o_novel")];
+
+		//if node2.symbol not in network, push
+		if (findNodeBySymbol(node2.symbol, networks[0].nodes) == -1)
+		{
+			networks[0].nodes.push(node2);
+			nodeIdCounter++;
+		}
+
+	}
+
+	//get links
+	for (var i = 0; i < searchResult.length; i++) 
+	{
+		var link1 = { source:" ", target:" ", 
+				predicate:[{label:" ", sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }] };
+
+		link1.source = networks[0].nodes[findNodeBySymbol(clean(searchResult[i][predColumn("s_cui")], "|||"), networks[0].nodes)];
+		link1.target = networks[0].nodes[findNodeBySymbol(clean(searchResult[i][predColumn("o_cui")], "|||"), networks[0].nodes)];
+		link1.predicate[0].label = searchResult[i][predColumn("predicate")];
+		link1.predicate[0].sentence[0].PMID = searchResult[i][predColumn("PMID")];
+		link1.predicate[0].sentence[0].SID = searchResult[i][predColumn("SID")];
+		
+		var linkFound = findLink(link1, networks[0].links);
+
+		if (linkFound != -1) // link exists
+		{ 
+			var predicateFound = findPredicate(link1.predicate[0], networks[0].links[linkFound]);
+
+			if (predicateFound != -1 ) 
+			{ // predicate exists
+				networks[0].links[linkFound].predicate[predicateFound].sentence.push(link1.predicate[0].sentence[0]);
+			}
+
+			else { // predicate doesn't exist
+				networks[0].links[linkFound].predicate.push(link1.predicate[0]);
+				}
+		}
+
+
+		else { networks[0].links.push(link1); }
+
+	} // for each searchResult - links
+
+	// fill selection.network, selection.summarization, selection.seed];
+	selection.network = networks[0];
+	selection.summarization = summarizationSchema[1];
+	selection.seed = null;
+	selection.connections = 1;
+	selection.maxNodes = 1000; // No Saliency
+	
+	searchResult.splice(0,searchResult.length);
+
+	function findNodeBySymbol(symb, Nodes) {
+		
+		for (var i = 0; i < Nodes.length; i++) {
+
+			if (Nodes[i].symbol == symb) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+	
+	function clean(text, stop){
+		var found = text.indexOf(stop);
+		if (found != -1) return text.substr(0,found); else return text;
+	}
+
+}
+
+function fillBlank(){
+	
+	currentPage = 0;
+	activateButton(false);
+	document.getElementById("searchSpinner").style.opacity = 0;
+	
+	var dataTable = document.getElementById("dataTable");
+	
+	//Clear any old buttons
+	while (dataTable.hasChildNodes()) {
+		dataTable.removeChild(dataTable.lastChild);
+	}
+	
+	var row = document.createElement('tr');
+	var img = document.createElement('img');
+	img.border = "0px";
+	img.src = "images/semmed.gif";
+
+	row.style.textAlign = "center";
+	row.appendChild(img);
+	dataTable.appendChild(row);
+}
+
+function fillSeedConceptTable() {
+	
+	currentPage = 1;
+	activateButton(true);
+	document.getElementById("searchSpinner").style.opacity = 0;
+	
+	setEdgeCounts(0);
+	
+	var nodeList1 = networks[0].nodes.sort(function(a, b) { return d3.descending(a.edgeCount, b.edgeCount); });
+	var nodeList = nodeList1.filter(function(a) {return a.edgeCount > 0;});
+
+	var seedConceptTable = document.getElementById("dataTable");
+	
+	//Clear any old buttons
+	while (seedConceptTable.hasChildNodes()) {
+		seedConceptTable.removeChild(seedConceptTable.lastChild);
+	}
+
+	// Add list of seed concept buttons 
+	var rowText = "";
+
+	nodeList.forEach(function (d, i){
+		if (d.novel == true) {
+
+			var row = document.createElement('tr');
+			var button = document.createElement('input');
+			button.type = "button";
+			button.id = "seedButton"+i;
+			button.value = d.name.substr(0,30) + " (" + d.edgeCount + ")";
+	
+			button.style.backgroundColor = nodeColorScale(semanticGroupsScale(d.semtype));
+			button.style.width= "100%";
+			button.style.border= "1px solid #111";
+			button.style.fontSize = "xx-large";
+			button.name = d.id;
+			
+			button.onclick = function() {
+
+				seedConceptSelected(this.name); 
+				window.open('#SemMedMTable', '_self');
+			}
+			
+			row.appendChild(button);
+			seedConceptTable.appendChild(row);
+		}
+	});
+
+}
+
+function seedConceptSelected(ID) {
+
+	selection.seed = networks[0].nodes[findNode(ID, networks[0].nodes)];
+	summarizeM();
+	fillRelationTable();	
+}
+
+//findNode takes the node.id and the nodes array and returns the index of the node with the passed id in the passed array.
+function findNode(ID, Nodes) {	
+	
+	for (var i = 0; i < Nodes.length; i++) {	
+		if (Nodes[i].id == ID) {return i;}
+	}
+	
+	return -1;
+}
+
+function summarizeM() {
+	
+	relevance();
+	connectivity();
+	extendConnections();
+	//saliency();
+	//pushSalient();
+	pushSummarized();
+}
+
+function fillRelationTable() {
+	
+	currentPage = 2;
+	activateButton(true);
+	document.getElementById("searchSpinner").style.opacity = 0;
+	
+	var relationTable = document.getElementById("dataTable");
+	//get predicate if link or target equals the seed concept(id match condition)
+	var predList = [];
+	// Get list of predicates in SVG1
+	
+	//Clear any old buttons
+		while (relationTable.hasChildNodes()) {
+			relationTable.removeChild(relationTable.lastChild);
+		}
+	
+	
+	for (var i = 0; i < links.length; i++) {
+		
+		for (var j = 0; j < links[i].predicate.length; j++) {
+			
+			if ((links[i].source == selection.seed) || (links[i].target == selection.seed)) 
+				predList.push(links[i].predicate[j].label);
+			}
+		}
+	
+	// Unique and sort predList
+	var predList2 = predList.sort().filter(function(el,i,a){if(i==a.indexOf(el))return 1;return 0});
+
+	// Add list of relation buttons 
+	var rowText = "";
+	
+	predList2.forEach(function (d, i){
+		var row = document.createElement('tr');
+		var button = document.createElement('input');
+		button.type = "button";
+		button.id = "relsButton"+i;
+		button.value = d;		
+		button.style.width = "100%";
+		button.style.backgroundColor = linkColorScale(d);
+		button.style.border= "1px solid #111";
+		button.style.fontSize = "xx-large";
+		
+		button.onclick= function() {
+			predicateSelected(this.value); 
+			window.open('#SemMedMTable', '_self');
+		}
+
+		row.appendChild(button);
+		relationTable.appendChild(row);
+			
+	});
+}
+
+function predicateSelected(predicate) {
+	
+	var predicate1 = [{label:" ", sentence:[{PMID:"", SID:"", sNumber:"", abti:"", text:""}] }];
+	predicate1.label = predicate;
+	selection.predicate = predicate1;
+	fillArgumentTable();
+}
+
+//Select predicate(seed is selected)
+//loop(links)
+//foundpred = findpredicate(currentlink.predicate)
+//if(s==seed && foundpredicate !=-1)
+	//add obj.name.substr(0,30) to the list
+	//else if (obj == seed && foundpredicate !=-1)
+		//add subj.name.substr(0,30) to list	
+
+		
+function fillArgumentTable(){
+	
+	currentPage = 3;
+	activateButton(true);
+	document.getElementById("searchSpinner").style.opacity = 0;
+	
+	var argumentTable = document.getElementById("dataTable");
+	var argumentList = [];
+
+	//Clear any old buttons
+	while (argumentTable.hasChildNodes()) {
+		argumentTable.removeChild(argumentTable.lastChild);
+	}
+	
+	for (var i=0; i < links.length; i++){
+		
+		var predicateFound = findPredicate(selection.predicate, links[i]);
+		
+		if ((links[i].source == selection.seed) && (predicateFound != -1)){
+			argumentList.push(links[i].target);
+		}
+		else if ((links[i].target == selection.seed) && (predicateFound !=-1)){
+			argumentList.push(links[i].source);
+		}
+	}
+
+	// Unique and sort argumentArray			
+	var argumentList2 = argumentList.sort(function(a, b) { return d3.descending(a.name, b.name); });
+	
+	// Add list of argument buttons 
+	var rowText = "";
+	
+	argumentList2.forEach(function (d, i){
+		var row = document.createElement('tr');
+		var button = document.createElement('input');
+		button.type = "button";
+		button.id = "argumentButton"+i;
+		button.value = d.name.substr(0,30);
+		button.name = d.id;
+		button.onclick= function() {
+			argumentSelected(this.name); 
+			window.open('#SemMedMTable', '_self');
+		}	
+		
+		button.style.backgroundColor = nodeColorScale(semanticGroupsScale(d.semtype));
+		button.style.width= "100%";
+		button.style.border= "1px solid #111";
+		button.style.fontSize = "xx-large";
+		
+		row.appendChild(button);
+		argumentTable.appendChild(row);
+	});
+}
+
+function argumentSelected(ID){
+	
+	selection.argument = findNode(ID, nodes);
+	selection.argumentNode = nodes[selection.argument];
+	fillPredicationTable();
+}
+
+
+function fillPredicationTable(){
+
+	currentPage = 4;
+	activateButton(true);
+	
+	var predicationTable = document.getElementById("dataTable");
+	var predicationList = [];
+	//var argumentList = [];
+	
+	//Clear any old buttons
+	while (predicationTable.hasChildNodes()) {
+		predicationTable.removeChild(predicationTable.lastChild);
+	}
+	
+	var predication = selection.argumentNode.name + " " + selection.predicate.label + " " + selection.seed.name;
+
+	var row = document.createElement('tr');
+	var button = document.createElement('input');
+	button.type = "button";
+	button.id = "predicateButton1";
+	button.value = predication;
+	button.style.border= "1px solid #111";
+	button.style.whiteSpace = "normal";
+	button.style.overflowWrap = "normal";
+	button.style.backgroundColor = "black";
+	button.style.color = "steelBlue";
+	button.style.width= "100%";
+	button.style.fontSize = "xx-large";
+	row.appendChild(button);
+	predicationTable.appendChild(row);
+	
+	getTitles();
+
+}
+
+function getTitles(){
+	
+	document.getElementById("searchSpinner").style.opacity = 1;
+	
+	// Get PMID list to pass to PHP
+	var pmidList = [];	
+	
+	//loop through all links
+	for (var i = 0; i < links.length; i++) {
+		
+		// check for the right source and target
+		if (((links[i].source == selection.seed) && (links[i].target == selection.argumentNode)) ||
+				((links[i].source == selection.argumentNode) && (links[i].target == selection.seed))){
+			
+			for (var j = 0; j < links[i].predicate.length; j++) {
+						
+				//check for right predicate.label vs selection.predicate.label
+				if (links[i].predicate[j].label == selection.predicate.label)
+					{
+									
+					//loop through sentences
+					for (var k = 0; k < links[i].predicate[j].sentence.length; k++){
+
+						//push pmid to pmidList
+						if (pmidList.indexOf(links[i].predicate[j].sentence[k].PMID) == -1)
+							pmidList.push(links[i].predicate[j].sentence[k].PMID);
+
+						//push sid to sidList (for use in fillSentences())
+						if (sidList.indexOf(links[i].predicate[j].sentence[k].SID) == -1)
+							sidList.push(links[i].predicate[j].sentence[k].SID);
+						}
+					
+					}
+				}
+			}
+		}
+		
+	//pass list to querySemMedDB3
+	var query = "";	
+	
+	// Make query to pass as string
+	for (var i = 0; i < pmidList.length; i++) {
+		query += "'" + pmidList[i] + "',";
+	}
+	
+	query = query.substring(0,query.length-1); //remove last comma
+
+	querySemMedDB3(query,function(rawData){
+
+		titleResult.splice(0,titleResult.length);
+		
+		for (var i = 0; i < rawData.length; i++) { titleResult.push(rawData[i]); }
+		document.getElementById("searchSpinner").style.opacity = 0;
+		fillPredTitleTable(); 
+		window.open('#SemMedMTable', '_self');
+		
+    });
+	
+}
+
+
+function querySemMedDB3(PMIDs, setFxn) { 
+
+	// Send a http request with AJAX
+	var xhr = $.ajax({                                      
+	url: 'title.php',   
+	data: 'PMIDs='+PMIDs,  
+	dataType: 'json',
+	success: function(data, status, xhr) {
+		setFxn(data);
+		} ,
+	error: function(data){
+		return -1;  		} 
+	});
+
+	return 1;
+}
+
+function fillPredTitleTable(){
+	
+	var predTitleTable = document.getElementById("dataTable");
+	var predTitleList = [];
+	var pmidCounter = 0;
+	var lastTitle = "";
+	var row;
+	var button;
+//	var linkoutRow;
+	
+	for (var i=0; i< titleResult.length; i++){
+
+		if (titleResult[i][1] != lastTitle){
+			
+			// Add title row
+			lastTitle = titleResult[i][1];
+			row = document.createElement('tr');
+			button = document.createElement('input');
+			button.type = "button";
+			button.id = "titleButton" + pmidCounter;
+			button.value = titleResult[i][1];
+			button.name = titleResult[i][0];
+			button.style.border= "1px solid #111";
+			button.style.fontSize = "x-large";
+			button.style.textAlign = "left";
+			
+			button.onclick = function() {
+				getSentences(this.name);
+			}
+
+			button.style.whiteSpace = "normal";
+			button.style.overflowWrap = "normal";
+			button.style.backgroundColor = "cornflowerblue";
+			button.style.width = "100%";
+			button.style.cursor = "pointer";
+			row.appendChild(button);
+			row.style.cursor = "pointer";
+			predTitleTable.appendChild(row);
+			
+			//Add Sentence row
+			row = document.createElement('tr');
+			row.style.display = "none"; //hidden until title clicked
+			row.style.paddingLeft = "5px";
+			row.id = titleResult[i][0] + ".child"; // PMID
+			row.className = "sentenceRow";
+			row.style.fontSize = "x-large";
+			row.style.textAlign = "justify";
+			predTitleTable.appendChild(row);
+			
+			// Create PubMed linkout
+			row = document.createElement('tr');
+			var img = document.createElement('img');
+			img.border = "0px";
+			img.src='images/pubmed.png';
+			img.id = titleResult[i][0];
+			img.onclick = function() { window.open("http://www.ncbi.nlm.nih.gov/pubmed/" + this.id); }
+			row.appendChild(img);
+			row.style.cursor = "pointer";
+			row.style.textAlign = "center";
+			predTitleTable.appendChild(row);
+		}
+
+	}
+	
+}
+
+function getSentences(PMID){
+
+	var query = "'" + PMID + "'";
+	var abs = document.getElementById(PMID + ".child");
+
+	// Show collapsed Abstract and 
+	if (abs.style.display == "none"){
+		abs.style.display = "inline";
+
+		querySemMedDB4(query,function(rawData){
+
+			sentenceResult.splice(0,sentenceResult.length);
+
+			for (var i = 0; i < rawData.length; i++) { sentenceResult.push(rawData[i]); }
+			document.getElementById("searchSpinner").style.opacity = 0;
+			fillSentences(PMID); 				
+	    });
+
+	}
+	else {
+		abs.style.display = "none";
+	}
+}
+
+function querySemMedDB4(PMIDs, setFxn) { 
+
+	// Send a http request with AJAX
+	var xhr = $.ajax({                                      
+	url: 'sentence_PMID.php',   
+	data: 'PMIDs='+PMIDs,  
+	dataType: 'json',
+	success: function(data, status, xhr) {
+		setFxn(data);
+		} ,
+	error: function(data){
+		return -1;  		} 
+	});
+
+	return 1;
+}
+
+function fillSentences(PMID){
+
+	var rowID = PMID + ".child";
+	var row = document.getElementById(rowID);
+	var text = "";
+	var highlighted = false;
+	
+	for (var i = 0; i < sentenceResult.length; i++){
+		
+		// Highlight source text
+		if (sidList.indexOf(sentenceResult[i][0]) != -1){
+			text += "<span style='background-color: #FFFF00'>"; 
+			highlighted = true;
+		}
+		text += sentenceResult[i][4]; 				 // Sentence
+		if (text[text.length-1] != " ") text += " "; // Add space after period
+		if (sidList.indexOf(sentenceResult[i][0]) != -1) text += "</span>";
+	}
+	if (sentenceResult.length == 0) text = "<p style='text-align: center;'>Abstract not available.</p>";
+	if (highlighted == false) text += "<p style='text-align: center; background-color: #FFFF00;'>Predication extracted from title.</p>";
+	row.innerHTML = text;
+}
+
+function findLink(link1, Links) {
+	
+	for (var i = 0; i < Links.length; i++) {
+		
+		if (Links[i].source == link1.source && Links[i].target == link1.target) {
+
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+function findPredicate(predicate1, Link) {
+
+	for (var j = 0; j < Link.predicate.length; j++ ) {
+
+		if (Link.predicate[j].label == predicate1.label) {
+
+			return j;
+		}
+	}
+
+
+	return -1;
+}
+
+function back(){
+
+	if (currentPage > 0) {
+		currentPageFunction[currentPage-1]();
+	}
+}
+
+
+function activateButton(active){
+				
+	var arrow = document.getElementById("leftArrow");
+	
+	if (active == true) {
+		
+		arrow.style.opacity = 1; 
+		arrow.onclick = back;
+		
+	} else {
+
+		arrow.style.opacity = 0.5; 
+		arrow.onclick = function(){};
+	}	
+	
+}
+
+function note(msg){
+	document.getElementById("note").innerHTML += "<p>" + msg + "</p>";
+}
+
+</script>

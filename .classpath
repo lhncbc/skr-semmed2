@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Projects/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.55/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Projects/lib/java-json.jar"/>
+	<classpathentry kind="output" path="WEB-INF/classes"/>
+</classpath>
